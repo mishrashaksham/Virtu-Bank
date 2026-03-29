@@ -1,0 +1,7 @@
+Phase 1:
+I have created a funcn named generateUID taking 
+an empty array as passed parameter and then generated random UID and saved all in the array.
+i used rand() funcn, it created a random number and then it returned the value and the returned value is then
+did modulo 10 --> rand()%10 getting me a number between 0-9 and for the first 4 alphabetical part i used rand()%26 returning a 
+value between 0-26 then used it to add it to A... for example A+5=F so got a letter F. did this for 4 times... hence created an
+random UID and assigned it to the user.
