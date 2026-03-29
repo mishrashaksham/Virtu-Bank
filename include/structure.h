@@ -2,5 +2,37 @@
 
 #ifndef STRUCTURE_H
 #define STRUCTURE_H
+struct accounts {
 
-#endif
+    // Personal details of my customer
+    char name[50];              // Account holder name
+    int age;                    // Age of account holder (user)
+    char gender[10];            // Gender (Male/Female/Other)
+    char maritalStatus[11];     // Marital status
+
+    // Account details
+    long long accountNumber;   // Unique account number
+    double balance;            // Account balance details
+    
+    // Login credentials
+    char uid[11];               // UId for user assigned by bank
+    char password[30];          // Password for login
+    int mpin;                   // MPIN for transactions
+
+    // Identity details of user (KYC)
+    char pan[11];              // PAN card number
+    char aadharNumber[13];     // Aadhar number
+
+    // Contact details from user
+    char email[50];            // Email ID
+    char mobileNumber[11];     // Mobile number
+
+    // Address
+    char address[100];         // Full address
+    
+    // for further use in BST
+    struct accounts *left;     // Pointer to left child (smaller account number)
+    struct accounts *right;    // Pointer to right child (greater account number)
+
+};
+#endif 
