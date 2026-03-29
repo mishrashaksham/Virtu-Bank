@@ -6,7 +6,7 @@
 
 int main() 
 {
-    int choice;
+    int choice = 0;
     char uid[11];
     int mpin;
 
