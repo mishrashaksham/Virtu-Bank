@@ -16,16 +16,14 @@ void generateUID(char uid[])
     {
         uid[i] = '0' + (rand() % 10);
     }
-
-    // Phase 3: String ko properly close karna (Full stop)
     uid[10] = '\0';
 }
 
-int main()
-{
-    srand(time(NULL));
-    char meraNayaID[11];
-    generateUID(meraNayaID);
-    printf("Success! Tera VirtuBank UID hai: %s\n", meraNayaID);
-    return 0;
-}
+// int main()
+// {
+//     srand(time(NULL));
+//     char meraNayaID[11];
+//     generateUID(meraNayaID);
+//     printf("Success! Tera VirtuBank UID hai: %s\n", meraNayaID);
+//     return 0;
+// }
