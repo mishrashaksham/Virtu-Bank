@@ -21,7 +21,7 @@ void generateUID(char uid[])
 
 struct accounts *root = NULL;
 
-void createAccount(char name[], int age, char gender[], char maritalStatus[], char pan[], char aadhar[], char email[], char mobile[], char address[], double balance, int pin)
+void createAccount(char name[], int age, char gender[], char maritalStatus[], char pan[], char aadhar[], char email[], char mobile[], char address[], double balance, int pin, char password[])
 {
     struct accounts *newAcc = (struct accounts *)malloc(sizeof(struct accounts));
     strcpy(newAcc->name, name);
@@ -36,8 +36,14 @@ void createAccount(char name[], int age, char gender[], char maritalStatus[], ch
     strcpy(newAcc->email, email);
     strcpy(newAcc->mobileNumber, mobile);
     strcpy(newAcc->address, address);
-    sprintf(newAcc->upiID, "%s@vb", newAcc->uid);
+    strcpy(newAcc->password, password);
     newAcc->left = newAcc->right = NULL;
+    printf("\n==========================================\n");
+    printf(" VIRTU-BANK IDS GENERATED\n");
+    printf(" -> Your UID    : %s\n", newAcc->uid);
+    printf(" -> Your UPI-ID : %s@vitap\n", newAcc->uid);
+    printf(" -> Your Passwor : %s\n", newAcc->password);
+    printf("==========================================\n");
     if (root == NULL)
     {
         root = newAcc;
@@ -97,7 +103,7 @@ void displayAllAccounts(struct accounts *node)
         printf(" VirtuBank UID  : %s\n", node->uid);
         printf(" Name           : %s\n", node->name);
         printf(" Account Balance: Rs %.2lf\n", node->balance);
-        printf(" UPI ID         : %s\n", node->upiID);
+        printf(" UPI ID         : %s@vb\n", node->uid);
         printf("---------------------------------------------------\n");
         printf(" Age: %d | Gender: %s | Marital Status: %s\n", node->age, node->gender, node->maritalStatus);
         printf(" Address        : %s\n", node->address);

@@ -18,7 +18,6 @@ struct accounts {
     char uid[11];               // UId for user assigned by bank
     char password[30];          // Password for login
     int mpin;                   // MPIN for transactions
-    char upiID[20];
     int upiPin;
     // Identity details of user (KYC)
     char pan[11];              // PAN card number
@@ -26,7 +25,7 @@ struct accounts {
 
     // Contact details from user
     char email[50];            // Email ID
-    int mobileNumber[11];     // Mobile number
+    char mobileNumber[15];     // Mobile number
 
     // Address
     char address[100];         // Full address
@@ -39,13 +38,13 @@ struct accounts {
 
 void extTransfer(struct accounts *sender, double amount, int enteredPin);
 
-void intTransfer(struct accounts *sender, struct accounts *receiver, double amount, int enteredPin);
+void intTransfer(struct accounts *sender, char UPI[11], double amount, int enteredPin);
 
-void createAccount(char name[], int age, char gender[], char maritalStatus[], char pan[], char aadhar[], char email[], char mobile[], char address[], double balance, int pin);
+void createAccount(char name[], int age, char gender[], char maritalStatus[], char pan[], char aadhar[], char email[], char mobile[], char address[], double balance, int pin, char password[]);
 
-struct accounts* searchAccount(struct accounts *root, char targetUID[]);
+struct accounts *searchAcc(char uid[]);
 
-void displayAllAccounts();
+void displayAllAccounts(struct accounts *node);
 
 void freeTree(struct accounts *root);
 

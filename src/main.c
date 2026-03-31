@@ -23,7 +23,7 @@ int main()
         {
         case 1:
         {
-            char uid[11];
+            char uid[11], password[20];
             int mpin;
 
             printf("Enter UID: ");
@@ -34,6 +34,14 @@ int main()
             if (user == NULL)
             {
                 printf("Invalid UID! Account not found.\n");
+                break;
+            }
+
+            printf("Enter Password");
+            scanf("%s", password);
+
+            if(strcmp(user->password, password)!=0){
+                printf("Invalid Password");
                 break;
             }
 
@@ -59,11 +67,7 @@ int main()
                 if (option == 1)
                 {
                     int tchoice = 0;
-
-                    printf("1. External\n");
-                    printf("2. Internal\n");
-                    printf("3. Back\n");
-
+                    printf("\n1. External\n2. Internal\n3. Back\nSelect: ");
                     scanf("%d", &tchoice);
 
                     while (tchoice != 3)
@@ -73,34 +77,25 @@ int main()
                             double amount;
                             printf("Enter Amount: ");
                             scanf("%lf", &amount);
-
-                            printf("Enter mpin: ");
+                            printf("Confirm mpin: ");
                             scanf("%d", &mpin);
-
                             extTransfer(user, amount, mpin);
                         }
                         else if (tchoice == 2)
                         {
                             double amount;
-                            char UPI[20];
-
-                            printf("Enter UID: ");
-                            scanf("%s", UPI);
-
+                            char targetUID[20];
+                            printf("Enter Receiver UID: ");
+                            scanf("%s", targetUID);
                             printf("Enter Amount: ");
                             scanf("%lf", &amount);
-
-                            printf("Enter mpin: ");
+                            printf("Confirm mpin: ");
                             scanf("%d", &mpin);
-
-                            intTransfer(user, UPI, amount, mpin);
+                            intTransfer(user, targetUID, amount, mpin);
                         }
-
-                        if (tchoice != 3)
-                        {
-                            printf("1. External\n2. Internal\n3. Back\n");
-                            scanf("%d", &tchoice);
-                        }
+                        
+                        printf("\n1. External\n2. Internal\n3. Back\nSelect: ");
+                        scanf("%d", &tchoice);
                     }
                 }
                 else if (option == 2)
@@ -108,12 +103,52 @@ int main()
                     printf("\nYour Current Balance is: Rs %.2lf\n", user->balance);
                 }
             }
+            break;
+        }
+
+        case 2:
+        {
+            char name[15], gender[10], maritalStatus[11];
+            char pan[11], aadharNumber[13], email[50];
+            char mobileNumber[11], address[100], password[20];
+            int age, mpin;
+            double balance = 5000;
+
+            printf("Enter Name: ");
+            scanf(" %[^\n]", name);
+            printf("Enter Age: ");
+            scanf(" %d", &age);
+            printf("Enter Gender: ");
+            scanf(" %s", gender);
+            printf("Enter Marital Status: ");
+            scanf(" %[^\n]", maritalStatus);
+            printf("Enter PAN: ");
+            scanf(" %[^\n]", pan);
+            printf("Enter Aadhar: ");
+            scanf(" %[^\n]", aadharNumber);
+            printf("Enter Email: ");
+            scanf(" %[^\n]", email);
+            printf("Enter Mobile: ");
+            scanf(" %[^\n]", mobileNumber);
+            printf("Enter Address: ");
+            scanf(" %[^\n]", address);
+            printf("Set your Password: ");
+            scanf(" %[^\n]", password);
+            printf("Set your mpin: ");
+            scanf(" %d", &mpin);
+            createAccount(name, age, gender, maritalStatus, pan, aadharNumber, email, mobileNumber, address, balance, mpin, password);
+            printf("\nAccount created successfully! Kindly login now.\n");
+            break;
+        }
+
+        case 3:
             freeTree(root);
             printf("\nSuccessfully exited. Thank You for visiting Virtu-Bank!!! Radhe Radhe!\n");
             break;
 
         case 4:
-            adminLogin();
+            printf("\n--- ADMIN PANEL (All Accounts) ---\n");
+            displayAllAccounts(root);
             break;
 
         default:
@@ -121,5 +156,8 @@ int main()
         }
     }
     return 0;
-    }
- }
+}
+
+
+//Password input for login
+// Initial balance...
