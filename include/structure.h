@@ -41,7 +41,7 @@ void extTransfer(struct accounts *sender, double amount, int enteredPin);
 
 void intTransfer(struct accounts *sender, struct accounts *receiver, double amount, int enteredPin);
 
-void createAccount(char name[], int age, char gender[], char maritalStatus[], char pan[], char aadhar[], char email[], char mobile[], char address[], double balance, int pin, int upipin);
+void createAccount(char name[], int age, char gender[], char maritalStatus[], char pan[], char aadhar[], char email[], char mobile[], char address[], double balance, int pin);
 
 struct accounts* searchAccount(struct accounts *root, char targetUID[]);
 
