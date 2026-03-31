@@ -18,14 +18,15 @@ struct accounts {
     char uid[11];               // UId for user assigned by bank
     char password[30];          // Password for login
     int mpin;                   // MPIN for transactions
-
+    char upiID[20];
+    int upiPin;
     // Identity details of user (KYC)
     char pan[11];              // PAN card number
     char aadharNumber[13];     // Aadhar number
 
     // Contact details from user
     char email[50];            // Email ID
-    char mobileNumber[11];     // Mobile number
+    int mobileNumber[11];     // Mobile number
 
     // Address
     char address[100];         // Full address
@@ -35,4 +36,19 @@ struct accounts {
     struct accounts *right;    // Pointer to right child (greater account number)
 
 };
+
+void extTransfer(struct accounts *sender, double amount, int enteredPin);
+
+void intTransfer(struct accounts *sender, struct accounts *receiver, double amount, int enteredPin);
+
+void createAccount(char name[], int age, char gender[], char maritalStatus[], char pan[], char aadhar[], char email[], char mobile[], char address[], double balance, int pin, int upipin);
+
+struct accounts* searchAccount(struct accounts *root, char targetUID[]);
+
+void displayAllAccounts();
+
+void freeTree(struct accounts *root);
+
+extern struct accounts *root;
+
 #endif 
