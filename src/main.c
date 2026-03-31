@@ -37,7 +37,7 @@ int main()
                 break;
             }
 
-            printf("Enter Password");
+            printf("Enter Password: ");
             scanf("%s", password);
 
             if(strcmp(user->password, password)!=0){
@@ -157,7 +157,3 @@ int main()
     }
     return 0;
 }
-
-
-//Password input for login
-// Initial balance...
