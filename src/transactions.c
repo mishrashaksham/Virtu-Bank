@@ -39,7 +39,7 @@ void extTransfer(struct accounts *sender, double amount, int enteredPin) // Exte
 
 // 2. VIRTU BANK
 
-void intTransfer(struct accounts *sender, struct accounts *receiver, double amount, int enteredPin)
+void intTransfer(struct accounts *sender, char UPI[11], double amount, int enteredPin)
 { // INTERNAL TRANSFER func declaration
 
     if (amount <= 0)
@@ -47,16 +47,15 @@ void intTransfer(struct accounts *sender, struct accounts *receiver, double amou
         printf("Invalid Amount\n");
         return;
     }
-
-    if (receiver == NULL)
-    { // search for receiver
-        printf("Receiver not found\n");
-        return;
-    }
-
     if (sender->mpin != enteredPin)
     { // mpin check
         printf("Invalid MPIN\n");
+        return;
+    }
+    struct accounts* receiver = searchAcc(UPI);
+    if (receiver == NULL)
+    { // search for receiver
+        printf("Receiver not found\n");
         return;
     }
 
