@@ -59,6 +59,12 @@ void intTransfer(struct accounts *sender, char UPI[11], double amount, int enter
         return;
     }
 
+    if(sender == receiver) 
+    { 
+        printf("Cannot transfer to yourself!");
+        return;
+    }
+
     if (sender->balance < amount)
     { // balance check
         printf("Insufficient Balance\n");
