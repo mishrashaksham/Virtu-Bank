@@ -66,7 +66,6 @@ void createAccount(char name[], int age, char gender[], char maritalStatus[], ch
         }
     }
     if (strcmp(newAcc->uid, temp2->uid) > 0)
-
         temp2->right = newAcc;
     else
         temp2->left = newAcc;
@@ -131,30 +130,16 @@ void writeNodeToFile(struct accounts *temp, FILE *file) {
     if (temp == NULL) {
         return;
     }
-
-    // 1. Left traverse (In-order for BST)
     writeNodeToFile(temp->left, file);
-
-    // 2. Basic Account Data write karna (No \n at the end)
     fprintf(file, "%s|%s|%d|%s|%s|%s|%s|%s|%s|%s|%lf|%d|%s", 
             temp->uid, temp->name, temp->age, temp->gender, temp->maritalStatus, 
             temp->pan, temp->aadharNumber, temp->email, temp->mobileNumber, 
             temp->address, temp->balance, temp->mpin, temp->password);
-
-    // 3. transactionCount save karo (Taaki load karte time pata ho kitni lines padhni hain)
     fprintf(file, "|%d", temp->transactionCount);
-
-    // 4. transactionHistory array (5 slots) save karna
-    // Hum sirf utni hi transactions save karenge jitni 'transactionCount' mein hain
     for (int i = 0; i < temp->transactionCount; i++) {
-        // Har transaction string ke aage ek '|' separator laga rahe hain
         fprintf(file, "|%s", temp->transactionHistory[i]);
     }
-
-    // 5. Line end karo customer ka data khatam hone par
     fprintf(file, "\n");
-
-    // 6. Right traverse
     writeNodeToFile(temp->right, file);
 }
 
@@ -176,16 +161,12 @@ void insertLoadedAccount(char uid[], char name[], int age, char gender[], char m
     newAcc->balance = balance;
     newAcc->mpin = pin;
     strcpy(newAcc->password, password);
-    
-    // History Load 
     newAcc->transactionCount = tCount;
     for(int i = 0; i < tCount; i++) {
         strcpy(newAcc->transactionHistory[i], history[i]);
     }
     
     newAcc->left = newAcc->right = NULL;
-
-    // BST Insertion Logic (Same as yours) 
     if (root == NULL) {
         root = newAcc;
         return;
@@ -208,16 +189,11 @@ void insertLoadedAccount(char uid[], char name[], int age, char gender[], char m
 void loadBankData() {
     FILE *file = fopen("../data/accounts.txt", "r");
     if (file == NULL) return;
-
-    // 1. Inhe alag-alag lines mein declare kar taaki confusion na ho
     char uid[20], name[100], gender[20], maritalStatus[20], pan[20];
     char aadhar[20], email[50], mobile[15], address[200], password[50];
     int age, mpin, tCount;
     double balance;
     char history[5][30];
-
-    // 2. fscanf logic (Specifiers aur variables ka count ekdum barabar hona chahiye)
-    // Basic Details: 10 strings + 1 int (age) + 1 double (balance) + 1 int (mpin) + 1 int (tCount)
     while (fscanf(file, "%[^|]|%[^|]|%d|%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%lf|%d|%[^|]|%d", 
                   uid, name, &age, gender, maritalStatus, pan, aadhar, email, mobile, address, &balance, &mpin, password, &tCount) != EOF) {
         
@@ -227,7 +203,7 @@ void loadBankData() {
         
         insertLoadedAccount(uid, name, age, gender, maritalStatus, pan, aadhar, email, mobile, address, balance, mpin, password, tCount, history);
         
-        fgetc(file); // New line saaf karne ke liye
+        fgetc(file);
     }
 
     fclose(file);
