@@ -43,7 +43,7 @@ void createAccount(char name[], int age, char gender[], char maritalStatus[], ch
     printf(" VIRTU-BANK IDS GENERATED\n");
     printf(" -> Your UID    : %s\n", newAcc->uid);
     printf(" -> Your UPI-ID : %s@vitap\n", newAcc->uid);
-    printf(" -> Your Passwor : %s\n", newAcc->password);
+    printf(" -> Your Password : %s\n", newAcc->password);
     printf("==========================================\n");
     if (root == NULL)
     {
@@ -219,4 +219,49 @@ void saveBankData() {
     writeNodeToFile(root, file);
     fclose(file);
     printf("Bank Database Updated Successfully.\n");
+}
+
+struct accounts* minValueNode(struct accounts* node) {
+    struct accounts* current = node;
+    while (current && current->left != NULL) {
+        current = current->left;
+    }
+    return current;
+}
+
+struct accounts* deleteNode(struct accounts* root, char uid[]) {
+    if (root == NULL) return root;
+
+    if (strcmp(uid, root->uid) < 0) {
+        root->left = deleteNode(root->left, uid);
+    }
+    else if (strcmp(uid, root->uid) > 0) {
+        root->right = deleteNode(root->right, uid);
+    }
+    else {
+        if (root->left == NULL) {
+            struct accounts* temp = root->right;
+            free(root);
+            return temp;
+        }
+        else if (root->right == NULL) {
+            struct accounts* temp = root->left;
+            free(root);
+            return temp;
+        }
+
+        struct accounts* temp = minValueNode(root->right);
+        
+        struct accounts* original_left = root->left;
+        struct accounts* original_right = root->right;
+
+        *root = *temp;
+
+        root->left = original_left;
+        root->right = original_right;
+
+        root->right = deleteNode(root->right, root->uid);
+    }
+    
+    return root;
 }

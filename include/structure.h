@@ -64,4 +64,8 @@ void insertLoadedAccount(char uid[], char name[], int age, char gender[], char m
 
 int generateCaptcha();
 
+struct accounts* deleteNode(struct accounts* root, char uid[]);
+
+struct accounts* minValueNode(struct accounts* node);
+
 #endif 
