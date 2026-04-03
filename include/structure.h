@@ -2,6 +2,7 @@
 
 #ifndef STRUCTURE_H
 #define STRUCTURE_H
+#include <stdio.h>
 struct accounts {
 
     // Personal details of my customer
