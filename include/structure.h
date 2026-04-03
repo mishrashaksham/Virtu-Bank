@@ -27,6 +27,10 @@ struct accounts {
     char email[50];            // Email ID
     char mobileNumber[15];     // Mobile number
 
+    //Transaction History
+    char transactionHistory[5][30];
+    int transactionCount;
+
     // Address
     char address[100];         // Full address
     
@@ -49,5 +53,19 @@ void displayAllAccounts(struct accounts *node);
 void freeTree(struct accounts *root);
 
 extern struct accounts *root;
+
+void saveBankData();
+
+void loadBankData();
+
+void writeNodeToFile(struct accounts *temp, FILE *file);
+
+void insertLoadedAccount(char uid[], char name[], int age, char gender[], char maritalStatus[], char pan[], char aadhar[], char email[], char mobile[], char address[], double balance, int pin, char password[], int tCount, char history[5][30]);
+
+int generateCaptcha();
+
+struct accounts* deleteNode(struct accounts* root, char uid[]);
+
+struct accounts* minValueNode(struct accounts* node);
 
 #endif 
