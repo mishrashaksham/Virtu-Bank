@@ -29,7 +29,7 @@ struct accounts {
     char mobileNumber[15];     // Mobile number
 
     //Transaction History
-    char transactionHistory[5][30];
+    char transactionHistory[5][40];
     int transactionCount;
 
     // Address

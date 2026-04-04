@@ -143,7 +143,7 @@ void writeNodeToFile(struct accounts *temp, FILE *file) {
     writeNodeToFile(temp->right, file);
 }
 
-void insertLoadedAccount(char uid[], char name[], int age, char gender[], char maritalStatus[], char pan[], char aadhar[], char email[], char mobile[], char address[], double balance, int pin, char password[], int tCount, char history[5][30]) {
+void insertLoadedAccount(char uid[], char name[], int age, char gender[], char maritalStatus[], char pan[], char aadhar[], char email[], char mobile[], char address[], double balance, int pin, char password[], int tCount, char history[5][40]) { // Yahan 40 kiya
     
     struct accounts *newAcc = (struct accounts *)malloc(sizeof(struct accounts));
     
@@ -162,8 +162,11 @@ void insertLoadedAccount(char uid[], char name[], int age, char gender[], char m
     newAcc->mpin = pin;
     strcpy(newAcc->password, password);
     newAcc->transactionCount = tCount;
+    
+    // Loop for History
     for(int i = 0; i < tCount; i++) {
-        strcpy(newAcc->transactionHistory[i], history[i]);
+        // Yahan [40] hata diya, bas [i] chalega!
+        strcpy(newAcc->transactionHistory[i], history[i]); 
     }
     
     newAcc->left = newAcc->right = NULL;
@@ -193,7 +196,7 @@ void loadBankData() {
     char aadhar[20], email[50], mobile[15], address[200], password[50];
     int age, mpin, tCount;
     double balance;
-    char history[5][30];
+    char history[5][40];
     while (fscanf(file, "%[^|]|%[^|]|%d|%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%lf|%d|%[^|]|%d", 
                   uid, name, &age, gender, maritalStatus, pan, aadhar, email, mobile, address, &balance, &mpin, password, &tCount) != EOF) {
         
