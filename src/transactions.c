@@ -2,6 +2,39 @@
 
 #include "../include/structure.h"
 #include <stdio.h>
+#include<string.h>
+
+//Phase 3
+
+//Storing Transaction + History
+
+void storeTransaction(struct accounts *user, char *primaryUID, char *secondaryUID, double amount, char *type){
+    char entry[40];
+
+    //Format: Pri UID - amount - Sec UID
+    
+    sprintf(entry, "%s - %.2lf - %s %s", primaryUID, amount, secondaryUID, type);
+
+    // If less than 5 then shift and add at top
+    if(user->transactionCount < 5){
+        for(int i = user->transactionCount; i>0; i--){ // har ek i k saath neeche shift hote rahega
+            strcpy(user->transactionHistory[i], user->transactionHistory[i-1]); 
+        }
+
+        strcpy(user->transactionHistory[0], entry); // new entry add
+        user->transactionCount++; //increment 
+    }
+    else{
+        //if already 5 then shift all and bottom one gets deleted
+        for(int i = 4; i > 0; i--){
+            strcpy(user->transactionHistory[i], user->transactionHistory[i-1]); //indices change
+        }
+
+        strcpy(user->transactionHistory[0], entry); //new entry
+    }
+
+}
+
 
 // Transfer case
 
@@ -35,6 +68,9 @@ void extTransfer(struct accounts *sender, double amount, int enteredPin) // Exte
 
     printf("Transfer to External Bank Succesfull!\n");
     printf("Remaining Balance: %.2lf\n", sender->balance);
+
+    //Sender ka debit store hoga
+    storeTransaction(sender, sender->uid, "EXTERNAL", amount, "Debited");
 }
 
 // 2. VIRTU BANK
@@ -76,6 +112,28 @@ void intTransfer(struct accounts *sender, char UPI[11], double amount, int enter
 
     printf("Transfer Successful to %s\n", receiver->name);
     printf("Your New Balance: %.2lf\n", sender->balance);
+
+    //Sender ka debit store
+    storeTransaction(sender, sender->uid, receiver->uid, amount, "Debited");
+
+    //Receiver ka Credit store
+    storeTransaction(receiver, receiver->uid, sender->uid, amount, "Credited");
 }
 
+
+
+// SHOW TRANSACTION HISTORY
+
+void showHistory(struct accounts *user){ //Func declare 
+    printf("\n     TRANSACTION HISTORY     \n"); //Heading
+
+    if(user->transactionCount == 0){ //Agr koi transaction nhi kiya hoga abhi tk aur direct history khola
+        printf("No Transactions yet.\n");
+        return;
+    }
+
+    for(int i = 0; i < user -> transactionCount; i++){ //Jitna transaction h utna baar chalega loop
+        printf("%s\n", user->transactionHistory[i]); //Jaise i ka value badhega ek ek kr k print hoga transaction
+    }
+}
 
