@@ -79,6 +79,9 @@ int main()
                         if (tchoice == 1)
                         {
                             double amount;
+                            char targetUID[20];
+                            printf("Enter Receiver UID: ");
+                            scanf("%s", targetUID);
                             printf("Enter Amount: ");
                             scanf("%lf", &amount);
                             printf("Confirm mpin: ");

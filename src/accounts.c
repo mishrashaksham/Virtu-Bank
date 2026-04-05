@@ -194,7 +194,7 @@ void loadBankData() {
     char aadhar[20], email[50], mobile[15], address[200], password[50];
     int age, mpin, tCount;
     double balance;
-    char history[5][40];
+    char history[5][100];
     while (fscanf(file, "%[^|]|%[^|]|%d|%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%lf|%d|%[^|]|%d", 
                   uid, name, &age, gender, maritalStatus, pan, aadhar, email, mobile, address, &balance, &mpin, password, &tCount) != EOF) {
         
