@@ -1,8 +1,9 @@
-//Shruti
+//Shruti & Team
 
 #ifndef STRUCTURE_H
 #define STRUCTURE_H
 #include <stdio.h>
+
 struct accounts {
 
     // Personal details of my customer
@@ -20,6 +21,7 @@ struct accounts {
     char password[30];          // Password for login
     int mpin;                   // MPIN for transactions
     int upiPin;
+    
     // Identity details of user (KYC)
     char pan[11];              // PAN card number
     char aadharNumber[13];     // Aadhar number
@@ -41,32 +43,29 @@ struct accounts {
 
 };
 
-void extTransfer(struct accounts *sender, double amount, int enteredPin);
-
-void intTransfer(struct accounts *sender, char UPI[11], double amount, int enteredPin);
-
-void createAccount(char name[], int age, char gender[], char maritalStatus[], char pan[], char aadhar[], char email[], char mobile[], char address[], double balance, int pin, char password[]);
-
-struct accounts *searchAcc(char uid[]);
-
-void displayAllAccounts(struct accounts *node);
-
-void freeTree(struct accounts *root);
-
+// Global root pointer
 extern struct accounts *root;
 
-void saveBankData();
-
-void loadBankData();
-
-void writeNodeToFile(struct accounts *temp, FILE *file);
-
-void insertLoadedAccount(char uid[], char name[], int age, char gender[], char maritalStatus[], char pan[], char aadhar[], char email[], char mobile[], char address[], double balance, int pin, char password[], int tCount, char history[5][30]);
-
+// --- UTILITIES & SYSTEM FUNCTIONS ---
 int generateCaptcha();
+void generateUID(char uid[]);
+void saveBankData();
+void loadBankData();
+void writeNodeToFile(struct accounts *temp, FILE *file);
+void insertLoadedAccount(char uid[], char name[], int age, char gender[], char maritalStatus[], char pan[], char aadhar[], char email[], char mobile[], char address[], double balance, int pin, char password[], int tCount, char history[5][40]);
 
+// --- ACCOUNT OPERATIONS ---
+void createAccount(char name[], int age, char gender[], char maritalStatus[], char pan[], char aadhar[], char email[], char mobile[], char address[], double balance, int pin, char password[]);
+struct accounts *searchAcc(char uid[]);
+void displayAllAccounts(struct accounts *node);
+void freeTree(struct accounts *root);
 struct accounts* deleteNode(struct accounts* root, char uid[]);
-
 struct accounts* minValueNode(struct accounts* node);
 
-#endif 
+// --- TRANSACTIONS ---
+void extTransfer(struct accounts *sender, double amount, int enteredPin);
+void intTransfer(struct accounts *sender, char UPI[11], double amount, int enteredPin);
+void storeTransaction(struct accounts *user, char *primaryUID, char *secondaryUID, double amount, char *type);
+void showHistory(struct accounts *user); // <--- YEH RAHI MISSING ENTRY!
+
+#endif
