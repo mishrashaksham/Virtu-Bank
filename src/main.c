@@ -7,6 +7,8 @@
 int main()
 {
     srand(time(NULL));
+    loadBankData() ;
+
     int choice = 0;
 
     while (choice != 3)
@@ -55,12 +57,14 @@ int main()
             }
 
             int option = 0;
-            while (option != 3)
+            while (option != 5)
             {
                 printf("\n--- USER DASHBOARD ---\n");
                 printf("1. Transaction\n");
                 printf("2. Check Balance\n");
-                printf("3. Logout\n");
+                printf("3. Show Transaction history\n");
+                printf("4. Delete Account\n");
+                printf("5. Logout\n");
                 printf("Select option: ");
                 scanf("%d", &option);
 
@@ -102,6 +106,28 @@ int main()
                 {
                     printf("\nYour Current Balance is: Rs %.2lf\n", user->balance);
                 }
+                else if (option == 3)
+                {
+                    showHistory(user);
+                }
+                else if(option == 4)
+                {
+                    int userSum, correctSum;
+                    correctSum = generateCaptcha();
+                    scanf("%d", &userSum);
+
+                    while(userSum != correctSum)
+                    {
+                        printf("Invalid Captcha! try again.\n");
+                        correctSum = generateCaptcha();
+                        scanf("%d", &userSum);
+                    }
+                    root = deleteNode(root, user->uid);
+                    printf("Account deleted successfully.\n");
+                    saveBankData();
+                    break;
+
+                }
             }
             break;
         }
@@ -142,6 +168,7 @@ int main()
         }
 
         case 3:
+            saveBankData();
             freeTree(root);
             printf("\nSuccessfully exited. Thank You for visiting Virtu-Bank!!! Radhe Radhe!\n");
             break;
