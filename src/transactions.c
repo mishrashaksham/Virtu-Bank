@@ -9,11 +9,11 @@
 //Storing Transaction + History
 
 void storeTransaction(struct accounts *user, char *primaryUID, char *secondaryUID, double amount, char *type){
-    char entry[40];
+    char entry[100];
 
     //Format: Pri UID - amount - Sec UID
     
-    sprintf(entry, "%s-%.2lf %s %s", primaryUID, amount, secondaryUID, type);
+    sprintf(entry, "%s  -   %.2lf   %s  %s", primaryUID, amount, secondaryUID, type);
 
     // If less than 5 then shift and add at top
     if(user->transactionCount < 5){

@@ -143,9 +143,8 @@ void writeNodeToFile(struct accounts *temp, FILE *file) {
     writeNodeToFile(temp->right, file);
 }
 
-void insertLoadedAccount(char uid[], char name[], int age, char gender[], char maritalStatus[], char pan[], char aadhar[], char email[], char mobile[], char address[], double balance, int pin, char password[], int tCount, char history[5][40]) { // Yahan 40 kiya
-    
-    struct accounts *newAcc = (struct accounts *)malloc(sizeof(struct accounts));
+void insertLoadedAccount(char uid[], char name[], int age, char gender[], char maritalStatus[], char pan[], char aadhar[], char email[], char mobile[], char address[], double balance, int pin, char password[], int tCount, char history[5][100]) 
+{    struct accounts *newAcc = (struct accounts *)malloc(sizeof(struct accounts));
     
     // Basic Details Copy 
     strcpy(newAcc->uid, uid); 
@@ -165,7 +164,6 @@ void insertLoadedAccount(char uid[], char name[], int age, char gender[], char m
     
     // Loop for History
     for(int i = 0; i < tCount; i++) {
-        // Yahan [40] hata diya, bas [i] chalega!
         strcpy(newAcc->transactionHistory[i], history[i]); 
     }
     

@@ -31,7 +31,7 @@ struct accounts {
     char mobileNumber[15];     // Mobile number
 
     //Transaction History
-    char transactionHistory[5][40];
+    char transactionHistory[5][100];
     int transactionCount;
 
     // Address
@@ -52,7 +52,7 @@ void generateUID(char uid[]);
 void saveBankData();
 void loadBankData();
 void writeNodeToFile(struct accounts *temp, FILE *file);
-void insertLoadedAccount(char uid[], char name[], int age, char gender[], char maritalStatus[], char pan[], char aadhar[], char email[], char mobile[], char address[], double balance, int pin, char password[], int tCount, char history[5][40]);
+void insertLoadedAccount(char uid[], char name[], int age, char gender[], char maritalStatus[], char pan[], char aadhar[], char email[], char mobile[], char address[], double balance, int pin, char password[], int tCount, char history[5][100]);
 
 // --- ACCOUNT OPERATIONS ---
 void createAccount(char name[], int age, char gender[], char maritalStatus[], char pan[], char aadhar[], char email[], char mobile[], char address[], double balance, int pin, char password[]);
@@ -66,6 +66,6 @@ struct accounts* minValueNode(struct accounts* node);
 void extTransfer(struct accounts *sender, double amount, int enteredPin);
 void intTransfer(struct accounts *sender, char UPI[11], double amount, int enteredPin);
 void storeTransaction(struct accounts *user, char *primaryUID, char *secondaryUID, double amount, char *type);
-void showHistory(struct accounts *user); // <--- YEH RAHI MISSING ENTRY!
+void showHistory(struct accounts *user);
 
 #endif
