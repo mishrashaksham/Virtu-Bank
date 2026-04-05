@@ -46,10 +46,3 @@ The modern client-facing evolution. We decoupled the logic from our C-backend an
 * **Database:** `window.localStorage`
 
 ---
-
-## 💻 How to Run Locally
-
-### Running the Web Version (v2.0)
-1. Clone this repository: 
-   ```bash
-   git clone [https://github.com/mishrashaksham/Virtu-Bank.git](https://github.com/mishrashaksham/Virtu-Bank.git)
