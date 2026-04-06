@@ -250,17 +250,54 @@ body { font-family: var(--font-body); font-size: 15px; line-height: 1.6; color: 
 .ai-chat-footer button:hover { background: var(--gold-400); }
 .typing-indicator { font-size: 12px; color: var(--navy-200); font-style: italic; padding-left: 5px; }
 
+/* ============================================================
+   VirtuBank — New Mobile Responsiveness (v5.1 Fix)
+============================================================ */
+
+/* --- TABLET / SMALL DESKTOP --- */
 @media (max-width: 900px) {
-  .split-layout { grid-template-columns: 1fr; } .split-brand { display: none; }
+  /* Site Header changes */
+  .site-header { padding: 0 20px; }
+  
+  /* Split layout stacks vertically (Login Screen) */
+  .split-layout { grid-template-columns: 1fr; } 
+  .split-brand { display: none; } /* Hide the fancy brand side on mobile */
   .split-form { padding: 40px 24px; background: var(--navy-950); }
-  .form-card { background: var(--navy-800); } .form-card .form-title { color: var(--white); }
+  
+  /* Form card uses full width */
+  .form-card { background: var(--navy-800); width: 100%; max-width: none; border-radius: 0; box-shadow: none; border: none; padding: 30px 20px;}
+  .form-card .form-title { color: var(--white); }
+  .form-card .form-subtitle { color: var(--navy-200); }
+  .form-card-header { text-align: center; }
+
+  /* Info Grid becomes 2 columns */
   .info-grid { grid-template-columns: 1fr 1fr; }
+  
+  /* Action buttons need room to breath */
   .action-row { gap: 10px; }
 }
+
+/* --- MOBILE DEVICES --- */
 @media (max-width: 560px) {
-  .form-grid { grid-template-columns: 1fr; } .field-group.col-2 { grid-column: span 1; }
-  .balance-card { padding: 28px 24px; } .dashboard-topbar { flex-direction: column; align-items: flex-start; }
-  .action-btn { min-width: 100px; padding: 14px; font-size: 13px; }
+  /* Signup wrapper adjustments */
+  #section-signup { padding: 40px 0 60px; }
+  .signup-wrapper { padding: 0 16px; }
+  .signup-card { padding: 30px 20px; }
+  .form-grid { grid-template-columns: 1fr; } /* Signup form single column */
+  .field-group.col-2 { grid-column: span 1; }
+
+  /* Balance Card optimizations */
+  .balance-card { padding: 28px 24px; }
+  .balance-amount { font-size: 52px; }
+  .dashboard-topbar { flex-direction: column; align-items: flex-start; gap: 10px; }
+
+  /* *** THE BIG FIX FOR BUTTONS *** */
+  /* Re-architecture action buttons from row to column */
+  .action-row { flex-direction: column; gap: 8px; width: 100%; }
+  .action-btn { width: 100%; min-width: 0; padding: 14px; font-size: 13px; justify-content: start; }
+  .action-btn-icon { font-size: 16px; margin-right: 12px;}
+
+  /* AI Chatbot on mobile is full screen */
   .ai-chat-window { bottom: 0; right: 0; width: 100%; height: 100vh; border-radius: 0; transform: translateY(100%); }
   .ai-chat-body { height: calc(100vh - 130px); }
   .ai-fab { bottom: 20px; right: 20px; }
