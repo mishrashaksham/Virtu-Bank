@@ -11,7 +11,6 @@
 </head>
 <body>
 
-  
   <div class="noise-overlay" aria-hidden="true"></div>
   <div class="bg-blobs" aria-hidden="true">
     <div class="blob blob-1"></div>
@@ -19,22 +18,16 @@
     <div class="blob blob-3"></div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════
-       TOAST
-  ══════════════════════════════════════════════════ -->
   <div id="toast" class="toast" role="alert" aria-live="polite">
     <span class="toast-icon">✦</span>
     <span id="toast-message"></span>
   </div>
 
-  <!-- ══════════════════════════════════════════════════
-       MODAL · UID Reveal (post-signup)
-  ══════════════════════════════════════════════════ -->
-  <div id="uid-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="uid-modal-title">
+  <div id="uid-modal" class="modal-backdrop" role="dialog" aria-modal="true">
     <div class="modal-card">
       <div class="modal-glow" aria-hidden="true"></div>
       <div class="modal-seal" aria-hidden="true">✦</div>
-      <h2 id="uid-modal-title" class="modal-title">Account Created</h2>
+      <h2 class="modal-title">Account Created</h2>
       <p class="modal-subtitle">Welcome to VirtuBank. Your account is ready.</p>
       <div class="modal-uid-block">
         <span class="modal-uid-label">Your Unique ID</span>
@@ -46,26 +39,28 @@
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════
-       MODAL · Transfer
-  ══════════════════════════════════════════════════ -->
-  <div id="transfer-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="transfer-modal-title">
+  <div id="transfer-modal" class="modal-backdrop" role="dialog" aria-modal="true">
     <div class="modal-card modal-card--wide">
       <div class="modal-glow modal-glow--blue" aria-hidden="true"></div>
       <button class="modal-close-btn" id="transfer-close-btn" aria-label="Close">✕</button>
 
-      <!-- Tab switcher -->
       <div class="modal-tabs" role="tablist">
-        <button class="modal-tab active" id="tab-external" role="tab" data-tab="external">External</button>
+        <button class="modal-tab active" id="tab-external" role="tab" data-tab="external">External (UPI)</button>
         <button class="modal-tab" id="tab-internal" role="tab" data-tab="internal">Internal Transfer</button>
       </div>
 
-      <!-- External Transfer -->
       <div id="transfer-panel-external" class="transfer-panel active">
         <div class="modal-seal" aria-hidden="true">↗</div>
-        <h2 id="transfer-modal-title" class="modal-title">External Transfer</h2>
-        <p class="modal-subtitle">Withdraw funds from your account</p>
+        <h2 class="modal-title">External Transfer</h2>
+        <p class="modal-subtitle">Withdraw funds to any UPI ID</p>
         <form id="external-transfer-form" novalidate autocomplete="off">
+          <div class="field-group">
+            <label class="field-label" for="ext-upi">Receiver UPI ID</label>
+            <div class="field-wrap">
+              <input type="text" id="ext-upi" class="field-input" placeholder="e.g., ramesh@okicici" spellcheck="false" required />
+            </div>
+            <span class="field-error" id="ext-upi-err"></span>
+          </div>
           <div class="field-group">
             <label class="field-label" for="ext-amount">Amount (₹)</label>
             <div class="field-wrap">
@@ -87,7 +82,6 @@
         </form>
       </div>
 
-      <!-- Internal Transfer -->
       <div id="transfer-panel-internal" class="transfer-panel">
         <div class="modal-seal" aria-hidden="true">⇄</div>
         <h2 class="modal-title">Internal Transfer</h2>
@@ -123,22 +117,57 @@
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════
-       MODAL · Delete Account (Math Captcha)
-  ══════════════════════════════════════════════════ -->
-  <div id="delete-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title">
+  <div id="favorites-modal" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-glow" aria-hidden="true"></div>
+      <button class="modal-close-btn" id="fav-close-btn" aria-label="Close">✕</button>
+      <div class="modal-seal" aria-hidden="true">⭐</div>
+      <h2 class="modal-title">Voice Favorites</h2>
+      <p class="modal-subtitle">Add up to 5 friends for quick Voice Pay.</p>
+
+      <div class="fav-list-container" id="fav-list-container">
+        </div>
+
+      <form id="add-fav-form" class="add-fav-form">
+        <h4 class="fav-form-title">Add New Favorite</h4>
+        <div class="field-group">
+          <input type="text" id="fav-name" class="field-input" placeholder="Alias (e.g. Nikki)" required />
+        </div>
+        <div class="field-group">
+          <input type="text" id="fav-uid" class="field-input mono" placeholder="10-Digit UID" maxlength="10" required />
+        </div>
+        <button type="submit" class="submit-btn full" id="fav-submit-btn" style="padding: 10px;">
+          <span class="btn-text">Add to Favorites</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div id="voice-modal" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-glow modal-glow--blue" aria-hidden="true"></div>
+      <button class="modal-close-btn" id="voice-close-btn" aria-label="Close">✕</button>
+      <div class="mic-pulse-container">
+        <div class="mic-pulse"></div>
+        <div class="mic-icon">🎙️</div>
+      </div>
+      <h2 class="modal-title">Listening...</h2>
+      <p class="modal-subtitle">Say something like: <br><strong>"Send 500 to Nikki"</strong></p>
+      <p id="voice-transcript" class="voice-transcript">Waiting for voice...</p>
+    </div>
+  </div>
+
+  <div id="delete-modal" class="modal-backdrop" role="dialog" aria-modal="true">
     <div class="modal-card">
       <div class="modal-glow modal-glow--red" aria-hidden="true"></div>
       <button class="modal-close-btn" id="delete-close-btn" aria-label="Close">✕</button>
       <div class="modal-seal modal-seal--red" aria-hidden="true">⚠</div>
-      <h2 id="delete-modal-title" class="modal-title">Delete Account</h2>
+      <h2 class="modal-title">Delete Account</h2>
       <p class="modal-subtitle">This action is permanent and cannot be undone.</p>
-
       <div class="captcha-block">
         <span class="captcha-label">Solve to confirm</span>
         <div class="captcha-question" id="captcha-question">—</div>
       </div>
-
       <div class="field-group" style="margin-bottom:16px;">
         <label class="field-label" for="captcha-answer">Your Answer</label>
         <div class="field-wrap">
@@ -146,7 +175,6 @@
         </div>
         <span class="field-error" id="captcha-err"></span>
       </div>
-
       <button class="submit-btn full danger-btn" id="confirm-delete-btn">
         <span class="btn-text">Permanently Delete My Account</span>
       </button>
@@ -154,9 +182,6 @@
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════
-       HEADER (auth pages only)
-  ══════════════════════════════════════════════════ -->
   <header class="site-header" id="site-header">
     <div class="header-inner">
       <div class="logo">
@@ -170,12 +195,8 @@
     </div>
   </header>
 
-  <!-- ══════════════════════════════════════════════════
-       MAIN
-  ══════════════════════════════════════════════════ -->
   <main class="main-wrapper">
 
-    <!-- ── SECTION 1 · LOGIN ── -->
     <section id="section-login" class="section active" aria-label="Login">
       <div class="split-layout">
         <div class="split-brand">
@@ -188,7 +209,7 @@
               <div class="stat-divider" aria-hidden="true"></div>
               <div class="stat"><span class="stat-num">₹5K</span><span class="stat-label">Welcome Credit</span></div>
               <div class="stat-divider" aria-hidden="true"></div>
-              <div class="stat"><span class="stat-num">24 / 7</span><span class="stat-label">Availability</span></div>
+              <div class="stat"><span class="stat-num">Voice</span><span class="stat-label">AI Ready</span></div>
             </div>
           </div>
         </div>
@@ -227,7 +248,6 @@
       </div>
     </section>
 
-    <!-- ── SECTION 2 · SIGNUP ── -->
     <section id="section-signup" class="section" aria-label="Open Account">
       <div class="signup-wrapper">
         <div class="signup-header">
@@ -344,11 +364,8 @@
       </div>
     </section>
 
-    <!-- ── SECTION 3 · DASHBOARD ── -->
     <section id="section-dashboard" class="section" aria-label="Dashboard">
       <div class="dashboard-layout">
-
-        <!-- Topbar -->
         <div class="dashboard-topbar">
           <div class="dashboard-brand">
             <span class="logo-mark" aria-hidden="true">◈</span>
@@ -360,7 +377,6 @@
           </div>
         </div>
 
-        <!-- Balance Card -->
         <div class="balance-card">
           <div class="balance-card-inner">
             <div class="card-chip" aria-hidden="true">
@@ -390,11 +406,18 @@
           <div class="card-glow" aria-hidden="true"></div>
         </div>
 
-        <!-- Action Buttons Row -->
         <div class="action-row">
           <button class="action-btn action-btn--primary" id="open-transfer-btn">
             <span class="action-btn-icon" aria-hidden="true">↗</span>
             <span class="action-btn-label">Transfer</span>
+          </button>
+          <button class="action-btn action-btn--gold" id="open-voice-btn" title="Voice Pay">
+            <span class="action-btn-icon" aria-hidden="true">🎙️</span>
+            <span class="action-btn-label">Voice Pay</span>
+          </button>
+          <button class="action-btn action-btn--secondary" id="open-fav-btn">
+            <span class="action-btn-icon" aria-hidden="true">⭐</span>
+            <span class="action-btn-label">Favorites</span>
           </button>
           <button class="action-btn action-btn--secondary" id="toggle-history-btn">
             <span class="action-btn-icon" aria-hidden="true">⟳</span>
@@ -402,11 +425,10 @@
           </button>
           <button class="action-btn action-btn--danger" id="open-delete-btn">
             <span class="action-btn-icon" aria-hidden="true">⊗</span>
-            <span class="action-btn-label">Delete Account</span>
+            <span class="action-btn-label">Delete</span>
           </button>
         </div>
 
-        <!-- Info tiles -->
         <div class="info-grid">
           <div class="info-tile">
             <span class="info-tile-icon" aria-hidden="true">⬡</span>
@@ -415,8 +437,8 @@
           </div>
           <div class="info-tile">
             <span class="info-tile-icon" aria-hidden="true">◈</span>
-            <span class="info-tile-label">Account Type</span>
-            <span class="info-tile-value">Savings</span>
+            <span class="info-tile-label">Saved Favorites</span>
+            <span class="info-tile-value" id="dash-fav-count">0 / 5</span>
           </div>
           <div class="info-tile">
             <span class="info-tile-icon" aria-hidden="true">✦</span>
@@ -430,7 +452,6 @@
           </div>
         </div>
 
-        <!-- Transaction History Panel -->
         <div class="history-panel" id="history-panel" aria-live="polite">
           <div class="history-header">
             <h3 class="history-title">
@@ -450,8 +471,31 @@
 
       </div>
     </section>
-
   </main>
+
+  <button class="ai-fab" id="ai-fab" aria-label="Ask Virtu-Mitra" style="display:none;">
+    <span class="ai-fab-icon">✨</span>
+  </button>
+
+  <div class="ai-chat-window" id="ai-chat-window">
+    <div class="ai-chat-header">
+      <div class="ai-header-info">
+        <span class="ai-icon">✨</span>
+        <div>
+          <h4 class="ai-title">Virtu-Mitra</h4>
+          <span class="ai-subtitle">AI Financial Advisor</span>
+        </div>
+      </div>
+      <button class="modal-close-btn" id="ai-close-btn" style="position:static; width:28px; height:28px;">✕</button>
+    </div>
+    <div class="ai-chat-body" id="ai-chat-body">
+      <div class="chat-msg bot-msg">Namaste! I am Virtu-Mitra. How can I help you with your savings, loans, or financial planning today?</div>
+    </div>
+    <div class="ai-chat-footer">
+      <input type="text" id="ai-chat-input" placeholder="Ask something (e.g. Mudra Loan)" autocomplete="off" />
+      <button id="ai-chat-send">➤</button>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
