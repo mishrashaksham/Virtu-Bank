@@ -1,502 +1,360 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VirtuBank — Digital Banking</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VirtuBank | Future of Rural Banking</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="noise-overlay" aria-hidden="true"></div>
-  <div class="bg-blobs" aria-hidden="true">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-  </div>
-
-  <div id="toast" class="toast" role="alert" aria-live="polite">
-    <span class="toast-icon">✦</span>
-    <span id="toast-message"></span>
-  </div>
-
-  <div id="uid-modal" class="modal-backdrop" role="dialog" aria-modal="true">
-    <div class="modal-card">
-      <div class="modal-glow" aria-hidden="true"></div>
-      <div class="modal-seal" aria-hidden="true">✦</div>
-      <h2 class="modal-title">Account Created</h2>
-      <p class="modal-subtitle">Welcome to VirtuBank. Your account is ready.</p>
-      <div class="modal-uid-block">
-        <span class="modal-uid-label">Your Unique ID</span>
-        <span id="modal-uid-value" class="modal-uid-value">—</span>
-        <button class="copy-btn" id="copy-uid-btn">Copy</button>
-      </div>
-      <p class="modal-note">Save this UID — you will need it to log in. Your welcome balance of <strong>₹5,000</strong> has been credited.</p>
-      <button class="modal-cta" id="modal-proceed-btn">Proceed to Login</button>
+    <div class="noise-overlay"></div>
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
     </div>
-  </div>
 
-  <div id="transfer-modal" class="modal-backdrop" role="dialog" aria-modal="true">
-    <div class="modal-card modal-card--wide">
-      <div class="modal-glow modal-glow--blue" aria-hidden="true"></div>
-      <button class="modal-close-btn" id="transfer-close-btn" aria-label="Close">✕</button>
-
-      <div class="modal-tabs" role="tablist">
-        <button class="modal-tab active" id="tab-external" role="tab" data-tab="external">External (UPI)</button>
-        <button class="modal-tab" id="tab-internal" role="tab" data-tab="internal">Internal Transfer</button>
-      </div>
-
-      <div id="transfer-panel-external" class="transfer-panel active">
-        <div class="modal-seal" aria-hidden="true">↗</div>
-        <h2 class="modal-title">External Transfer</h2>
-        <p class="modal-subtitle">Withdraw funds to any UPI ID</p>
-        <form id="external-transfer-form" novalidate autocomplete="off">
-          <div class="field-group">
-            <label class="field-label" for="ext-upi">Receiver UPI ID</label>
-            <div class="field-wrap">
-              <input type="text" id="ext-upi" class="field-input" placeholder="e.g., ramesh@okicici" spellcheck="false" required />
-            </div>
-            <span class="field-error" id="ext-upi-err"></span>
-          </div>
-          <div class="field-group">
-            <label class="field-label" for="ext-amount">Amount (₹)</label>
-            <div class="field-wrap">
-              <input type="number" id="ext-amount" class="field-input" placeholder="Enter amount" min="1" required />
-            </div>
-            <span class="field-error" id="ext-amount-err"></span>
-          </div>
-          <div class="field-group">
-            <label class="field-label" for="ext-mpin">MPIN</label>
-            <div class="field-wrap">
-              <input type="password" id="ext-mpin" class="field-input mono" placeholder="Enter your MPIN" maxlength="6" inputmode="numeric" required />
-            </div>
-            <span class="field-error" id="ext-mpin-err"></span>
-          </div>
-          <button type="submit" class="submit-btn full modal-submit-btn" id="ext-submit-btn">
-            <span class="btn-text">Confirm Transfer</span>
-            <span class="btn-arrow" aria-hidden="true">→</span>
-          </button>
-        </form>
-      </div>
-
-      <div id="transfer-panel-internal" class="transfer-panel">
-        <div class="modal-seal" aria-hidden="true">⇄</div>
-        <h2 class="modal-title">Internal Transfer</h2>
-        <p class="modal-subtitle">Send funds to another VirtuBank account</p>
-        <form id="internal-transfer-form" novalidate autocomplete="off">
-          <div class="field-group">
-            <label class="field-label" for="int-receiver-uid">Receiver UID</label>
-            <div class="field-wrap">
-              <input type="text" id="int-receiver-uid" class="field-input mono" placeholder="10-character UID" maxlength="10" spellcheck="false" required />
-            </div>
-            <span class="field-error" id="int-uid-err"></span>
-          </div>
-          <div class="field-group">
-            <label class="field-label" for="int-amount">Amount (₹)</label>
-            <div class="field-wrap">
-              <input type="number" id="int-amount" class="field-input" placeholder="Enter amount" min="1" required />
-            </div>
-            <span class="field-error" id="int-amount-err"></span>
-          </div>
-          <div class="field-group">
-            <label class="field-label" for="int-mpin">MPIN</label>
-            <div class="field-wrap">
-              <input type="password" id="int-mpin" class="field-input mono" placeholder="Enter your MPIN" maxlength="6" inputmode="numeric" required />
-            </div>
-            <span class="field-error" id="int-mpin-err"></span>
-          </div>
-          <button type="submit" class="submit-btn full modal-submit-btn" id="int-submit-btn">
-            <span class="btn-text">Send Money</span>
-            <span class="btn-arrow" aria-hidden="true">→</span>
-          </button>
-        </form>
-      </div>
+    <div id="toast" class="toast">
+        <span class="toast-icon">✦</span>
+        <span id="toast-message"></span>
     </div>
-  </div>
 
-  <div id="favorites-modal" class="modal-backdrop" role="dialog" aria-modal="true">
-    <div class="modal-card">
-      <div class="modal-glow" aria-hidden="true"></div>
-      <button class="modal-close-btn" id="fav-close-btn" aria-label="Close">✕</button>
-      <div class="modal-seal" aria-hidden="true">⭐</div>
-      <h2 class="modal-title">Voice Favorites</h2>
-      <p class="modal-subtitle">Add up to 5 friends for quick Voice Pay.</p>
-
-      <div class="fav-list-container" id="fav-list-container">
+    <header id="site-header" class="site-header">
+        <div class="header-inner">
+            <div class="logo">
+                <span class="logo-mark">🏛️</span>
+                <span class="logo-text">VirtuBank</span>
+            </div>
+            <nav class="header-nav">
+                <button id="nav-login-btn" class="nav-btn active">Login</button>
+                <button id="nav-signup-btn" class="nav-btn">Join Us</button>
+            </nav>
         </div>
+    </header>
 
-      <form id="add-fav-form" class="add-fav-form">
-        <h4 class="fav-form-title">Add New Favorite</h4>
-        <div class="field-group">
-          <input type="text" id="fav-name" class="field-input" placeholder="Alias (e.g. Nikki)" required />
-        </div>
-        <div class="field-group">
-          <input type="text" id="fav-uid" class="field-input mono" placeholder="10-Digit UID" maxlength="10" required />
-        </div>
-        <button type="submit" class="submit-btn full" id="fav-submit-btn" style="padding: 10px;">
-          <span class="btn-text">Add to Favorites</span>
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <div id="voice-modal" class="modal-backdrop" role="dialog" aria-modal="true">
-    <div class="modal-card">
-      <div class="modal-glow modal-glow--blue" aria-hidden="true"></div>
-      <button class="modal-close-btn" id="voice-close-btn" aria-label="Close">✕</button>
-      <div class="mic-pulse-container">
-        <div class="mic-pulse"></div>
-        <div class="mic-icon">🎙️</div>
-      </div>
-      <h2 class="modal-title">Listening...</h2>
-      <p class="modal-subtitle">Say something like: <br><strong>"Send 500 to Nikki"</strong></p>
-      <p id="voice-transcript" class="voice-transcript">Waiting for voice...</p>
-    </div>
-  </div>
-
-  <div id="delete-modal" class="modal-backdrop" role="dialog" aria-modal="true">
-    <div class="modal-card">
-      <div class="modal-glow modal-glow--red" aria-hidden="true"></div>
-      <button class="modal-close-btn" id="delete-close-btn" aria-label="Close">✕</button>
-      <div class="modal-seal modal-seal--red" aria-hidden="true">⚠</div>
-      <h2 class="modal-title">Delete Account</h2>
-      <p class="modal-subtitle">This action is permanent and cannot be undone.</p>
-      <div class="captcha-block">
-        <span class="captcha-label">Solve to confirm</span>
-        <div class="captcha-question" id="captcha-question">—</div>
-      </div>
-      <div class="field-group" style="margin-bottom:16px;">
-        <label class="field-label" for="captcha-answer">Your Answer</label>
-        <div class="field-wrap">
-          <input type="number" id="captcha-answer" class="field-input" placeholder="Enter the answer" autocomplete="off" />
-        </div>
-        <span class="field-error" id="captcha-err"></span>
-      </div>
-      <button class="submit-btn full danger-btn" id="confirm-delete-btn">
-        <span class="btn-text">Permanently Delete My Account</span>
-      </button>
-      <button class="text-link cancel-link" id="delete-cancel-btn" style="margin-top:14px;display:block;text-align:center;">Cancel</button>
-    </div>
-  </div>
-
-  <header class="site-header" id="site-header">
-    <div class="header-inner">
-      <div class="logo">
-        <span class="logo-mark" aria-hidden="true">◈</span>
-        <span class="logo-text">VirtuBank</span>
-      </div>
-      <nav class="header-nav">
-        <button class="nav-btn active" id="nav-login-btn" data-target="login">Login</button>
-        <button class="nav-btn" id="nav-signup-btn" data-target="signup">Open Account</button>
-      </nav>
-    </div>
-  </header>
-
-  <main class="main-wrapper">
-
-    <section id="section-login" class="section active" aria-label="Login">
-      <div class="split-layout">
-        <div class="split-brand">
-          <div class="brand-content">
-            <div class="brand-badge">Est. 2025</div>
-            <h1 class="brand-headline">Banking<br/>built for<br/><em>tomorrow.</em></h1>
-            <p class="brand-tagline">Secure. Intelligent. Effortless.</p>
-            <div class="brand-stats">
-              <div class="stat"><span class="stat-num">256-bit</span><span class="stat-label">Encryption</span></div>
-              <div class="stat-divider" aria-hidden="true"></div>
-              <div class="stat"><span class="stat-num">₹5K</span><span class="stat-label">Welcome Credit</span></div>
-              <div class="stat-divider" aria-hidden="true"></div>
-              <div class="stat"><span class="stat-num">Voice</span><span class="stat-label">AI Ready</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="split-form">
-          <div class="form-card" id="login-card">
-            <div class="form-card-header">
-              <h2 class="form-title">Welcome back</h2>
-              <p class="form-subtitle">Sign in to your account</p>
-            </div>
-            <form id="login-form" novalidate autocomplete="off">
-              <div class="field-group">
-                <label class="field-label" for="login-uid">Account UID</label>
-                <div class="field-wrap">
-                  <span class="field-icon" aria-hidden="true">◈</span>
-                  <input type="text" id="login-uid" class="field-input" placeholder="Enter your 10-character UID" maxlength="10" autocomplete="off" spellcheck="false" required />
+    <main class="main-wrapper">
+        
+        <section id="section-login" class="section active">
+            <div class="split-layout">
+                <div class="split-brand">
+                    <div class="brand-content">
+                        <span class="brand-badge">VIT-AP Innovation</span>
+                        <h1 class="brand-headline">Banking for the <em>Next Billion.</em></h1>
+                        <p class="brand-tagline">Secure, AI-powered banking designed for everyone from Amaravati to the world.</p>
+                        <div class="brand-stats">
+                            <div class="stat"><span class="stat-num">0%</span><span class="stat-label">Fees</span></div>
+                            <div class="stat-divider"></div>
+                            <div class="stat"><span class="stat-num">24/7</span><span class="stat-label">AI Support</span></div>
+                        </div>
+                    </div>
                 </div>
-                <span class="field-error" id="login-uid-err"></span>
-              </div>
-              <div class="field-group">
-                <label class="field-label" for="login-password">Password</label>
-                <div class="field-wrap">
-                  <span class="field-icon" aria-hidden="true">⬡</span>
-                  <input type="password" id="login-password" class="field-input" placeholder="Enter your password" autocomplete="current-password" required />
-                  <button type="button" class="toggle-pass" data-target="login-password" aria-label="Toggle password visibility"><span class="eye-icon">👁</span></button>
+                <div class="split-form">
+                    <div class="form-card">
+                        <div class="form-card-header">
+                            <h2 class="form-title">Welcome Back</h2>
+                            <p class="form-subtitle">Enter your unique UID to access your vault.</p>
+                        </div>
+                        <form id="login-form">
+                            <div class="field-group">
+                                <label class="field-label">Account UID</label>
+                                <div class="field-wrap">
+                                    <span class="field-icon">👤</span>
+                                    <input type="text" id="login-uid" class="field-input mono" placeholder="XXXXX-XXXXX" required>
+                                </div>
+                                <span id="login-uid-err" class="field-error"></span>
+                            </div>
+                            <div class="field-group">
+                                <label class="field-label">Secret Password</label>
+                                <div class="field-wrap">
+                                    <span class="field-icon">🔒</span>
+                                    <input type="password" id="login-password" class="field-input" placeholder="••••••••" required>
+                                    <button type="button" class="toggle-pass" data-target="login-password">👁</button>
+                                </div>
+                                <span id="login-pass-err" class="field-error"></span>
+                            </div>
+                            <button type="submit" id="login-submit-btn" class="submit-btn">
+                                <span class="btn-text">Sign In</span>
+                                <span class="btn-arrow">→</span>
+                            </button>
+                        </form>
+                        <p class="form-footer-text">New to VirtuBank? <button id="goto-signup-link" class="text-link">Create an account</button></p>
+                    </div>
                 </div>
-                <span class="field-error" id="login-pass-err"></span>
-              </div>
-              <button type="submit" class="submit-btn" id="login-submit-btn">
-                <span class="btn-text">Sign In</span>
-                <span class="btn-arrow" aria-hidden="true">→</span>
-              </button>
+            </div>
+        </section>
+
+        <section id="section-signup" class="section">
+            <div class="signup-wrapper">
+                <div class="signup-card">
+                    <div class="signup-header">
+                        <h2 class="form-title large">Join VirtuBank</h2>
+                        <p class="form-subtitle">Create a secure digital identity in seconds.</p>
+                    </div>
+                    <form id="signup-form">
+                        <div class="form-section">
+                            <div class="section-legend"><span class="legend-num">01</span> Personal Details</div>
+                            <div class="form-grid">
+                                <div class="field-group"><label class="field-label">Full Name</label><input type="text" id="s-name" class="field-input" required></div>
+                                <div class="field-group"><label class="field-label">Age</label><input type="number" id="s-age" class="field-input" required></div>
+                                <div class="field-group"><label class="field-label">Gender</label><select id="s-gender" class="field-input"><option>Male</option><option>Female</option><option>Other</option></select></div>
+                                <div class="field-group"><label class="field-label">Status</label><select id="s-marital" class="field-input"><option>Single</option><option>Married</option></select></div>
+                            </div>
+                        </div>
+                        <div class="form-section">
+                            <div class="section-legend"><span class="legend-num">02</span> Identity & Contact</div>
+                            <div class="form-grid">
+                                <div class="field-group"><label class="field-label">PAN Card</label><input type="text" id="s-pan" class="field-input mono" maxlength="10" required></div>
+                                <div class="field-group"><label class="field-label">Aadhar Number</label><input type="text" id="s-aadhar" class="field-input mono" maxlength="12" required></div>
+                                <div class="field-group"><label class="field-label">Email Address</label><input type="email" id="s-email" class="field-input" required></div>
+                                <div class="field-group"><label class="field-label">Mobile Number</label><input type="tel" id="s-mobile" class="field-input" maxlength="10" required></div>
+                                <div class="field-group col-2"><label class="field-label">Full Address</label><textarea id="s-address" class="field-input field-textarea" required></textarea></div>
+                            </div>
+                        </div>
+                        <div class="form-section">
+                            <div class="section-legend"><span class="legend-num">03</span> Security</div>
+                            <div class="form-grid">
+                                <div class="field-group">
+                                    <label class="field-label">Login Password</label>
+                                    <input type="password" id="s-password" class="field-input" required>
+                                    <span id="s-password-err" class="field-error"></span>
+                                </div>
+                                <div class="field-group">
+                                    <label class="field-label">4-Digit MPIN</label>
+                                    <input type="password" id="s-mpin" class="field-input mono" maxlength="4" required>
+                                    <span id="s-mpin-err" class="field-error"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" id="signup-submit-btn" class="submit-btn">
+                            <span class="btn-text">Create My Account</span>
+                            <span class="btn-arrow">→</span>
+                        </button>
+                        <p class="form-footer-text">Already have a UID? <button type="button" id="goto-login-link" class="text-link">Sign in here</button></p>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-dashboard" class="section">
+            <div class="dashboard-layout">
+                <div class="dashboard-topbar">
+                    <div class="dashboard-brand">
+                        <span class="logo-mark">🏛️</span>
+                        <h3 id="dash-greeting" class="logo-text">Namaste</h3>
+                    </div>
+                    <div class="dashboard-actions">
+                        <button id="logout-btn" class="logout-btn"><span>Logout</span></button>
+                    </div>
+                </div>
+
+                <div class="balance-card">
+                    <div class="card-glow"></div>
+                    <div class="balance-card-inner">
+                        <div class="card-top">
+                            <span class="card-label">Digital Savings Account</span>
+                            <span class="card-bank-name">VirtuBank Cloud</span>
+                        </div>
+                        <div class="card-balance">
+                            <span class="currency-symbol">₹</span>
+                            <span id="dash-balance" class="balance-amount">0.00</span>
+                        </div>
+                        <div class="card-bottom">
+                            <div>
+                                <span class="card-meta-label">Account Holder</span>
+                                <span id="dash-name" class="card-holder-name">Loading...</span>
+                            </div>
+                            <div>
+                                <span class="card-meta-label">UID Number</span>
+                                <span id="dash-uid" class="card-uid-value">XXXXX</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-row">
+                    <button id="open-transfer-btn" class="action-btn action-btn--gold">💸 Send Money</button>
+                    <button id="open-voice-btn" class="action-btn action-btn--primary">🎙️ Voice Pay</button>
+                    <button id="open-fav-btn" class="action-btn action-btn--secondary">⭐ Favorites</button>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-tile">
+                        <div class="info-tile-icon">🐷</div>
+                        <div class="info-tile-label">PIGGY BANK</div>
+                        <div class="info-tile-value accent">₹<span id="dash-piggy-balance">0.00</span></div>
+                    </div>
+                    <div class="info-tile">
+                        <div class="info-tile-icon">🛡️</div>
+                        <div class="info-tile-label">STATUS</div>
+                        <div class="info-tile-value status-active">Secure</div>
+                    </div>
+                    <div class="info-tile">
+                        <div class="info-tile-icon">📊</div>
+                        <div class="info-tile-label">TXNS</div>
+                        <div id="dash-txn-count" class="info-tile-value">0</div>
+                    </div>
+                    <div class="info-tile">
+                        <div class="info-tile-icon">💎</div>
+                        <div class="info-tile-label">REWARDS</div>
+                        <div class="info-tile-value">Classic</div>
+                    </div>
+                </div>
+
+                <button id="toggle-history-btn" class="action-btn action-btn--secondary" style="width:100%; margin-bottom:20px;">📜 View Recent History</button>
+                
+                <div id="history-panel" class="history-panel">
+                    <div class="history-header">
+                        <h4 class="history-title">Transaction Log <span id="history-count-badge" class="history-badge">0 / 5</span></h4>
+                    </div>
+                    <div id="history-list" class="history-list">
+                        </div>
+                </div>
+
+                <div class="dashboard-footer">
+                    <button id="open-delete-btn" class="text-link" style="color:var(--error); font-size:12px;">Close My Account</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="uid-modal" class="modal-backdrop">
+        <div class="modal-card">
+            <div class="modal-glow"></div>
+            <span class="modal-seal">✨</span>
+            <h3 class="modal-title">Welcome Aboard</h3>
+            <p class="modal-subtitle">Your unique digital identity has been created.</p>
+            <div class="modal-uid-block">
+                <span class="modal-uid-label">Your Private UID</span>
+                <span id="modal-uid-value" class="modal-uid-value">XXXXX</span>
+                <button id="copy-uid-btn" class="copy-btn">Copy UID</button>
+            </div>
+            <p class="modal-note">Please <strong>save this UID</strong>. You will need it every time you log in to your vault.</p>
+            <button id="modal-proceed-btn" class="modal-cta">Go to Login</button>
+        </div>
+    </div>
+
+    <div id="transfer-modal" class="modal-backdrop">
+        <div class="modal-card modal-card--wide">
+            <button id="transfer-close-btn" class="modal-close-btn">✕</button>
+            <h3 class="modal-title">Send Money</h3>
+            <div class="modal-tabs">
+                <button class="modal-tab active" data-tab="internal" id="tab-internal">VirtuBank UID</button>
+                <button class="modal-tab" data-tab="external">Any UPI ID</button>
+            </div>
+
+            <div id="transfer-panel-internal" class="transfer-panel active">
+                <form id="internal-transfer-form">
+                    <div class="field-group">
+                        <label class="field-label">Receiver UID</label>
+                        <input type="text" id="int-receiver-uid" class="field-input mono" placeholder="Enter UID" required>
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">Amount (₹)</label>
+                        <input type="number" id="int-amount" class="field-input" step="0.01" required>
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">Confirm MPIN</label>
+                        <input type="password" id="int-mpin" class="field-input mono" maxlength="4" required>
+                    </div>
+                    <button type="submit" id="int-submit-btn" class="modal-cta">Send Money</button>
+                </form>
+            </div>
+
+            <div id="transfer-panel-external" class="transfer-panel">
+                <form id="external-transfer-form">
+                    <div class="field-group">
+                        <label class="field-label">UPI ID</label>
+                        <input type="text" id="ext-upi" class="field-input" placeholder="name@bank" required>
+                        <span id="ext-upi-err" class="field-error"></span>
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">Amount (₹)</label>
+                        <input type="number" id="ext-amount" class="field-input" step="0.01" required>
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">Confirm MPIN</label>
+                        <input type="password" id="ext-mpin" class="field-input mono" maxlength="4" required>
+                    </div>
+                    <button type="submit" id="ext-submit-btn" class="modal-cta">Confirm Transfer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="voice-modal" class="modal-backdrop">
+        <div class="modal-card">
+            <button id="voice-close-btn" class="modal-close-btn">✕</button>
+            <div class="mic-pulse-container">
+                <div class="mic-pulse"></div>
+                <span class="mic-icon">🎙️</span>
+            </div>
+            <h3 class="modal-title">Listening...</h3>
+            <p class="modal-subtitle">Try: "Send 500 to Nikki"</p>
+            <div id="voice-transcript" class="voice-transcript">"..."</div>
+        </div>
+    </div>
+
+    <div id="favorites-modal" class="modal-backdrop">
+        <div class="modal-card">
+            <button id="fav-close-btn" class="modal-close-btn">✕</button>
+            <h3 class="modal-title">Favorites</h3>
+            <div id="fav-list-container" class="fav-list-container">
+                </div>
+            <form id="add-fav-form" class="add-fav-form">
+                <p class="fav-form-title">Add New Favorite</p>
+                <input type="text" id="fav-name" class="field-input" placeholder="Alias Name (e.g. Nikki)" required style="margin-bottom:10px;">
+                <input type="text" id="fav-uid" class="field-input mono" placeholder="Account UID" required style="margin-bottom:15px;">
+                <button type="submit" id="fav-submit-btn" class="modal-cta">Add to Favorites</button>
             </form>
-            <p class="form-footer-text">Don't have an account? <button class="text-link" id="goto-signup-link">Open one — it's free.</button></p>
-          </div>
         </div>
-      </div>
-    </section>
-
-    <section id="section-signup" class="section" aria-label="Open Account">
-      <div class="signup-wrapper">
-        <div class="signup-header">
-          <div class="brand-badge">New Account</div>
-          <h2 class="form-title large">Open your account</h2>
-          <p class="form-subtitle">Complete the form below. All fields are required.</p>
-        </div>
-        <div class="signup-card">
-          <form id="signup-form" novalidate autocomplete="off">
-            <fieldset class="form-section">
-              <legend class="section-legend"><span class="legend-num">01</span> Personal Information</legend>
-              <div class="form-grid">
-                <div class="field-group col-2">
-                  <label class="field-label" for="s-name">Full Name</label>
-                  <div class="field-wrap"><input type="text" id="s-name" class="field-input" placeholder="As per Aadhaar" required /></div>
-                  <span class="field-error" id="s-name-err"></span>
-                </div>
-                <div class="field-group">
-                  <label class="field-label" for="s-age">Age</label>
-                  <div class="field-wrap"><input type="number" id="s-age" class="field-input" placeholder="Years" min="18" max="120" required /></div>
-                  <span class="field-error" id="s-age-err"></span>
-                </div>
-                <div class="field-group">
-                  <label class="field-label" for="s-gender">Gender</label>
-                  <div class="field-wrap select-wrap">
-                    <select id="s-gender" class="field-input field-select" required>
-                      <option value="" disabled selected>Select</option>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                      <option value="Other">Other</option>
-                    </select>
-                    <span class="select-arrow" aria-hidden="true">⌄</span>
-                  </div>
-                  <span class="field-error" id="s-gender-err"></span>
-                </div>
-                <div class="field-group col-2">
-                  <label class="field-label" for="s-marital">Marital Status</label>
-                  <div class="field-wrap select-wrap">
-                    <select id="s-marital" class="field-input field-select" required>
-                      <option value="" disabled selected>Select</option>
-                      <option value="Single">Single</option>
-                      <option value="Married">Married</option>
-                      <option value="Divorced">Divorced</option>
-                      <option value="Widowed">Widowed</option>
-                    </select>
-                    <span class="select-arrow" aria-hidden="true">⌄</span>
-                  </div>
-                  <span class="field-error" id="s-marital-err"></span>
-                </div>
-              </div>
-            </fieldset>
-            <fieldset class="form-section">
-              <legend class="section-legend"><span class="legend-num">02</span> Identity Documents</legend>
-              <div class="form-grid">
-                <div class="field-group">
-                  <label class="field-label" for="s-pan">PAN Number</label>
-                  <div class="field-wrap"><input type="text" id="s-pan" class="field-input mono" placeholder="ABCDE1234F" maxlength="10" required /></div>
-                  <span class="field-error" id="s-pan-err"></span>
-                </div>
-                <div class="field-group">
-                  <label class="field-label" for="s-aadhar">Aadhaar Number</label>
-                  <div class="field-wrap"><input type="text" id="s-aadhar" class="field-input mono" placeholder="12-digit number" maxlength="12" required /></div>
-                  <span class="field-error" id="s-aadhar-err"></span>
-                </div>
-              </div>
-            </fieldset>
-            <fieldset class="form-section">
-              <legend class="section-legend"><span class="legend-num">03</span> Contact Details</legend>
-              <div class="form-grid">
-                <div class="field-group">
-                  <label class="field-label" for="s-email">Email Address</label>
-                  <div class="field-wrap"><input type="email" id="s-email" class="field-input" placeholder="you@example.com" required /></div>
-                  <span class="field-error" id="s-email-err"></span>
-                </div>
-                <div class="field-group">
-                  <label class="field-label" for="s-mobile">Mobile Number</label>
-                  <div class="field-wrap"><input type="tel" id="s-mobile" class="field-input mono" placeholder="10-digit number" maxlength="10" required /></div>
-                  <span class="field-error" id="s-mobile-err"></span>
-                </div>
-                <div class="field-group col-2">
-                  <label class="field-label" for="s-address">Residential Address</label>
-                  <div class="field-wrap"><textarea id="s-address" class="field-input field-textarea" placeholder="House / Flat no., Street, City, State, PIN" rows="3" required></textarea></div>
-                  <span class="field-error" id="s-address-err"></span>
-                </div>
-              </div>
-            </fieldset>
-            <fieldset class="form-section">
-              <legend class="section-legend"><span class="legend-num">04</span> Security Credentials</legend>
-              <div class="form-grid">
-                <div class="field-group">
-                  <label class="field-label" for="s-password">Password</label>
-                  <div class="field-wrap">
-                    <input type="password" id="s-password" class="field-input" placeholder="Min 8 characters" required autocomplete="new-password" />
-                    <button type="button" class="toggle-pass" data-target="s-password" aria-label="Toggle password visibility"><span class="eye-icon">👁</span></button>
-                  </div>
-                  <span class="field-error" id="s-password-err"></span>
-                </div>
-                <div class="field-group">
-                  <label class="field-label" for="s-mpin">MPIN</label>
-                  <div class="field-wrap"><input type="password" id="s-mpin" class="field-input mono" placeholder="4–6 digit PIN" maxlength="6" inputmode="numeric" required autocomplete="new-password" /></div>
-                  <span class="field-error" id="s-mpin-err"></span>
-                </div>
-              </div>
-            </fieldset>
-            <div class="form-actions">
-              <button type="submit" class="submit-btn full" id="signup-submit-btn">
-                <span class="btn-text">Create My Account</span>
-                <span class="btn-arrow" aria-hidden="true">→</span>
-              </button>
-              <p class="form-footer-text center">Already have an account? <button type="button" class="text-link" id="goto-login-link">Sign in here.</button></p>
-            </div>
-          </form>
-        </div>
-      </div>
-    </section>
-
-    <section id="section-dashboard" class="section" aria-label="Dashboard">
-      <div class="dashboard-layout">
-        <div class="dashboard-topbar">
-          <div class="dashboard-brand">
-            <span class="logo-mark" aria-hidden="true">◈</span>
-            <span class="logo-text">VirtuBank</span>
-          </div>
-          <div class="dashboard-actions">
-            <span id="dash-greeting" class="dash-greeting">Good day</span>
-            <button class="logout-btn" id="logout-btn"><span>Sign Out</span><span aria-hidden="true">↗</span></button>
-          </div>
-        </div>
-
-        <div class="balance-card">
-          <div class="balance-card-inner">
-            <div class="card-chip" aria-hidden="true">
-              <div class="chip-line"></div>
-              <div class="chip-line"></div>
-              <div class="chip-line"></div>
-            </div>
-            <div class="card-top">
-              <span class="card-label">Available Balance</span>
-              <span class="card-bank-name">VirtuBank</span>
-            </div>
-            <div class="card-balance">
-              <span class="currency-symbol">₹</span>
-              <span id="dash-balance" class="balance-amount">0.00</span>
-            </div>
-            <div class="card-bottom">
-              <div class="card-holder">
-                <span class="card-meta-label">Account Holder</span>
-                <span id="dash-name" class="card-holder-name">—</span>
-              </div>
-              <div class="card-uid">
-                <span class="card-meta-label">Account UID</span>
-                <span id="dash-uid" class="card-uid-value mono">—</span>
-              </div>
-            </div>
-          </div>
-          <div class="card-glow" aria-hidden="true"></div>
-        </div>
-
-        <div class="action-row">
-          <button class="action-btn action-btn--primary" id="open-transfer-btn">
-            <span class="action-btn-icon" aria-hidden="true">↗</span>
-            <span class="action-btn-label">Transfer</span>
-          </button>
-          <button class="action-btn action-btn--gold" id="open-voice-btn" title="Voice Pay">
-            <span class="action-btn-icon" aria-hidden="true">🎙️</span>
-            <span class="action-btn-label">Voice Pay</span>
-          </button>
-          <button class="action-btn action-btn--secondary" id="open-fav-btn">
-            <span class="action-btn-icon" aria-hidden="true">⭐</span>
-            <span class="action-btn-label">Favorites</span>
-          </button>
-          <button class="action-btn action-btn--secondary" id="toggle-history-btn">
-            <span class="action-btn-icon" aria-hidden="true">⟳</span>
-            <span class="action-btn-label">History</span>
-          </button>
-          <button class="action-btn action-btn--danger" id="open-delete-btn">
-            <span class="action-btn-icon" aria-hidden="true">⊗</span>
-            <span class="action-btn-label">Delete</span>
-          </button>
-        </div>
-
-        <div class="info-grid">
-          <div class="info-tile">
-            <span class="info-tile-icon" aria-hidden="true">⬡</span>
-            <span class="info-tile-label">Account Status</span>
-            <span class="info-tile-value status-active">Active</span>
-          </div>
-          <div class="info-tile">
-            <span class="info-tile-icon" aria-hidden="true">◈</span>
-            <span class="info-tile-label">Saved Favorites</span>
-            <span class="info-tile-value" id="dash-fav-count">0 / 5</span>
-          </div>
-          <div class="info-tile">
-            <span class="info-tile-icon" aria-hidden="true">✦</span>
-            <span class="info-tile-label">Welcome Bonus</span>
-            <span class="info-tile-value accent">₹5,000</span>
-          </div>
-          <div class="info-tile">
-            <span class="info-tile-icon" aria-hidden="true">⊙</span>
-            <span class="info-tile-label">Last Transactions</span>
-            <span class="info-tile-value" id="dash-txn-count">0 records</span>
-          </div>
-        </div>
-
-        <div class="history-panel" id="history-panel" aria-live="polite">
-          <div class="history-header">
-            <h3 class="history-title">
-              <span aria-hidden="true">⟳</span> Transaction History
-            </h3>
-            <span class="history-badge" id="history-count-badge">0 / 5</span>
-          </div>
-          <div class="history-list" id="history-list">
-            <div class="history-empty">
-              <span class="history-empty-icon" aria-hidden="true">◌</span>
-              <p>No transactions yet. Make your first transfer to get started.</p>
-            </div>
-          </div>
-        </div>
-
-        <p class="dashboard-footer">VirtuBank keeps your last 5 transactions. Older records are automatically removed.</p>
-
-      </div>
-    </section>
-  </main>
-
-  <button class="ai-fab" id="ai-fab" aria-label="Ask Virtu-Mitra" style="display:none;">
-    <span class="ai-fab-icon">✨</span>
-  </button>
-
-  <div class="ai-chat-window" id="ai-chat-window">
-    <div class="ai-chat-header">
-      <div class="ai-header-info">
-        <span class="ai-icon">✨</span>
-        <div>
-          <h4 class="ai-title">Virtu-Mitra</h4>
-          <span class="ai-subtitle">AI Financial Advisor</span>
-        </div>
-      </div>
-      <button class="modal-close-btn" id="ai-close-btn" style="position:static; width:28px; height:28px;">✕</button>
     </div>
-    <div class="ai-chat-body" id="ai-chat-body">
-      <div class="chat-msg bot-msg">Namaste! I am Virtu-Mitra. How can I help you with your savings, loans, or financial planning today?</div>
-    </div>
-    <div class="ai-chat-footer">
-      <input type="text" id="ai-chat-input" placeholder="Ask something (e.g. Mudra Loan)" autocomplete="off" />
-      <button id="ai-chat-send">➤</button>
-    </div>
-  </div>
 
-  <script src="script.js"></script>
+    <div id="delete-modal" class="modal-backdrop">
+        <div class="modal-card">
+            <div class="modal-glow modal-glow--red"></div>
+            <span class="modal-seal modal-seal--red">⚠️</span>
+            <h3 class="modal-title">Close Account?</h3>
+            <p class="modal-subtitle">This action is permanent and cannot be undone.</p>
+            <div class="captcha-block">
+                <span class="captcha-label">Security Check</span>
+                <span id="captcha-question" class="captcha-question">...</span>
+                <input type="number" id="captcha-answer" class="field-input" style="text-align:center; width:80px;">
+                <span id="captcha-err" class="field-error"></span>
+            </div>
+            <button id="confirm-delete-btn" class="modal-cta danger-btn">Yes, Delete Forever</button>
+            <br><br>
+            <button id="delete-close-btn" class="text-link cancel-link">Wait, I changed my mind</button>
+        </div>
+    </div>
+
+    <button id="ai-fab" class="ai-fab" style="display:none;">
+        <span class="ai-fab-icon">✨</span>
+    </button>
+
+    <div id="ai-chat-window" class="ai-chat-window">
+        <div class="ai-chat-header">
+            <div class="ai-header-info">
+                <span class="ai-icon">🤖</span>
+                <div>
+                    <h4 class="ai-title">Virtu-Mitra</h4>
+                    <span class="ai-subtitle">AI Financial Advisor</span>
+                </div>
+            </div>
+            <button id="ai-close-btn" class="modal-close-btn" style="position:static;">✕</button>
+        </div>
+        <div id="ai-chat-body" class="ai-chat-body">
+            <div class="chat-msg bot-msg">Namaste! Main aapka Virtu-Mitra hoon. Saving ya banking ke baare mein kuch poochna hai?</div>
+        </div>
+        <div class="ai-chat-footer">
+            <input type="text" id="ai-chat-input" placeholder="Ask anything...">
+            <button id="ai-chat-send">📤</button>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+
 </body>
 </html>
