@@ -103,14 +103,8 @@
                         <div class="form-section">
                             <div class="section-legend"><span class="legend-num">03</span> Security</div>
                             <div class="form-grid">
-                                <div class="field-group">
-                                    <label class="field-label">Login Password</label>
-                                    <input type="password" id="s-password" class="field-input" required>
-                                </div>
-                                <div class="field-group">
-                                    <label class="field-label">4-Digit MPIN</label>
-                                    <input type="password" id="s-mpin" class="field-input mono" maxlength="4" required>
-                                </div>
+                                <div class="field-group"><label class="field-label">Login Password</label><input type="password" id="s-password" class="field-input" required></div>
+                                <div class="field-group"><label class="field-label">4-Digit MPIN</label><input type="password" id="s-mpin" class="field-input mono" maxlength="4" required></div>
                             </div>
                         </div>
                         <button type="submit" id="signup-submit-btn" class="submit-btn"><span class="btn-text">Create My Account</span><span class="btn-arrow">→</span></button>
@@ -179,11 +173,11 @@
             <h3 class="modal-title">Send Money</h3>
             
             <div class="modal-tabs">
-                <button class="modal-tab active" data-tab="internal" id="tab-internal" onclick="document.getElementById('transfer-panel-internal').style.display='block'; document.getElementById('transfer-panel-external').style.display='none';">VirtuBank UID</button>
-                <button class="modal-tab" data-tab="external" onclick="document.getElementById('transfer-panel-internal').style.display='none'; document.getElementById('transfer-panel-external').style.display='block';">Any UPI ID</button>
+                <button class="modal-tab active" data-tab="internal" id="tab-internal">VirtuBank UID</button>
+                <button class="modal-tab" data-tab="external">Any UPI ID</button>
             </div>
 
-            <div id="transfer-panel-internal" class="transfer-panel active" style="display:block;">
+            <div id="transfer-panel-internal" class="transfer-panel active">
                 <form id="internal-transfer-form">
                     <div class="field-group"><label class="field-label">Receiver UID</label><input type="text" id="int-receiver-uid" class="field-input mono" placeholder="Enter UID" required></div>
                     <div class="field-group"><label class="field-label">Amount (₹)</label><input type="number" id="int-amount" class="field-input" step="0.01" required></div>
@@ -192,7 +186,7 @@
                 </form>
             </div>
 
-            <div id="transfer-panel-external" class="transfer-panel" style="display:none;">
+            <div id="transfer-panel-external" class="transfer-panel">
                 <form id="external-transfer-form">
                     <div class="field-group"><label class="field-label">UPI ID</label><input type="text" id="ext-upi" class="field-input" placeholder="name@bank" required></div>
                     <div class="field-group"><label class="field-label">Amount (₹)</label><input type="number" id="ext-amount" class="field-input" step="0.01" required></div>

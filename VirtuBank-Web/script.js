@@ -1,5 +1,5 @@
 // ============================================================
-//  VirtuBank — script.js (v10 — The Master UI/UX Update)
+//  VirtuBank — script.js (v11 — THE ULTIMATE MASTER EDITION)
 // ============================================================
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
@@ -7,7 +7,7 @@ import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, query, where,
 
 // 1. FIREBASE CONFIGURATION
 const firebaseConfig = {
-  apiKey: "AIzaSyDp0dcnMcAQftNUqR16J4QxdKgONT6TESw",
+  apiKey: "AIzaSyBv3JECRwVdal3oc4994_UIagUbb3x5xBc",
   authDomain: "virtubank999.firebaseapp.com",
   projectId: "virtubank999",
   storageBucket: "virtubank999.firebasestorage.app",
@@ -148,13 +148,26 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-    // Navigation Buttons
+    // 1. Navigation Buttons
     document.getElementById("nav-login-btn")?.addEventListener("click", () => showSection("section-login"));
     document.getElementById("nav-signup-btn")?.addEventListener("click", () => showSection("section-signup"));
     document.getElementById("goto-signup-link")?.addEventListener("click", () => showSection("section-signup"));
     document.getElementById("goto-login-link")?.addEventListener("click", () => showSection("section-login"));
 
-    // Login Form Submit
+    // 2. Transfer Tabs Switcher Logic (THE FIX)
+    const tabs = document.querySelectorAll(".modal-tab");
+    tabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+            document.querySelectorAll(".modal-tab").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".transfer-panel").forEach(p => p.classList.remove("active"));
+            
+            tab.classList.add("active");
+            const targetPanel = tab.dataset.tab === "internal" ? "transfer-panel-internal" : "transfer-panel-external";
+            document.getElementById(targetPanel).classList.add("active");
+        });
+    });
+
+    // 3. Login Form Submit
     document.getElementById("login-form")?.addEventListener("submit", async (e) => {
         e.preventDefault();
         const btn = document.getElementById("login-submit-btn");
@@ -176,7 +189,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         btn.disabled = false; btn.querySelector(".btn-text").textContent = "Sign In";
     });
 
-    // Signup Form Submit
+    // 4. Signup Form Submit
     document.getElementById("signup-form")?.addEventListener("submit", async (e) => {
         e.preventDefault();
         const btn = document.getElementById("signup-submit-btn");
@@ -210,7 +223,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         showSection("section-login");
     });
 
-    // --- TRANSFER: INTERNAL ---
+    // 5. --- TRANSFER: INTERNAL ---
     document.getElementById("internal-transfer-form")?.addEventListener("submit", async (e) => {
         e.preventDefault();
         const senderUID = sessionStorage.getItem(SESSION_KEY);
@@ -245,7 +258,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             
             showToast(`Sent! Auto-saved ₹${saved} in Piggy Bank.`);
             
-            // Refresh Dashboard
             const freshRes = await searchAccount(senderUID);
             populateDashboard(freshRes.account);
         } else { 
@@ -253,7 +265,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     });
 
-    // --- TRANSFER: EXTERNAL (UPI) - FIXED! ---
+    // 6. --- TRANSFER: EXTERNAL (UPI) ---
     document.getElementById("external-transfer-form")?.addEventListener("submit", async (e) => {
         e.preventDefault();
         const senderUID = sessionStorage.getItem(SESSION_KEY);
@@ -280,13 +292,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             
             showToast(`UPI Transfer Sent! Auto-saved ₹${saved}`);
             
-            // Refresh Dashboard
             const freshRes = await searchAccount(senderUID);
             populateDashboard(freshRes.account);
         }
     });
 
-    // Modals Open/Close
+    // 7. Modals Open/Close Helper
     document.getElementById("open-transfer-btn")?.addEventListener("click", () => document.getElementById("transfer-modal").classList.add("open"));
     document.getElementById("transfer-close-btn")?.addEventListener("click", () => document.getElementById("transfer-modal").classList.remove("open"));
     
@@ -294,7 +305,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("history-panel").classList.toggle("open");
     });
 
-    // --- GEMINI AI BOT (WITH ENTER KEY FIX) ---
+    // 8. --- GEMINI AI BOT (WITH ERROR DEBUGGING) ---
     document.getElementById("ai-fab")?.addEventListener("click", () => document.getElementById("ai-chat-window").classList.toggle("open"));
     document.getElementById("ai-close-btn")?.addEventListener("click", () => document.getElementById("ai-chat-window").classList.remove("open"));
 
@@ -303,11 +314,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         const chatBody = document.getElementById("ai-chat-body");
         if (!input.value.trim()) return;
 
-        chatBody.innerHTML += `<div class="chat-msg user-msg">${input.value}</div>`;
         const prompt = input.value;
+        chatBody.innerHTML += `<div class="chat-msg user-msg">${prompt}</div>`;
         input.value = "";
 
-        // Add loader
         const loaderId = "loader-" + Date.now();
         chatBody.innerHTML += `<div id="${loaderId}" class="chat-msg bot-msg typing-indicator">Thinking...</div>`;
         chatBody.scrollTop = chatBody.scrollHeight;
@@ -318,16 +328,21 @@ document.addEventListener("DOMContentLoaded", async () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ contents: [{ parts: [{ text: "You are Virtu-Mitra, a simple finance AI for a student banking app. Keep answers under 2 sentences. User says: " + prompt }] }] })
             });
+            
             const result = await response.json();
             document.getElementById(loaderId)?.remove();
             
-            if(result.error) throw new Error("API Limit");
+            if (!response.ok) {
+                console.error("Gemini API Error details:", result);
+                throw new Error(result.error?.message || "API request failed");
+            }
 
             const reply = result.candidates[0].content.parts[0].text;
             chatBody.innerHTML += `<div class="chat-msg bot-msg">${reply}</div>`;
         } catch(e) {
             document.getElementById(loaderId)?.remove();
-            chatBody.innerHTML += `<div class="chat-msg bot-msg" style="color:red;">Network Error. Try later.</div>`;
+            console.error("Chatbot Error:", e);
+            chatBody.innerHTML += `<div class="chat-msg bot-msg" style="color:#d64040;">System Error: ${e.message}</div>`;
         }
         chatBody.scrollTop = chatBody.scrollHeight;
     };
@@ -337,7 +352,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (e.key === "Enter") handleChat();
     });
 
-    // Logout
+    // 9. Logout
     document.getElementById("logout-btn")?.addEventListener("click", () => { 
         sessionStorage.removeItem(SESSION_KEY); 
         location.reload(); 
