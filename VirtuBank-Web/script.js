@@ -1,18 +1,12 @@
 // ============================================================
-//  VirtuBank — script.js (v17 — THE NINJA API KEY FIX)
+//  VirtuBank — script.js (v18 — FINAL CLEAN FIX)
 // ============================================================
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
 // ==========================================
-// 1. FIREBASE CONFIGURATION (ISKO MAT CHHOONA)
-// ==========================================
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
-
-// ==========================================
-// 1. FIREBASE CONFIGURATION (Database ke liye)
+// 1. FIREBASE CONFIGURATION
 // ==========================================
 const firebaseConfig = {
   apiKey: "AIzaSyDp0dcnMcAQftNUqR16J4QxdKgONT6TESw",
@@ -26,17 +20,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// ... beech ka code ...
-
 // ==========================================
-// 2. GEMINI API KEY (YAHAN APNI NAYI KEY DAAL 4 PARTS MEIN)
+// 2. GEMINI API KEY (Yahan apni NAYI key dhyan se daalna)
 // ==========================================
 const GEMINI_API_KEY = [
-    "AIzaSyCw",             // Start
-    "-uC4Z-",    // Nayi key ka tukda
-    "STQNY50xXwQB4",    // Nayi key ka tukda
-    "EupSgP2HYtbo"       // Aakhiri tukda
-].join("");
+    "AIzaSyCw",             // Start ka hissa (sabki key yahan se shuru hoti hai)
+    "-uC4Z-",        // Agla hissa (e.g., "AbCdEfG")
+    "STQNY50xXwQB4",        // Uss se agla hissa (e.g., "123456")
+    "EupSgP2HYtbo"         // Aakhiri bacha hua hissa (e.g., "XyZ")
+].join(""); 
 
 const SESSION_KEY     = "virtuBankSession";
 const INITIAL_BALANCE = 5000;
@@ -312,7 +304,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("history-panel").classList.toggle("open");
     });
 
-    // --- GEMINI AI BOT (GEMINI 2.5 FLASH FIX FOR 2026) ---
+    // --- GEMINI AI BOT ---
     document.getElementById("ai-fab")?.addEventListener("click", () => document.getElementById("ai-chat-window").classList.toggle("open"));
     document.getElementById("ai-close-btn")?.addEventListener("click", () => document.getElementById("ai-chat-window").classList.remove("open"));
 
