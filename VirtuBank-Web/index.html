@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VirtuBank | Future of Rural Banking</title>
-    
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -64,23 +63,20 @@
                                     <span class="field-icon">👤</span>
                                     <input type="text" id="login-uid" class="field-input mono" placeholder="XXXXX-XXXXX" required>
                                 </div>
-                                <span id="login-uid-err" class="field-error"></span>
                             </div>
                             <div class="field-group">
                                 <label class="field-label">Secret Password</label>
                                 <div class="field-wrap">
                                     <span class="field-icon">🔒</span>
                                     <input type="password" id="login-password" class="field-input" placeholder="••••••••" required>
-                                    <button type="button" class="toggle-pass" data-target="login-password">👁</button>
                                 </div>
-                                <span id="login-pass-err" class="field-error"></span>
                             </div>
                             <button type="submit" id="login-submit-btn" class="submit-btn">
                                 <span class="btn-text">Sign In</span>
                                 <span class="btn-arrow">→</span>
                             </button>
                         </form>
-                        <p class="form-footer-text">New to VirtuBank? <button id="goto-signup-link" class="text-link">Create an account</button></p>
+                        <p class="form-footer-text">New to VirtuBank? <button type="button" id="goto-signup-link" class="text-link">Create an account</button></p>
                     </div>
                 </div>
             </div>
@@ -119,12 +115,10 @@
                                 <div class="field-group">
                                     <label class="field-label">Login Password</label>
                                     <input type="password" id="s-password" class="field-input" required>
-                                    <span id="s-password-err" class="field-error"></span>
                                 </div>
                                 <div class="field-group">
                                     <label class="field-label">4-Digit MPIN</label>
                                     <input type="password" id="s-mpin" class="field-input mono" maxlength="4" required>
-                                    <span id="s-mpin-err" class="field-error"></span>
                                 </div>
                             </div>
                         </div>
@@ -196,25 +190,15 @@
                         <div class="info-tile-label">TXNS</div>
                         <div id="dash-txn-count" class="info-tile-value">0</div>
                     </div>
-                    <div class="info-tile">
-                        <div class="info-tile-icon">💎</div>
-                        <div class="info-tile-label">REWARDS</div>
-                        <div class="info-tile-value">Classic</div>
-                    </div>
                 </div>
 
                 <button id="toggle-history-btn" class="action-btn action-btn--secondary" style="width:100%; margin-bottom:20px;">📜 View Recent History</button>
                 
                 <div id="history-panel" class="history-panel">
                     <div class="history-header">
-                        <h4 class="history-title">Transaction Log <span id="history-count-badge" class="history-badge">0 / 5</span></h4>
+                        <h4 class="history-title">Transaction Log</h4>
                     </div>
-                    <div id="history-list" class="history-list">
-                        </div>
-                </div>
-
-                <div class="dashboard-footer">
-                    <button id="open-delete-btn" class="text-link" style="color:var(--error); font-size:12px;">Close My Account</button>
+                    <div id="history-list" class="history-list"></div>
                 </div>
             </div>
         </section>
@@ -229,7 +213,6 @@
             <div class="modal-uid-block">
                 <span class="modal-uid-label">Your Private UID</span>
                 <span id="modal-uid-value" class="modal-uid-value">XXXXX</span>
-                <button id="copy-uid-btn" class="copy-btn">Copy UID</button>
             </div>
             <p class="modal-note">Please <strong>save this UID</strong>. You will need it every time you log in to your vault.</p>
             <button id="modal-proceed-btn" class="modal-cta">Go to Login</button>
@@ -240,11 +223,7 @@
         <div class="modal-card modal-card--wide">
             <button id="transfer-close-btn" class="modal-close-btn">✕</button>
             <h3 class="modal-title">Send Money</h3>
-            <div class="modal-tabs">
-                <button class="modal-tab active" data-tab="internal" id="tab-internal">VirtuBank UID</button>
-                <button class="modal-tab" data-tab="external">Any UPI ID</button>
-            </div>
-
+            
             <div id="transfer-panel-internal" class="transfer-panel active">
                 <form id="internal-transfer-form">
                     <div class="field-group">
@@ -262,71 +241,6 @@
                     <button type="submit" id="int-submit-btn" class="modal-cta">Send Money</button>
                 </form>
             </div>
-
-            <div id="transfer-panel-external" class="transfer-panel">
-                <form id="external-transfer-form">
-                    <div class="field-group">
-                        <label class="field-label">UPI ID</label>
-                        <input type="text" id="ext-upi" class="field-input" placeholder="name@bank" required>
-                        <span id="ext-upi-err" class="field-error"></span>
-                    </div>
-                    <div class="field-group">
-                        <label class="field-label">Amount (₹)</label>
-                        <input type="number" id="ext-amount" class="field-input" step="0.01" required>
-                    </div>
-                    <div class="field-group">
-                        <label class="field-label">Confirm MPIN</label>
-                        <input type="password" id="ext-mpin" class="field-input mono" maxlength="4" required>
-                    </div>
-                    <button type="submit" id="ext-submit-btn" class="modal-cta">Confirm Transfer</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div id="voice-modal" class="modal-backdrop">
-        <div class="modal-card">
-            <button id="voice-close-btn" class="modal-close-btn">✕</button>
-            <div class="mic-pulse-container">
-                <div class="mic-pulse"></div>
-                <span class="mic-icon">🎙️</span>
-            </div>
-            <h3 class="modal-title">Listening...</h3>
-            <p class="modal-subtitle">Try: "Send 500 to Nikki"</p>
-            <div id="voice-transcript" class="voice-transcript">"..."</div>
-        </div>
-    </div>
-
-    <div id="favorites-modal" class="modal-backdrop">
-        <div class="modal-card">
-            <button id="fav-close-btn" class="modal-close-btn">✕</button>
-            <h3 class="modal-title">Favorites</h3>
-            <div id="fav-list-container" class="fav-list-container">
-                </div>
-            <form id="add-fav-form" class="add-fav-form">
-                <p class="fav-form-title">Add New Favorite</p>
-                <input type="text" id="fav-name" class="field-input" placeholder="Alias Name (e.g. Nikki)" required style="margin-bottom:10px;">
-                <input type="text" id="fav-uid" class="field-input mono" placeholder="Account UID" required style="margin-bottom:15px;">
-                <button type="submit" id="fav-submit-btn" class="modal-cta">Add to Favorites</button>
-            </form>
-        </div>
-    </div>
-
-    <div id="delete-modal" class="modal-backdrop">
-        <div class="modal-card">
-            <div class="modal-glow modal-glow--red"></div>
-            <span class="modal-seal modal-seal--red">⚠️</span>
-            <h3 class="modal-title">Close Account?</h3>
-            <p class="modal-subtitle">This action is permanent and cannot be undone.</p>
-            <div class="captcha-block">
-                <span class="captcha-label">Security Check</span>
-                <span id="captcha-question" class="captcha-question">...</span>
-                <input type="number" id="captcha-answer" class="field-input" style="text-align:center; width:80px;">
-                <span id="captcha-err" class="field-error"></span>
-            </div>
-            <button id="confirm-delete-btn" class="modal-cta danger-btn">Yes, Delete Forever</button>
-            <br><br>
-            <button id="delete-close-btn" class="text-link cancel-link">Wait, I changed my mind</button>
         </div>
     </div>
 

@@ -1,5 +1,5 @@
 // ============================================================
-//  VirtuBank — script.js (v8 — THE ULTIMATE CLOUD EDITION)
+//  VirtuBank — script.js (v9 — BULLETPROOF CLOUD EDITION)
 // ============================================================
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
@@ -29,11 +29,60 @@ const MAX_HISTORY     = 5;
 function nowISO() { return new Date().toISOString(); }
 function formatBalance(n) { return Number(n).toLocaleString("en-IN", { minimumFractionDigits: 2 }); }
 
+function showToast(msg) {
+    const t = document.getElementById("toast");
+    if(t) {
+        document.getElementById("toast-message").textContent = msg;
+        t.className = "toast show";
+        setTimeout(() => t.classList.remove("show"), 3500);
+    } else {
+        alert(msg);
+    }
+}
+
+// UI NAVIGATION HELPER
+function showSection(id) { 
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    const target = document.getElementById(id);
+    if(target) target.classList.add('active');
+    
+    document.getElementById("site-header").classList.toggle("hidden", id === "section-dashboard");
+    document.getElementById("ai-fab").style.display = (id === "section-dashboard") ? "flex" : "none";
+}
+
+function populateDashboard(acc) {
+    document.getElementById("dash-name").textContent = acc.name;
+    document.getElementById("dash-uid").textContent = acc.uid;
+    document.getElementById("dash-balance").textContent = formatBalance(acc.balance);
+    document.getElementById("dash-piggy-balance").textContent = formatBalance(acc.piggyBank || 0);
+    document.getElementById("dash-greeting").textContent = `Namaste, ${acc.name.split(" ")[0]}`;
+    document.getElementById("dash-txn-count").textContent = acc.transactions ? acc.transactions.length : 0;
+    
+    const list = document.getElementById("history-list");
+    if (acc.transactions && acc.transactions.length > 0) {
+        list.innerHTML = acc.transactions.map(t => `
+            <div class="txn-row">
+                <div class="txn-body"><span>${t.description}</span></div>
+                <span class="${t.type}">₹${formatBalance(t.amount)}</span>
+            </div>`).join("");
+    } else {
+        list.innerHTML = `<p style="text-align:center; opacity:0.6; padding: 20px;">No transactions yet.</p>`;
+    }
+}
+
+
 // --- CORE DATABASE FUNCTIONS ---
 async function searchAccount(uid) {
     if(!uid) return { success: false };
-    const docSnap = await getDoc(doc(db, "accounts", uid.trim().toUpperCase()));
-    return docSnap.exists() ? { success: true, account: docSnap.data() } : { success: false };
+    try {
+        const docSnap = await getDoc(doc(db, "accounts", uid.trim().toUpperCase()));
+        if (docSnap.exists()) {
+            return { success: true, account: docSnap.data() };
+        }
+    } catch(e) {
+        console.error("DB Error:", e);
+    }
+    return { success: false };
 }
 
 async function createAccount(data) {
@@ -52,102 +101,122 @@ async function handleSavings(uid, amount) {
     const savings = parseFloat((target - amount).toFixed(2));
     if (savings > 0) {
         const res = await searchAccount(uid);
-        const acc = res.account;
-        if (acc.balance >= savings) {
-            acc.balance -= savings;
-            acc.piggyBank = (acc.piggyBank || 0) + savings;
-            acc.transactions.unshift({ type: 'debit', description: `Piggy Bank Save`, amount: savings, timestamp: nowISO() });
-            await updateDoc(doc(db, "accounts", uid), { 
-                balance: acc.balance, 
-                piggyBank: acc.piggyBank, 
-                transactions: acc.transactions.slice(0, MAX_HISTORY) 
-            });
-            return savings;
+        if(res.success) {
+            const acc = res.account;
+            if (acc.balance >= savings) {
+                acc.balance -= savings;
+                acc.piggyBank = (acc.piggyBank || 0) + savings;
+                acc.transactions.unshift({ type: 'debit', description: `Piggy Bank Auto-Save`, amount: savings, timestamp: nowISO() });
+                await updateDoc(doc(db, "accounts", uid), { 
+                    balance: acc.balance, 
+                    piggyBank: acc.piggyBank, 
+                    transactions: acc.transactions.slice(0, MAX_HISTORY) 
+                });
+                return savings;
+            }
         }
     }
     return 0;
 }
 
-// --- UI NAVIGATION ---
-function showSection(id) { 
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    document.getElementById("site-header").classList.toggle("hidden", id === "section-dashboard");
-    document.getElementById("ai-fab").style.display = (id === "section-dashboard") ? "flex" : "none";
-}
 
-function populateDashboard(acc) {
-    document.getElementById("dash-name").textContent = acc.name;
-    document.getElementById("dash-uid").textContent = acc.uid;
-    document.getElementById("dash-balance").textContent = formatBalance(acc.balance);
-    document.getElementById("dash-piggy-balance").textContent = formatBalance(acc.piggyBank || 0);
-    document.getElementById("dash-greeting").textContent = `Namaste, ${acc.name.split(" ")[0]}`;
-    
-    const list = document.getElementById("history-list");
-    list.innerHTML = acc.transactions.length ? acc.transactions.map(t => `
-        <div class="txn-row">
-            <div class="txn-body"><span>${t.description}</span></div>
-            <span class="${t.type}">₹${formatBalance(t.amount)}</span>
-        </div>`).join("") : `<p>No transactions yet.</p>`;
-}
-
-// --- MAIN EVENT LISTENERS ---
+// --- MAIN EVENT LISTENERS (WAIT FOR DOM) ---
 document.addEventListener("DOMContentLoaded", async () => {
     
-    // Auth Check
+    // Auth Check on Reload
     const session = sessionStorage.getItem(SESSION_KEY);
     if (session) {
         const res = await searchAccount(session);
-        if (res.success) { populateDashboard(res.account); showSection("section-dashboard"); }
+        if (res.success) { 
+            populateDashboard(res.account); 
+            showSection("section-dashboard"); 
+        } else {
+            sessionStorage.removeItem(SESSION_KEY);
+        }
     }
 
-    // Nav Fixes (Module mode me ye aise hi kaam karenge)
-    document.getElementById("nav-login-btn").onclick = () => showSection("section-login");
-    document.getElementById("nav-signup-btn").onclick = () => showSection("section-signup");
-    document.getElementById("goto-signup-link").onclick = () => showSection("section-signup");
-    document.getElementById("goto-login-link").onclick = () => showSection("section-login");
+    // 1. Navigation Buttons Fix
+    document.getElementById("nav-login-btn")?.addEventListener("click", () => showSection("section-login"));
+    document.getElementById("nav-signup-btn")?.addEventListener("click", () => showSection("section-signup"));
+    document.getElementById("goto-signup-link")?.addEventListener("click", () => showSection("section-signup"));
+    document.getElementById("goto-login-link")?.addEventListener("click", () => showSection("section-login"));
 
-    // Login Form
-    document.getElementById("login-form").onsubmit = async (e) => {
+    // 2. Login Form Submit
+    document.getElementById("login-form")?.addEventListener("submit", async (e) => {
         e.preventDefault();
-        const uid = document.getElementById("login-uid").value;
+        const btn = document.getElementById("login-submit-btn");
+        btn.disabled = true; btn.querySelector(".btn-text").textContent = "Checking...";
+        
+        const uid = document.getElementById("login-uid").value.trim().toUpperCase();
         const pass = document.getElementById("login-password").value;
+        
         const res = await searchAccount(uid);
         if (res.success && res.account.password === pass) {
             sessionStorage.setItem(SESSION_KEY, res.account.uid);
             populateDashboard(res.account);
             showSection("section-dashboard");
-        } else { alert("Invalid Credentials!"); }
-    };
+            showToast("Login Successful!");
+        } else { 
+            showToast("Invalid UID or Password!"); 
+        }
+        
+        btn.disabled = false; btn.querySelector(".btn-text").textContent = "Sign In";
+    });
 
-    // Signup Form
-    document.getElementById("signup-form").onsubmit = async (e) => {
+    // 3. Signup Form Submit
+    document.getElementById("signup-form")?.addEventListener("submit", async (e) => {
         e.preventDefault();
+        const btn = document.getElementById("signup-submit-btn");
+        btn.disabled = true; btn.querySelector(".btn-text").textContent = "Creating...";
+
         const data = {
             name: document.getElementById("s-name").value,
-            email: document.getElementById("s-email").value,
+            age: document.getElementById("s-age").value,
+            gender: document.getElementById("s-gender").value,
+            pan: document.getElementById("s-pan").value.toUpperCase(),
+            email: document.getElementById("s-email").value.toLowerCase(),
             password: document.getElementById("s-password").value,
-            pan: document.getElementById("s-pan").value,
             mpin: document.getElementById("s-mpin").value
         };
-        const uid = await createAccount(data);
-        alert("Account Created! Your UID is: " + uid);
-        showSection("section-login");
-    };
 
-    // Transfer Logic
-    document.getElementById("internal-transfer-form").onsubmit = async (e) => {
+        try {
+            const uid = await createAccount(data);
+            document.getElementById("modal-uid-value").textContent = uid;
+            document.getElementById("uid-modal").classList.add("open");
+        } catch(err) {
+            showToast("Error creating account.");
+            console.log(err);
+        }
+        
+        btn.disabled = false; btn.querySelector(".btn-text").textContent = "Create My Account";
+    });
+
+    // Modal close logic after signup
+    document.getElementById("modal-proceed-btn")?.addEventListener("click", () => {
+        document.getElementById("uid-modal").classList.remove("open");
+        document.getElementById("signup-form").reset();
+        showSection("section-login");
+    });
+
+    // 4. Transfer Money
+    document.getElementById("internal-transfer-form")?.addEventListener("submit", async (e) => {
         e.preventDefault();
         const senderUID = sessionStorage.getItem(SESSION_KEY);
-        const receiverUID = document.getElementById("int-receiver-uid").value;
+        const receiverUID = document.getElementById("int-receiver-uid").value.trim().toUpperCase();
         const amount = parseFloat(document.getElementById("int-amount").value);
+        const mpin = document.getElementById("int-mpin").value;
         
+        if (senderUID === receiverUID) { showToast("Cannot transfer to yourself."); return; }
+
         const sRes = await searchAccount(senderUID);
         const rRes = await searchAccount(receiverUID);
 
-        if (sRes.success && rRes.success && sRes.account.balance >= amount) {
+        if (sRes.success && rRes.success) {
             const sAcc = sRes.account;
             const rAcc = rRes.account;
+
+            if(sAcc.mpin !== mpin) { showToast("Invalid MPIN"); return; }
+            if(sAcc.balance < amount) { showToast("Insufficient Balance"); return; }
 
             sAcc.balance -= amount;
             rAcc.balance += amount;
@@ -155,43 +224,70 @@ document.addEventListener("DOMContentLoaded", async () => {
             sAcc.transactions.unshift({ type: 'debit', description: `Paid ${rAcc.name}`, amount, timestamp: nowISO() });
             rAcc.transactions.unshift({ type: 'credit', description: `From ${sAcc.name}`, amount, timestamp: nowISO() });
 
-            await updateDoc(doc(db, "accounts", senderUID), { balance: sAcc.balance, transactions: sAcc.transactions.slice(0, 5) });
-            await updateDoc(doc(db, "accounts", receiverUID), { balance: rAcc.balance, transactions: rAcc.transactions.slice(0, 5) });
+            await updateDoc(doc(db, "accounts", senderUID), { balance: sAcc.balance, transactions: sAcc.transactions.slice(0, MAX_HISTORY) });
+            await updateDoc(doc(db, "accounts", receiverUID), { balance: rAcc.balance, transactions: rAcc.transactions.slice(0, MAX_HISTORY) });
 
             const saved = await handleSavings(senderUID, amount);
-            alert(`Transfer Success! Piggy Bank saved ₹${saved}`);
-            location.reload();
-        } else { alert("Transfer Failed! Check balance or UID."); }
-    };
+            document.getElementById("transfer-modal").classList.remove("open");
+            document.getElementById("internal-transfer-form").reset();
+            
+            showToast(`Sent! Auto-saved ₹${saved} in Piggy Bank.`);
+            
+            // Refresh Dashboard
+            const freshRes = await searchAccount(senderUID);
+            populateDashboard(freshRes.account);
+        } else { 
+            showToast("Receiver UID not found."); 
+        }
+    });
 
-    // AI Chat Fix
-    document.getElementById("ai-chat-send").onclick = async () => {
+    // 5. Modals Open/Close
+    document.getElementById("open-transfer-btn")?.addEventListener("click", () => document.getElementById("transfer-modal").classList.add("open"));
+    document.getElementById("transfer-close-btn")?.addEventListener("click", () => document.getElementById("transfer-modal").classList.remove("open"));
+    
+    document.getElementById("toggle-history-btn")?.addEventListener("click", () => {
+        document.getElementById("history-panel").classList.toggle("open");
+    });
+
+    // 6. Gemini AI Bot
+    document.getElementById("ai-fab")?.addEventListener("click", () => document.getElementById("ai-chat-window").classList.toggle("open"));
+    document.getElementById("ai-close-btn")?.addEventListener("click", () => document.getElementById("ai-chat-window").classList.remove("open"));
+
+    document.getElementById("ai-chat-send")?.addEventListener("click", async () => {
         const input = document.getElementById("ai-chat-input");
         const chatBody = document.getElementById("ai-chat-body");
-        if (!input.value) return;
+        if (!input.value.trim()) return;
 
         chatBody.innerHTML += `<div class="chat-msg user-msg">${input.value}</div>`;
         const prompt = input.value;
         input.value = "";
 
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ contents: [{ parts: [{ text: "Briefly answer this banking query: " + prompt }] }] })
-        });
-        const result = await response.json();
-        const reply = result.candidates[0].content.parts[0].text;
-        chatBody.innerHTML += `<div class="chat-msg bot-msg">${reply}</div>`;
+        // Add loader
+        const loader = document.createElement("div");
+        loader.className = "chat-msg bot-msg"; loader.textContent = "Thinking...";
+        chatBody.appendChild(loader);
         chatBody.scrollTop = chatBody.scrollHeight;
-    };
 
-    document.getElementById("logout-btn").onclick = () => { sessionStorage.clear(); location.reload(); };
+        try {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ contents: [{ parts: [{ text: "You are Virtu-Mitra, a simple finance AI for a student banking app in AP. Keep answers under 2 sentences. User says: " + prompt }] }] })
+            });
+            const result = await response.json();
+            loader.remove();
+            const reply = result.candidates[0].content.parts[0].text;
+            chatBody.innerHTML += `<div class="chat-msg bot-msg">${reply}</div>`;
+        } catch(e) {
+            loader.remove();
+            chatBody.innerHTML += `<div class="chat-msg bot-msg" style="color:red;">Error connecting to brain.</div>`;
+        }
+        chatBody.scrollTop = chatBody.scrollHeight;
+    });
+
+    // 7. Logout
+    document.getElementById("logout-btn")?.addEventListener("click", () => { 
+        sessionStorage.removeItem(SESSION_KEY); 
+        location.reload(); 
+    });
 });
-
-// Modals Open/Close Helper
-window.openModal = (id) => document.getElementById(id).classList.add("open");
-window.closeModal = (id) => document.getElementById(id).classList.remove("open");
-document.getElementById("open-transfer-btn").onclick = () => window.openModal("transfer-modal");
-document.getElementById("transfer-close-btn").onclick = () => window.closeModal("transfer-modal");
-document.getElementById("ai-fab").onclick = () => document.getElementById("ai-chat-window").classList.toggle("open");
-document.getElementById("ai-close-btn").onclick = () => document.getElementById("ai-chat-window").classList.remove("open");
