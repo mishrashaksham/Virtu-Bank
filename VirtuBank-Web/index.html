@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="noise-overlay"></div>
     <div class="bg-blobs">
         <div class="blob blob-1"></div>
@@ -16,17 +15,11 @@
         <div class="blob blob-3"></div>
     </div>
 
-    <div id="toast" class="toast">
-        <span class="toast-icon">✦</span>
-        <span id="toast-message"></span>
-    </div>
+    <div id="toast" class="toast"><span class="toast-icon">✦</span><span id="toast-message"></span></div>
 
     <header id="site-header" class="site-header">
         <div class="header-inner">
-            <div class="logo">
-                <span class="logo-mark">🏛️</span>
-                <span class="logo-text">VirtuBank</span>
-            </div>
+            <div class="logo"><span class="logo-mark">🏛️</span><span class="logo-text">VirtuBank</span></div>
             <nav class="header-nav">
                 <button id="nav-login-btn" class="nav-btn active">Login</button>
                 <button id="nav-signup-btn" class="nav-btn">Join Us</button>
@@ -35,7 +28,6 @@
     </header>
 
     <main class="main-wrapper">
-        
         <section id="section-login" class="section active">
             <div class="split-layout">
                 <div class="split-brand">
@@ -72,8 +64,7 @@
                                 </div>
                             </div>
                             <button type="submit" id="login-submit-btn" class="submit-btn">
-                                <span class="btn-text">Sign In</span>
-                                <span class="btn-arrow">→</span>
+                                <span class="btn-text">Sign In</span><span class="btn-arrow">→</span>
                             </button>
                         </form>
                         <p class="form-footer-text">New to VirtuBank? <button type="button" id="goto-signup-link" class="text-link">Create an account</button></p>
@@ -122,10 +113,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" id="signup-submit-btn" class="submit-btn">
-                            <span class="btn-text">Create My Account</span>
-                            <span class="btn-arrow">→</span>
-                        </button>
+                        <button type="submit" id="signup-submit-btn" class="submit-btn"><span class="btn-text">Create My Account</span><span class="btn-arrow">→</span></button>
                         <p class="form-footer-text">Already have a UID? <button type="button" id="goto-login-link" class="text-link">Sign in here</button></p>
                     </form>
                 </div>
@@ -135,35 +123,18 @@
         <section id="section-dashboard" class="section">
             <div class="dashboard-layout">
                 <div class="dashboard-topbar">
-                    <div class="dashboard-brand">
-                        <span class="logo-mark">🏛️</span>
-                        <h3 id="dash-greeting" class="logo-text">Namaste</h3>
-                    </div>
-                    <div class="dashboard-actions">
-                        <button id="logout-btn" class="logout-btn"><span>Logout</span></button>
-                    </div>
+                    <div class="dashboard-brand"><span class="logo-mark">🏛️</span><h3 id="dash-greeting" class="logo-text">Namaste</h3></div>
+                    <div class="dashboard-actions"><button id="logout-btn" class="logout-btn"><span>Logout</span></button></div>
                 </div>
 
                 <div class="balance-card">
                     <div class="card-glow"></div>
                     <div class="balance-card-inner">
-                        <div class="card-top">
-                            <span class="card-label">Digital Savings Account</span>
-                            <span class="card-bank-name">VirtuBank Cloud</span>
-                        </div>
-                        <div class="card-balance">
-                            <span class="currency-symbol">₹</span>
-                            <span id="dash-balance" class="balance-amount">0.00</span>
-                        </div>
+                        <div class="card-top"><span class="card-label">Digital Savings Account</span><span class="card-bank-name">VirtuBank Cloud</span></div>
+                        <div class="card-balance"><span class="currency-symbol">₹</span><span id="dash-balance" class="balance-amount">0.00</span></div>
                         <div class="card-bottom">
-                            <div>
-                                <span class="card-meta-label">Account Holder</span>
-                                <span id="dash-name" class="card-holder-name">Loading...</span>
-                            </div>
-                            <div>
-                                <span class="card-meta-label">UID Number</span>
-                                <span id="dash-uid" class="card-uid-value">XXXXX</span>
-                            </div>
+                            <div><span class="card-meta-label">Account Holder</span><span id="dash-name" class="card-holder-name">Loading...</span></div>
+                            <div><span class="card-meta-label">UID Number</span><span id="dash-uid" class="card-uid-value">XXXXX</span></div>
                         </div>
                     </div>
                 </div>
@@ -175,29 +146,15 @@
                 </div>
 
                 <div class="info-grid">
-                    <div class="info-tile">
-                        <div class="info-tile-icon">🐷</div>
-                        <div class="info-tile-label">PIGGY BANK</div>
-                        <div class="info-tile-value accent">₹<span id="dash-piggy-balance">0.00</span></div>
-                    </div>
-                    <div class="info-tile">
-                        <div class="info-tile-icon">🛡️</div>
-                        <div class="info-tile-label">STATUS</div>
-                        <div class="info-tile-value status-active">Secure</div>
-                    </div>
-                    <div class="info-tile">
-                        <div class="info-tile-icon">📊</div>
-                        <div class="info-tile-label">TXNS</div>
-                        <div id="dash-txn-count" class="info-tile-value">0</div>
-                    </div>
+                    <div class="info-tile"><div class="info-tile-icon">🐷</div><div class="info-tile-label">PIGGY BANK</div><div class="info-tile-value accent">₹<span id="dash-piggy-balance">0.00</span></div></div>
+                    <div class="info-tile"><div class="info-tile-icon">🛡️</div><div class="info-tile-label">STATUS</div><div class="info-tile-value status-active">Secure</div></div>
+                    <div class="info-tile"><div class="info-tile-icon">📊</div><div class="info-tile-label">TXNS</div><div id="dash-txn-count" class="info-tile-value">0</div></div>
                 </div>
 
                 <button id="toggle-history-btn" class="action-btn action-btn--secondary" style="width:100%; margin-bottom:20px;">📜 View Recent History</button>
                 
                 <div id="history-panel" class="history-panel">
-                    <div class="history-header">
-                        <h4 class="history-title">Transaction Log</h4>
-                    </div>
+                    <div class="history-header"><h4 class="history-title">Transaction Log</h4></div>
                     <div id="history-list" class="history-list"></div>
                 </div>
             </div>
@@ -210,10 +167,7 @@
             <span class="modal-seal">✨</span>
             <h3 class="modal-title">Welcome Aboard</h3>
             <p class="modal-subtitle">Your unique digital identity has been created.</p>
-            <div class="modal-uid-block">
-                <span class="modal-uid-label">Your Private UID</span>
-                <span id="modal-uid-value" class="modal-uid-value">XXXXX</span>
-            </div>
+            <div class="modal-uid-block"><span class="modal-uid-label">Your Private UID</span><span id="modal-uid-value" class="modal-uid-value">XXXXX</span></div>
             <p class="modal-note">Please <strong>save this UID</strong>. You will need it every time you log in to your vault.</p>
             <button id="modal-proceed-btn" class="modal-cta">Go to Login</button>
         </div>
@@ -224,39 +178,36 @@
             <button id="transfer-close-btn" class="modal-close-btn">✕</button>
             <h3 class="modal-title">Send Money</h3>
             
-            <div id="transfer-panel-internal" class="transfer-panel active">
+            <div class="modal-tabs">
+                <button class="modal-tab active" data-tab="internal" id="tab-internal" onclick="document.getElementById('transfer-panel-internal').style.display='block'; document.getElementById('transfer-panel-external').style.display='none';">VirtuBank UID</button>
+                <button class="modal-tab" data-tab="external" onclick="document.getElementById('transfer-panel-internal').style.display='none'; document.getElementById('transfer-panel-external').style.display='block';">Any UPI ID</button>
+            </div>
+
+            <div id="transfer-panel-internal" class="transfer-panel active" style="display:block;">
                 <form id="internal-transfer-form">
-                    <div class="field-group">
-                        <label class="field-label">Receiver UID</label>
-                        <input type="text" id="int-receiver-uid" class="field-input mono" placeholder="Enter UID" required>
-                    </div>
-                    <div class="field-group">
-                        <label class="field-label">Amount (₹)</label>
-                        <input type="number" id="int-amount" class="field-input" step="0.01" required>
-                    </div>
-                    <div class="field-group">
-                        <label class="field-label">Confirm MPIN</label>
-                        <input type="password" id="int-mpin" class="field-input mono" maxlength="4" required>
-                    </div>
+                    <div class="field-group"><label class="field-label">Receiver UID</label><input type="text" id="int-receiver-uid" class="field-input mono" placeholder="Enter UID" required></div>
+                    <div class="field-group"><label class="field-label">Amount (₹)</label><input type="number" id="int-amount" class="field-input" step="0.01" required></div>
+                    <div class="field-group"><label class="field-label">Confirm MPIN</label><input type="password" id="int-mpin" class="field-input mono" maxlength="4" required></div>
                     <button type="submit" id="int-submit-btn" class="modal-cta">Send Money</button>
+                </form>
+            </div>
+
+            <div id="transfer-panel-external" class="transfer-panel" style="display:none;">
+                <form id="external-transfer-form">
+                    <div class="field-group"><label class="field-label">UPI ID</label><input type="text" id="ext-upi" class="field-input" placeholder="name@bank" required></div>
+                    <div class="field-group"><label class="field-label">Amount (₹)</label><input type="number" id="ext-amount" class="field-input" step="0.01" required></div>
+                    <div class="field-group"><label class="field-label">Confirm MPIN</label><input type="password" id="ext-mpin" class="field-input mono" maxlength="4" required></div>
+                    <button type="submit" id="ext-submit-btn" class="modal-cta">Send via UPI</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <button id="ai-fab" class="ai-fab" style="display:none;">
-        <span class="ai-fab-icon">✨</span>
-    </button>
+    <button id="ai-fab" class="ai-fab" style="display:none;"><span class="ai-fab-icon">✨</span></button>
 
     <div id="ai-chat-window" class="ai-chat-window">
         <div class="ai-chat-header">
-            <div class="ai-header-info">
-                <span class="ai-icon">🤖</span>
-                <div>
-                    <h4 class="ai-title">Virtu-Mitra</h4>
-                    <span class="ai-subtitle">AI Financial Advisor</span>
-                </div>
-            </div>
+            <div class="ai-header-info"><span class="ai-icon">🤖</span><div><h4 class="ai-title">Virtu-Mitra</h4><span class="ai-subtitle">AI Financial Advisor</span></div></div>
             <button id="ai-close-btn" class="modal-close-btn" style="position:static;">✕</button>
         </div>
         <div id="ai-chat-body" class="ai-chat-body">

@@ -1,5 +1,5 @@
 // ============================================================
-//  VirtuBank — script.js (v9 — BULLETPROOF CLOUD EDITION)
+//  VirtuBank — script.js (v10 — The Master UI/UX Update)
 // ============================================================
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
@@ -50,6 +50,7 @@ function showSection(id) {
     document.getElementById("ai-fab").style.display = (id === "section-dashboard") ? "flex" : "none";
 }
 
+// DASHBOARD POPULATOR (WITH BADGES)
 function populateDashboard(acc) {
     document.getElementById("dash-name").textContent = acc.name;
     document.getElementById("dash-uid").textContent = acc.uid;
@@ -58,18 +59,30 @@ function populateDashboard(acc) {
     document.getElementById("dash-greeting").textContent = `Namaste, ${acc.name.split(" ")[0]}`;
     document.getElementById("dash-txn-count").textContent = acc.transactions ? acc.transactions.length : 0;
     
+    const badgeMap = {
+        'external': '<span class="txn-badge badge-ext">UPI Ext</span>',
+        'internal': '<span class="txn-badge badge-int">Virtu Int</span>',
+        'piggy': '<span class="txn-badge badge-piggy">Piggy Bank</span>'
+    };
+
     const list = document.getElementById("history-list");
     if (acc.transactions && acc.transactions.length > 0) {
-        list.innerHTML = acc.transactions.map(t => `
+        list.innerHTML = acc.transactions.map(t => {
+            const badge = t.category ? (badgeMap[t.category] || '') : '';
+            return `
             <div class="txn-row">
-                <div class="txn-body"><span>${t.description}</span></div>
-                <span class="${t.type}">₹${formatBalance(t.amount)}</span>
-            </div>`).join("");
+                <div class="txn-icon-wrap ${t.type}">${t.type === 'debit'?'↑':'↓'}</div>
+                <div class="txn-body">
+                    <span class="txn-description">${t.description} ${badge}</span>
+                    <span class="txn-meta">${new Date(t.timestamp).toLocaleDateString()}</span>
+                </div>
+                <span class="txn-amount ${t.type}">${t.type === 'debit'?'-':'+'}₹${formatBalance(t.amount)}</span>
+            </div>`;
+        }).join("");
     } else {
         list.innerHTML = `<p style="text-align:center; opacity:0.6; padding: 20px;">No transactions yet.</p>`;
     }
 }
-
 
 // --- CORE DATABASE FUNCTIONS ---
 async function searchAccount(uid) {
@@ -106,7 +119,7 @@ async function handleSavings(uid, amount) {
             if (acc.balance >= savings) {
                 acc.balance -= savings;
                 acc.piggyBank = (acc.piggyBank || 0) + savings;
-                acc.transactions.unshift({ type: 'debit', description: `Piggy Bank Auto-Save`, amount: savings, timestamp: nowISO() });
+                acc.transactions.unshift({ type: 'debit', category: 'piggy', description: `Auto-Save`, amount: savings, timestamp: nowISO() });
                 await updateDoc(doc(db, "accounts", uid), { 
                     balance: acc.balance, 
                     piggyBank: acc.piggyBank, 
@@ -135,13 +148,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-    // 1. Navigation Buttons Fix
+    // Navigation Buttons
     document.getElementById("nav-login-btn")?.addEventListener("click", () => showSection("section-login"));
     document.getElementById("nav-signup-btn")?.addEventListener("click", () => showSection("section-signup"));
     document.getElementById("goto-signup-link")?.addEventListener("click", () => showSection("section-signup"));
     document.getElementById("goto-login-link")?.addEventListener("click", () => showSection("section-login"));
 
-    // 2. Login Form Submit
+    // Login Form Submit
     document.getElementById("login-form")?.addEventListener("submit", async (e) => {
         e.preventDefault();
         const btn = document.getElementById("login-submit-btn");
@@ -163,7 +176,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         btn.disabled = false; btn.querySelector(".btn-text").textContent = "Sign In";
     });
 
-    // 3. Signup Form Submit
+    // Signup Form Submit
     document.getElementById("signup-form")?.addEventListener("submit", async (e) => {
         e.preventDefault();
         const btn = document.getElementById("signup-submit-btn");
@@ -185,7 +198,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.getElementById("uid-modal").classList.add("open");
         } catch(err) {
             showToast("Error creating account.");
-            console.log(err);
         }
         
         btn.disabled = false; btn.querySelector(".btn-text").textContent = "Create My Account";
@@ -198,7 +210,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         showSection("section-login");
     });
 
-    // 4. Transfer Money
+    // --- TRANSFER: INTERNAL ---
     document.getElementById("internal-transfer-form")?.addEventListener("submit", async (e) => {
         e.preventDefault();
         const senderUID = sessionStorage.getItem(SESSION_KEY);
@@ -221,8 +233,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             sAcc.balance -= amount;
             rAcc.balance += amount;
 
-            sAcc.transactions.unshift({ type: 'debit', description: `Paid ${rAcc.name}`, amount, timestamp: nowISO() });
-            rAcc.transactions.unshift({ type: 'credit', description: `From ${sAcc.name}`, amount, timestamp: nowISO() });
+            sAcc.transactions.unshift({ type: 'debit', category: 'internal', description: `Paid ${rAcc.name}`, amount, timestamp: nowISO() });
+            rAcc.transactions.unshift({ type: 'credit', category: 'internal', description: `From ${sAcc.name}`, amount, timestamp: nowISO() });
 
             await updateDoc(doc(db, "accounts", senderUID), { balance: sAcc.balance, transactions: sAcc.transactions.slice(0, MAX_HISTORY) });
             await updateDoc(doc(db, "accounts", receiverUID), { balance: rAcc.balance, transactions: rAcc.transactions.slice(0, MAX_HISTORY) });
@@ -241,7 +253,40 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     });
 
-    // 5. Modals Open/Close
+    // --- TRANSFER: EXTERNAL (UPI) - FIXED! ---
+    document.getElementById("external-transfer-form")?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const senderUID = sessionStorage.getItem(SESSION_KEY);
+        const upiID = document.getElementById("ext-upi").value.trim();
+        const amount = parseFloat(document.getElementById("ext-amount").value);
+        const mpin = document.getElementById("ext-mpin").value;
+
+        const sRes = await searchAccount(senderUID);
+
+        if (sRes.success) {
+            const sAcc = sRes.account;
+
+            if(sAcc.mpin !== mpin) { showToast("Invalid MPIN"); return; }
+            if(sAcc.balance < amount) { showToast("Insufficient Balance"); return; }
+
+            sAcc.balance -= amount;
+            sAcc.transactions.unshift({ type: 'debit', category: 'external', description: `UPI to ${upiID}`, amount, timestamp: nowISO() });
+
+            await updateDoc(doc(db, "accounts", senderUID), { balance: sAcc.balance, transactions: sAcc.transactions.slice(0, MAX_HISTORY) });
+
+            const saved = await handleSavings(senderUID, amount);
+            document.getElementById("transfer-modal").classList.remove("open");
+            document.getElementById("external-transfer-form").reset();
+            
+            showToast(`UPI Transfer Sent! Auto-saved ₹${saved}`);
+            
+            // Refresh Dashboard
+            const freshRes = await searchAccount(senderUID);
+            populateDashboard(freshRes.account);
+        }
+    });
+
+    // Modals Open/Close
     document.getElementById("open-transfer-btn")?.addEventListener("click", () => document.getElementById("transfer-modal").classList.add("open"));
     document.getElementById("transfer-close-btn")?.addEventListener("click", () => document.getElementById("transfer-modal").classList.remove("open"));
     
@@ -249,11 +294,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("history-panel").classList.toggle("open");
     });
 
-    // 6. Gemini AI Bot
+    // --- GEMINI AI BOT (WITH ENTER KEY FIX) ---
     document.getElementById("ai-fab")?.addEventListener("click", () => document.getElementById("ai-chat-window").classList.toggle("open"));
     document.getElementById("ai-close-btn")?.addEventListener("click", () => document.getElementById("ai-chat-window").classList.remove("open"));
 
-    document.getElementById("ai-chat-send")?.addEventListener("click", async () => {
+    const handleChat = async () => {
         const input = document.getElementById("ai-chat-input");
         const chatBody = document.getElementById("ai-chat-body");
         if (!input.value.trim()) return;
@@ -263,29 +308,36 @@ document.addEventListener("DOMContentLoaded", async () => {
         input.value = "";
 
         // Add loader
-        const loader = document.createElement("div");
-        loader.className = "chat-msg bot-msg"; loader.textContent = "Thinking...";
-        chatBody.appendChild(loader);
+        const loaderId = "loader-" + Date.now();
+        chatBody.innerHTML += `<div id="${loaderId}" class="chat-msg bot-msg typing-indicator">Thinking...</div>`;
         chatBody.scrollTop = chatBody.scrollHeight;
 
         try {
             const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ contents: [{ parts: [{ text: "You are Virtu-Mitra, a simple finance AI for a student banking app in AP. Keep answers under 2 sentences. User says: " + prompt }] }] })
+                body: JSON.stringify({ contents: [{ parts: [{ text: "You are Virtu-Mitra, a simple finance AI for a student banking app. Keep answers under 2 sentences. User says: " + prompt }] }] })
             });
             const result = await response.json();
-            loader.remove();
+            document.getElementById(loaderId)?.remove();
+            
+            if(result.error) throw new Error("API Limit");
+
             const reply = result.candidates[0].content.parts[0].text;
             chatBody.innerHTML += `<div class="chat-msg bot-msg">${reply}</div>`;
         } catch(e) {
-            loader.remove();
-            chatBody.innerHTML += `<div class="chat-msg bot-msg" style="color:red;">Error connecting to brain.</div>`;
+            document.getElementById(loaderId)?.remove();
+            chatBody.innerHTML += `<div class="chat-msg bot-msg" style="color:red;">Network Error. Try later.</div>`;
         }
         chatBody.scrollTop = chatBody.scrollHeight;
+    };
+
+    document.getElementById("ai-chat-send")?.addEventListener("click", handleChat);
+    document.getElementById("ai-chat-input")?.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") handleChat();
     });
 
-    // 7. Logout
+    // Logout
     document.getElementById("logout-btn")?.addEventListener("click", () => { 
         sessionStorage.removeItem(SESSION_KEY); 
         location.reload(); 

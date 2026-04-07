@@ -1,5 +1,5 @@
 /* ============================================================
-   VirtuBank — style.css  (v5 — Voice, Favorites & Gemini AI)
+   VirtuBank — style.css  (v10 — The Premium UI Update)
 ============================================================ */
 
 :root {
@@ -43,7 +43,6 @@ body { font-family: var(--font-body); font-size: 15px; line-height: 1.6; color: 
 .modal-close-btn { position: absolute; top: 16px; right: 20px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1); color: var(--navy-200); border-radius: 50%; width: 32px; height: 32px; font-size: 13px; cursor: pointer; transition: all var(--transition); display: flex; align-items: center; justify-content: center; }
 .modal-close-btn:hover { background: rgba(255,255,255,.14); color: var(--white); }
 .modal-glow { position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(201,168,76,.15) 0%, transparent 70%); top: -80px; left: 50%; transform: translateX(-50%); pointer-events: none; }
-.modal-glow--blue { background: radial-gradient(circle, rgba(58,107,191,.2) 0%, transparent 70%); }
 .modal-glow--red { background: radial-gradient(circle, rgba(214,64,64,.18) 0%, transparent 70%); }
 .modal-seal { font-size: 28px; color: var(--gold-400); margin-bottom: 14px; display: block; }
 .modal-seal--red { color: #f07070; }
@@ -73,7 +72,6 @@ body { font-family: var(--font-body); font-size: 15px; line-height: 1.6; color: 
 .danger-btn:hover { box-shadow: 0 8px 28px rgba(214,64,64,.45) !important; }
 .cancel-link { color: var(--navy-200) !important; font-size: 13px !important; text-decoration: none !important; }
 
-/* Favorites List & Voice Modal */
 .fav-list-container { margin-bottom: 24px; display: flex; flex-direction: column; gap: 8px; text-align: left;}
 .fav-item { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,.05); padding: 10px 16px; border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,.08); }
 .fav-item-info { display: flex; flex-direction: column; }
@@ -105,14 +103,21 @@ body { font-family: var(--font-body); font-size: 15px; line-height: 1.6; color: 
 @keyframes sectionFadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
 .split-layout { display: grid; grid-template-columns: 1fr 1fr; width: 100%; min-height: calc(100vh - 68px); }
-.split-brand { background: linear-gradient(160deg, var(--navy-900) 0%, var(--navy-800) 100%); display: flex; align-items: center; justify-content: center; padding: 60px 64px; position: relative; overflow: hidden; }
-.split-brand::before { content: ''; position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(201,168,76,.08) 0%, transparent 65%); top: 50%; left: 50%; transform: translate(-50%,-50%); }
+
+/* --- 🔥 NEW LOGIN BACKGROUND 🔥 --- */
+.split-brand { 
+    background: linear-gradient(160deg, rgba(9, 18, 36, 0.85) 0%, rgba(14, 30, 58, 0.95) 100%),
+                url('https://images.unsplash.com/photo-1501167733086-cb7f4c7142ea?q=80&w=1200&auto=format&fit=crop') center/cover;
+    display: flex; align-items: center; justify-content: center; padding: 60px 64px; position: relative; overflow: hidden; 
+}
+.split-brand::before { content: ''; position: absolute; width: 100%; height: 100%; background: radial-gradient(circle, rgba(201,168,76,.1) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%); }
+
 .brand-content { position: relative; z-index: 1; max-width: 420px; }
-.brand-badge { display: inline-block; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-400); border: 1px solid rgba(201,168,76,.35); border-radius: 100px; padding: 5px 16px; margin-bottom: 28px; }
-.brand-headline { font-family: var(--font-display); font-size: clamp(44px,5vw,68px); font-weight: 600; line-height: 1.05; color: var(--white); margin-bottom: 18px; }
+.brand-badge { display: inline-block; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-400); border: 1px solid rgba(201,168,76,.35); border-radius: 100px; padding: 5px 16px; margin-bottom: 28px; background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); }
+.brand-headline { font-family: var(--font-display); font-size: clamp(44px,5vw,68px); font-weight: 600; line-height: 1.05; color: var(--white); margin-bottom: 18px; text-shadow: 0 4px 12px rgba(0,0,0,0.5); }
 .brand-headline em { font-style: italic; color: var(--gold-400); }
-.brand-tagline { color: var(--navy-200); font-size: 16px; margin-bottom: 44px; }
-.brand-stats { display: flex; align-items: center; padding: 24px 0; border-top: 1px solid rgba(255,255,255,.08); }
+.brand-tagline { color: var(--navy-100); font-size: 16px; margin-bottom: 44px; text-shadow: 0 2px 8px rgba(0,0,0,0.5); }
+.brand-stats { display: flex; align-items: center; padding: 24px 0; border-top: 1px solid rgba(255,255,255,.15); }
 .stat { flex: 1; text-align: center; }
 .stat-num { display: block; font-family: var(--font-display); font-size: 22px; font-weight: 600; color: var(--white); }
 .stat-label { display: block; font-size: 11px; color: var(--navy-200); text-transform: uppercase; margin-top: 3px; }
@@ -220,12 +225,18 @@ body { font-family: var(--font-body); font-size: 15px; line-height: 1.6; color: 
 .txn-icon-wrap.debit { background: rgba(214,64,64,.1); color: var(--error); }
 .txn-icon-wrap.credit { background: rgba(31,140,90,.1); color: var(--success); }
 .txn-body { display: flex; flex-direction: column; gap: 2px; }
-.txn-description { font-size: 14px; font-weight: 500; }
+.txn-description { font-size: 14px; font-weight: 500; display: flex; align-items: center; }
 .txn-meta { font-size: 12px; color: var(--text-muted); }
 .txn-amount { font-family: var(--font-display); font-size: 18px; font-weight: 600; }
 .txn-amount.debit { color: var(--error); }
 .txn-amount.credit { color: var(--success); }
 .dashboard-footer { font-size: 13px; color: var(--text-muted); text-align: center; }
+
+/* --- 🔥 NEW TRANSACTION BADGES 🔥 --- */
+.txn-badge { font-size: 9px; padding: 3px 8px; border-radius: 4px; margin-left: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--font-body); }
+.badge-ext { background: rgba(214, 64, 64, 0.1); color: var(--error); border: 1px solid rgba(214, 64, 64, 0.2); }
+.badge-int { background: rgba(58, 107, 191, 0.1); color: var(--navy-600); border: 1px solid rgba(58, 107, 191, 0.2); }
+.badge-piggy { background: rgba(201, 168, 76, 0.15); color: #a38127; border: 1px solid rgba(201, 168, 76, 0.3); }
 
 /* --- VIRTU-MITRA CHATBOT UI --- */
 .ai-fab { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-500), var(--gold-300)); border: none; box-shadow: 0 8px 24px rgba(201,168,76,.4); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1000; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
@@ -250,54 +261,34 @@ body { font-family: var(--font-body); font-size: 15px; line-height: 1.6; color: 
 .ai-chat-footer button:hover { background: var(--gold-400); }
 .typing-indicator { font-size: 12px; color: var(--navy-200); font-style: italic; padding-left: 5px; }
 
-/* ============================================================
-   VirtuBank — New Mobile Responsiveness (v5.1 Fix)
-============================================================ */
+/* Fix Greeting Name Color */
+#dash-greeting { color: var(--navy-950) !important; }
 
-/* --- TABLET / SMALL DESKTOP --- */
+/* --- MOBILE RESPONSIVENESS --- */
 @media (max-width: 900px) {
-  /* Site Header changes */
   .site-header { padding: 0 20px; }
-  
-  /* Split layout stacks vertically (Login Screen) */
   .split-layout { grid-template-columns: 1fr; } 
-  .split-brand { display: none; } /* Hide the fancy brand side on mobile */
+  .split-brand { display: none; } 
   .split-form { padding: 40px 24px; background: var(--navy-950); }
-  
-  /* Form card uses full width */
   .form-card { background: var(--navy-800); width: 100%; max-width: none; border-radius: 0; box-shadow: none; border: none; padding: 30px 20px;}
   .form-card .form-title { color: var(--white); }
   .form-card .form-subtitle { color: var(--navy-200); }
   .form-card-header { text-align: center; }
-
-  /* Info Grid becomes 2 columns */
   .info-grid { grid-template-columns: 1fr 1fr; }
-  
-  /* Action buttons need room to breath */
   .action-row { gap: 10px; }
 }
 
-/* --- MOBILE DEVICES --- */
 @media (max-width: 560px) {
-  /* Signup wrapper adjustments */
   #section-signup { padding: 40px 0 60px; }
   .signup-wrapper { padding: 0 16px; }
   .signup-card { padding: 30px 20px; }
-  .form-grid { grid-template-columns: 1fr; } /* Signup form single column */
+  .form-grid { grid-template-columns: 1fr; } 
   .field-group.col-2 { grid-column: span 1; }
-
-  /* Balance Card optimizations */
   .balance-card { padding: 28px 24px; }
   .balance-amount { font-size: 52px; }
   .dashboard-topbar { flex-direction: column; align-items: flex-start; gap: 10px; }
-
-  /* *** THE BIG FIX FOR BUTTONS *** */
-  /* Re-architecture action buttons from row to column */
   .action-row { flex-direction: column; gap: 8px; width: 100%; }
   .action-btn { width: 100%; min-width: 0; padding: 14px; font-size: 13px; justify-content: start; }
-  .action-btn-icon { font-size: 16px; margin-right: 12px;}
-
-  /* AI Chatbot on mobile is full screen */
   .ai-chat-window { bottom: 0; right: 0; width: 100%; height: 100vh; border-radius: 0; transform: translateY(100%); }
   .ai-chat-body { height: calc(100vh - 130px); }
   .ai-fab { bottom: 20px; right: 20px; }
