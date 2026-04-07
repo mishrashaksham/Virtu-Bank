@@ -8,15 +8,23 @@ import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, query, where,
 // ==========================================
 // 1. FIREBASE CONFIGURATION (ISKO MAT CHHOONA)
 // ==========================================
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+// ==========================================
+// 1. FIREBASE CONFIGURATION (Database ke liye)
+// ==========================================
 const firebaseConfig = {
-  // Yeh purani Firebase key hai, isko aise hi rehne de
-  apiKey: "AIzaSyDp0dcnMcAQftNUqR16J4QxdKgONT6TESw", 
+  apiKey: "AIzaSyDp0dcnMcAQftNUqR16J4QxdKgONT6TESw",
   authDomain: "virtubank999.firebaseapp.com",
   projectId: "virtubank999",
   storageBucket: "virtubank999.firebasestorage.app",
   messagingSenderId: "609281991520",
   appId: "1:609281991520:web:207db48e7f0cead4f47405"
 };
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 // ... beech ka code ...
 
