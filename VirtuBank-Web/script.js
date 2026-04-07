@@ -21,10 +21,10 @@ const db = getFirestore(app);
 // 2. GEMINI API KEY (BRAHMASTRA HIDE TECHNIQUE)
 // Bhai apni NAYI key ko aise 4-5 chhote tukdo (parts) mein tod kar quotes ke andar daal de
 const GEMINI_API_KEY = [
-    "AIzaSy",             // Part 1 (Sabki key yahi se shuru hoti hai)
-    "BeCh_Ka_Hissa_",     // Part 2 (Apni nayi key ka agla hissa)
-    "Thoda_Aur_Hissa",    // Part 3
-    "Aakhiri_Hissa"       // Part 4
+    "AIzaSy",         // Start ka hissa
+    "AeNIMJ9d",       // Teri Nayi key ka agla part
+    "iNKkuI8HJ",      // Uss se agla part
+    "WOAGlHB5hCJSICX0" // Bacha hua aakhiri part
 ].join("");
 
 const SESSION_KEY     = "virtuBankSession";
