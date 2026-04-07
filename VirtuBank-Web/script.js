@@ -314,8 +314,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         try {
             // Yahan `gemini-1.5-flash-latest` use kiya hai error hatane ke liye
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`, {
-                method: "POST",
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`, {                method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ contents: [{ parts: [{ text: "You are Virtu-Mitra, a friendly finance AI for a student banking app. Keep answers under 2 sentences. Reply in Hinglish. User says: " + prompt }] }] })
             });
