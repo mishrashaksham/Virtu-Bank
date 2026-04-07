@@ -1,5 +1,5 @@
 // ============================================================
-//  VirtuBank — script.js (v15 — UNIVERSAL GEMINI-PRO FIX)
+//  VirtuBank — script.js (v16 — 2026 GEMINI 2.5 FLASH FIX)
 // ============================================================
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
@@ -295,7 +295,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("history-panel").classList.toggle("open");
     });
 
-    // --- GEMINI AI BOT (GEMINI-PRO GUARANTEED FIX) ---
+    // --- GEMINI AI BOT (GEMINI 2.5 FLASH FIX FOR 2026) ---
     document.getElementById("ai-fab")?.addEventListener("click", () => document.getElementById("ai-chat-window").classList.toggle("open"));
     document.getElementById("ai-close-btn")?.addEventListener("click", () => document.getElementById("ai-chat-window").classList.remove("open"));
 
@@ -313,8 +313,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         chatBody.scrollTop = chatBody.scrollHeight;
 
         try {
-            // THE FIX: Using 'gemini-pro' which is universally available
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`, {
+            // THE FIX: Using 'gemini-2.5-flash' which is the current active model in 2026
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ contents: [{ parts: [{ text: "You are Virtu-Mitra, a friendly finance AI for a student banking app. Keep answers under 2 sentences. Reply in Hinglish. User says: " + prompt }] }] })
