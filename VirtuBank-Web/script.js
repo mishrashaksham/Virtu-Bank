@@ -1,5 +1,5 @@
 // ============================================================
-//  VirtuBank — script.js (v11 — THE ULTIMATE MASTER EDITION)
+//  VirtuBank — script.js (v13 — FINAL HINDI/ENGLISH FIX)
 // ============================================================
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
@@ -7,7 +7,7 @@ import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, query, where,
 
 // 1. FIREBASE CONFIGURATION
 const firebaseConfig = {
-  apiKey: "AIzaSyBv3JECRwVdal3oc4994_UIagUbb3x5xBc",
+  apiKey: "AIzaSyDp0dcnMcAQftNUqR16J4QxdKgONT6TESw",
   authDomain: "virtubank999.firebaseapp.com",
   projectId: "virtubank999",
   storageBucket: "virtubank999.firebasestorage.app",
@@ -18,7 +18,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// 2. GEMINI AI KEY
+// 2. TERA EXACT GEMINI API KEY
 const GEMINI_API_KEY = "AIzaSyBv3JECRwVdal3oc4994_UIagUbb3x5xBc"; 
 
 const SESSION_KEY     = "virtuBankSession";
@@ -50,7 +50,7 @@ function showSection(id) {
     document.getElementById("ai-fab").style.display = (id === "section-dashboard") ? "flex" : "none";
 }
 
-// DASHBOARD POPULATOR (WITH BADGES)
+// DASHBOARD POPULATOR
 function populateDashboard(acc) {
     document.getElementById("dash-name").textContent = acc.name;
     document.getElementById("dash-uid").textContent = acc.uid;
@@ -132,11 +132,9 @@ async function handleSavings(uid, amount) {
     return 0;
 }
 
-
-// --- MAIN EVENT LISTENERS (WAIT FOR DOM) ---
+// --- MAIN EVENT LISTENERS ---
 document.addEventListener("DOMContentLoaded", async () => {
     
-    // Auth Check on Reload
     const session = sessionStorage.getItem(SESSION_KEY);
     if (session) {
         const res = await searchAccount(session);
@@ -148,13 +146,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-    // 1. Navigation Buttons
     document.getElementById("nav-login-btn")?.addEventListener("click", () => showSection("section-login"));
     document.getElementById("nav-signup-btn")?.addEventListener("click", () => showSection("section-signup"));
     document.getElementById("goto-signup-link")?.addEventListener("click", () => showSection("section-signup"));
     document.getElementById("goto-login-link")?.addEventListener("click", () => showSection("section-login"));
 
-    // 2. Transfer Tabs Switcher Logic (THE FIX)
     const tabs = document.querySelectorAll(".modal-tab");
     tabs.forEach(tab => {
         tab.addEventListener("click", () => {
@@ -167,7 +163,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     });
 
-    // 3. Login Form Submit
     document.getElementById("login-form")?.addEventListener("submit", async (e) => {
         e.preventDefault();
         const btn = document.getElementById("login-submit-btn");
@@ -189,7 +184,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         btn.disabled = false; btn.querySelector(".btn-text").textContent = "Sign In";
     });
 
-    // 4. Signup Form Submit
     document.getElementById("signup-form")?.addEventListener("submit", async (e) => {
         e.preventDefault();
         const btn = document.getElementById("signup-submit-btn");
@@ -216,14 +210,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         btn.disabled = false; btn.querySelector(".btn-text").textContent = "Create My Account";
     });
 
-    // Modal close logic after signup
     document.getElementById("modal-proceed-btn")?.addEventListener("click", () => {
         document.getElementById("uid-modal").classList.remove("open");
         document.getElementById("signup-form").reset();
         showSection("section-login");
     });
 
-    // 5. --- TRANSFER: INTERNAL ---
     document.getElementById("internal-transfer-form")?.addEventListener("submit", async (e) => {
         e.preventDefault();
         const senderUID = sessionStorage.getItem(SESSION_KEY);
@@ -265,7 +257,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     });
 
-    // 6. --- TRANSFER: EXTERNAL (UPI) ---
     document.getElementById("external-transfer-form")?.addEventListener("submit", async (e) => {
         e.preventDefault();
         const senderUID = sessionStorage.getItem(SESSION_KEY);
@@ -297,7 +288,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     });
 
-    // 7. Modals Open/Close Helper
     document.getElementById("open-transfer-btn")?.addEventListener("click", () => document.getElementById("transfer-modal").classList.add("open"));
     document.getElementById("transfer-close-btn")?.addEventListener("click", () => document.getElementById("transfer-modal").classList.remove("open"));
     
@@ -305,7 +295,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("history-panel").classList.toggle("open");
     });
 
-    // 8. --- GEMINI AI BOT (WITH ERROR DEBUGGING) ---
+    // --- GEMINI AI BOT (MODEL URL FIXED HERE) ---
     document.getElementById("ai-fab")?.addEventListener("click", () => document.getElementById("ai-chat-window").classList.toggle("open"));
     document.getElementById("ai-close-btn")?.addEventListener("click", () => document.getElementById("ai-chat-window").classList.remove("open"));
 
@@ -323,10 +313,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         chatBody.scrollTop = chatBody.scrollHeight;
 
         try {
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+            // Yahan `gemini-1.5-flash-latest` use kiya hai error hatane ke liye
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ contents: [{ parts: [{ text: "You are Virtu-Mitra, a simple finance AI for a student banking app. Keep answers under 2 sentences. User says: " + prompt }] }] })
+                body: JSON.stringify({ contents: [{ parts: [{ text: "You are Virtu-Mitra, a friendly finance AI for a student banking app. Keep answers under 2 sentences. Reply in Hinglish. User says: " + prompt }] }] })
             });
             
             const result = await response.json();
@@ -352,7 +343,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (e.key === "Enter") handleChat();
     });
 
-    // 9. Logout
     document.getElementById("logout-btn")?.addEventListener("click", () => { 
         sessionStorage.removeItem(SESSION_KEY); 
         location.reload(); 
