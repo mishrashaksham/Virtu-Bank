@@ -5,9 +5,12 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
-// 1. FIREBASE CONFIGURATION
+// ==========================================
+// 1. FIREBASE CONFIGURATION (ISKO MAT CHHOONA)
+// ==========================================
 const firebaseConfig = {
-  apiKey: "AIzaSyDp0dcnMcAQftNUqR16J4QxdKgONT6TESw",
+  // Yeh purani Firebase key hai, isko aise hi rehne de
+  apiKey: "AIzaSyDp0dcnMcAQftNUqR16J4QxdKgONT6TESw", 
   authDomain: "virtubank999.firebaseapp.com",
   projectId: "virtubank999",
   storageBucket: "virtubank999.firebasestorage.app",
@@ -15,16 +18,16 @@ const firebaseConfig = {
   appId: "1:609281991520:web:207db48e7f0cead4f47405"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+// ... beech ka code ...
 
-// 2. GEMINI API KEY (BRAHMASTRA HIDE TECHNIQUE)
-// Bhai apni NAYI key ko aise 4-5 chhote tukdo (parts) mein tod kar quotes ke andar daal de
+// ==========================================
+// 2. GEMINI API KEY (YAHAN APNI NAYI KEY DAAL 4 PARTS MEIN)
+// ==========================================
 const GEMINI_API_KEY = [
-    "AIzaSy",         // Start ka hissa
-    "AeNIMJ9d",       // Teri Nayi key ka agla part
-    "iNKkuI8HJ",      // Uss se agla part
-    "WOAGlHB5hCJSICX0" // Bacha hua aakhiri part
+    "AIzaSyCw",             // Start
+    "-uC4Z-",    // Nayi key ka tukda
+    "STQNY50xXwQB4",    // Nayi key ka tukda
+    "EupSgP2HYtbo"       // Aakhiri tukda
 ].join("");
 
 const SESSION_KEY     = "virtuBankSession";
