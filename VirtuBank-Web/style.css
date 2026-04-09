@@ -159,7 +159,7 @@ body{font-family:var(--font-body);font-size:15px;line-height:1.6;color:var(--tex
 .field-label{font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);}
 .field-wrap{position:relative;display:flex;align-items:center;}
 .field-icon{position:absolute;left:14px;color:var(--text-muted);font-size:14px;z-index:1;}
-.field-input{width:100%;background:var(--off-white);border:1.5px solid rgba(0,0,0,.1);border-radius:var(--radius-md);padding:12px 14px;font-family:var(--font-body);font-size:14.5px;color:var(--text-primary);outline:none;transition:all var(--transition);-webkit-appearance:none;}
+.field-input{width:100%;background:var(--off-white);border:1.5px solid rgba(0,0,0,.1);border-radius:var(--radius-md);padding:12px 14px;font-family:var(--font-body);font-size:14.5px;color:var(--text-primary);outline:none;transition:all var(--transition);-webkit-appearance: none; appearance: none;}
 .field-icon+.field-input{padding-left:40px;}
 .field-input:focus{border-color:var(--navy-600);background:var(--white);box-shadow:0 0 0 3px rgba(21,43,82,.09);}
 .field-input.mono{font-family:'Courier New',monospace;letter-spacing:.06em;}
