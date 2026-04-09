@@ -528,7 +528,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     // ════════════════════════════════════════
-    //  VOICE PAY
+    //  VOICE PAY (SMART NICKNAME MATCHING)
     // ════════════════════════════════════════
     document.getElementById("open-voice-btn")?.addEventListener("click", () => openModal("voice-modal"));
     document.getElementById("voice-close-btn")?.addEventListener("click",() => closeModal("voice-modal"));
@@ -540,49 +540,76 @@ document.addEventListener("DOMContentLoaded", async () => {
         recog.continuous = false;
         recog.interimResults = false;
 
-        recog.onresult = (event) => {
+        recog.onresult = async (event) => {
             const text = event.results[0][0].transcript.toLowerCase();
             document.getElementById("voice-transcript").textContent = `"${text}"`;
             document.getElementById("mic-pulse").style.display = "none";
 
-            // Parse: "send [amount] to [uid]"
-            const match = text.match(/send\s+(\d+(?:\.\d+)?)\s+(?:rupees?\s+)?to\s+([a-z0-9]+)/i);
+            // Naya Regex: "send [amount] to [name]"
+            // Ab yeh last ke saare words ko naam maan lega (.+)
+            const match = text.match(/send\s+(\d+(?:\.\d+)?)\s+(?:rupees?\s+)?to\s+(.+)/i);
+            
             if (match) {
                 const amount = parseFloat(match[1]);
-                const uid    = match[2].toUpperCase();
-                document.getElementById("voice-parsed").textContent =
-                    `✅ Sending ₹${fmt(amount)} to UID: ${uid}`;
-                // Pre-fill transfer form
-                closeModal("voice-modal");
-                document.getElementById("int-receiver-uid").value = uid;
-                document.getElementById("int-amount").value       = amount;
-                // Switch to internal tab
-                document.querySelector(".modal-tab[data-tab='internal']")?.click();
-                openModal("transfer-modal");
+                let spokenName = match[2].trim().toLowerCase();
+                
+                // Mic kabhi kabhi last me full-stop laga deta hai, usko hatane ke liye:
+                spokenName = spokenName.replace(/[.,!?]$/g, '');
+
+                document.getElementById("voice-parsed").textContent = `🔍 Dhoondh rahe hain: "${spokenName}"...`;
+
+                // User ke favorites fetch karo
+                const uid = sessionStorage.getItem(SESSION_KEY);
+                const res = await searchAccount(uid);
+                
+                if (res.success) {
+                    const favs = res.account.favorites || [];
+                    
+                    // Check karo ki bole gaye naam ka koi favorite hai kya (case insensitive)
+                    const foundFav = favs.find(f => f.name.toLowerCase() === spokenName);
+
+                    if (foundFav) {
+                        document.getElementById("voice-parsed").textContent =
+                            `✅ Mil gaya! Sending ₹${fmt(amount)} to ${foundFav.name}`;
+                        
+                        // 1 second rukk ke transfer modal kholo taaki user success message padh sake
+                        setTimeout(() => {
+                            closeModal("voice-modal");
+                            document.getElementById("int-receiver-uid").value = foundFav.uid;
+                            document.getElementById("int-amount").value       = amount;
+                            document.querySelector(".modal-tab[data-tab='internal']")?.click();
+                            openModal("transfer-modal");
+                        }, 1200);
+
+                    } else {
+                        document.getElementById("voice-parsed").textContent =
+                            `❌ "${spokenName}" Favorites mein nahi mila! Pehle unhe add karein.`;
+                    }
+                }
             } else {
                 document.getElementById("voice-parsed").textContent =
-                    `❌ Didn't catch that. Try: "Send 500 to UID"`;
+                    `❌ Samajh nahi aaya. Aise bol kar dekhein: "Send 500 to Rahul"`;
             }
         };
 
         recog.onerror = () => {
             document.getElementById("mic-pulse").style.display = "none";
-            document.getElementById("voice-transcript").textContent = "Error. Please try again.";
+            document.getElementById("voice-transcript").textContent = "Awaaz clear nahi aayi. Phir se try karein.";
         };
 
         document.getElementById("voice-start-btn")?.addEventListener("click", () => {
             document.getElementById("mic-pulse").style.display = "block";
-            document.getElementById("voice-transcript").textContent = "Listening...";
+            document.getElementById("voice-transcript").textContent = "Sun raha hoon...";
             document.getElementById("voice-parsed").textContent = "";
             recog.start();
         });
     } else {
         document.getElementById("voice-start-btn")?.addEventListener("click", () => {
             document.getElementById("voice-transcript").textContent =
-                "Voice not supported in this browser. Try Chrome.";
+                "Voice feature is browser mein nahi chalega. Chrome use karein.";
         });
     }
-
+    
     // ════════════════════════════════════════
     //  FAVORITES
     // ════════════════════════════════════════
