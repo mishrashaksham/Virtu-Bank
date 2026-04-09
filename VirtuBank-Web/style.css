@@ -352,3 +352,8 @@ body{font-family:var(--font-body);font-size:15px;line-height:1.6;color:var(--tex
   .ai-chat-body{height:calc(100vh - 130px);}
   .ai-fab{bottom:20px;right:20px;}
 }
+/* --- Fix for Dropdown Options Visibility --- */
+.modal-card select.field-input option {
+    background-color: var(--navy-800);
+    color: var(--white);
+}
