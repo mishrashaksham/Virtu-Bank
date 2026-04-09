@@ -28,6 +28,8 @@
     </header>
 
     <main class="main-wrapper">
+
+        <!-- ══════════ LOGIN ══════════ -->
         <section id="section-login" class="section active">
             <div class="split-layout">
                 <div class="split-brand">
@@ -53,7 +55,7 @@
                                 <label class="field-label">Account UID</label>
                                 <div class="field-wrap">
                                     <span class="field-icon">👤</span>
-                                    <input type="text" id="login-uid" class="field-input mono" placeholder="XXXXX-XXXXX" required>
+                                    <input type="text" id="login-uid" class="field-input mono" placeholder="XXXXXXXXXX" required>
                                 </div>
                             </div>
                             <div class="field-group">
@@ -73,6 +75,7 @@
             </div>
         </section>
 
+        <!-- ══════════ SIGNUP ══════════ -->
         <section id="section-signup" class="section">
             <div class="signup-wrapper">
                 <div class="signup-card">
@@ -114,6 +117,7 @@
             </div>
         </section>
 
+        <!-- ══════════ DASHBOARD ══════════ -->
         <section id="section-dashboard" class="section">
             <div class="dashboard-layout">
                 <div class="dashboard-topbar">
@@ -121,6 +125,7 @@
                     <div class="dashboard-actions"><button id="logout-btn" class="logout-btn"><span>Logout</span></button></div>
                 </div>
 
+                <!-- Balance Card -->
                 <div class="balance-card">
                     <div class="card-glow"></div>
                     <div class="balance-card-inner">
@@ -133,72 +138,344 @@
                     </div>
                 </div>
 
+                <!-- Action Buttons -->
                 <div class="action-row">
                     <button id="open-transfer-btn" class="action-btn action-btn--gold">💸 Send Money</button>
-                    <button id="open-voice-btn" class="action-btn action-btn--primary">🎙️ Voice Pay</button>
-                    <button id="open-fav-btn" class="action-btn action-btn--secondary">⭐ Favorites</button>
+                    <button id="open-voice-btn"    class="action-btn action-btn--primary">🎙️ Voice Pay</button>
+                    <button id="open-fav-btn"      class="action-btn action-btn--secondary">⭐ Favorites</button>
+                    <button id="open-invest-btn"   class="action-btn action-btn--invest">📈 Invest</button>
+                    <button id="open-gullak-btn"   class="action-btn action-btn--gullak">🏺 VirtuGullak</button>
                 </div>
 
+                <!-- Info Grid -->
                 <div class="info-grid">
-                    <div class="info-tile"><div class="info-tile-icon">🐷</div><div class="info-tile-label">PIGGY BANK</div><div class="info-tile-value accent">₹<span id="dash-piggy-balance">0.00</span></div></div>
-                    <div class="info-tile"><div class="info-tile-icon">🛡️</div><div class="info-tile-label">STATUS</div><div class="info-tile-value status-active">Secure</div></div>
-                    <div class="info-tile"><div class="info-tile-icon">📊</div><div class="info-tile-label">TXNS</div><div id="dash-txn-count" class="info-tile-value">0</div></div>
+                    <div class="info-tile">
+                        <div class="info-tile-icon">🏺</div>
+                        <div class="info-tile-label">VIRTUGULLAK</div>
+                        <div class="info-tile-value accent">₹<span id="dash-gullak-balance">0.00</span></div>
+                    </div>
+                    <div class="info-tile">
+                        <div class="info-tile-icon">📈</div>
+                        <div class="info-tile-label">INVESTED</div>
+                        <div class="info-tile-value" style="color:var(--success)">₹<span id="dash-invest-balance">0.00</span></div>
+                    </div>
+                    <div class="info-tile">
+                        <div class="info-tile-icon">🛡️</div>
+                        <div class="info-tile-label">STATUS</div>
+                        <div class="info-tile-value status-active">Secure</div>
+                    </div>
+                    <div class="info-tile">
+                        <div class="info-tile-icon">📊</div>
+                        <div class="info-tile-label">TXNS</div>
+                        <div id="dash-txn-count" class="info-tile-value">0</div>
+                    </div>
                 </div>
 
-                <button id="toggle-history-btn" class="action-btn action-btn--secondary" style="width:100%; margin-bottom:20px;">📜 View Recent History</button>
-                
+                <button id="toggle-history-btn" class="action-btn action-btn--secondary" style="width:100%;margin-bottom:20px;">📜 View Transaction History</button>
                 <div id="history-panel" class="history-panel">
-                    <div class="history-header"><h4 class="history-title">Transaction Log</h4></div>
+                    <div class="history-header"><h4 class="history-title">Transaction Log</h4><span id="hist-badge" class="history-badge">0/5</span></div>
                     <div id="history-list" class="history-list"></div>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- ══════════ MODAL: UID Reveal ══════════ -->
     <div id="uid-modal" class="modal-backdrop">
         <div class="modal-card">
             <div class="modal-glow"></div>
             <span class="modal-seal">✨</span>
-            <h3 class="modal-title">Welcome Aboard</h3>
+            <h3 class="modal-title">Welcome Aboard!</h3>
             <p class="modal-subtitle">Your unique digital identity has been created.</p>
-            <div class="modal-uid-block"><span class="modal-uid-label">Your Private UID</span><span id="modal-uid-value" class="modal-uid-value">XXXXX</span></div>
+            <div class="modal-uid-block">
+                <span class="modal-uid-label">Your Private UID</span>
+                <span id="modal-uid-value" class="modal-uid-value">XXXXX</span>
+            </div>
             <p class="modal-note">Please <strong>save this UID</strong>. You will need it every time you log in to your vault.</p>
             <button id="modal-proceed-btn" class="modal-cta">Go to Login</button>
         </div>
     </div>
 
+    <!-- ══════════ MODAL: Transfer ══════════ -->
     <div id="transfer-modal" class="modal-backdrop">
         <div class="modal-card modal-card--wide">
             <button id="transfer-close-btn" class="modal-close-btn">✕</button>
             <h3 class="modal-title">Send Money</h3>
-            
             <div class="modal-tabs">
-                <button class="modal-tab active" data-tab="internal" id="tab-internal">VirtuBank UID</button>
-                <button class="modal-tab" data-tab="external">Any UPI ID</button>
+                <button class="modal-tab active" data-tab="internal">VirtuBank UID</button>
+                <button class="modal-tab" data-tab="external">External / UPI</button>
             </div>
-
             <div id="transfer-panel-internal" class="transfer-panel active">
                 <form id="internal-transfer-form">
                     <div class="field-group"><label class="field-label">Receiver UID</label><input type="text" id="int-receiver-uid" class="field-input mono" placeholder="Enter UID" required></div>
-                    <div class="field-group"><label class="field-label">Amount (₹)</label><input type="number" id="int-amount" class="field-input" step="0.01" required></div>
+                    <div class="field-group"><label class="field-label">Amount (₹)</label><input type="number" id="int-amount" class="field-input" step="0.01" min="1" required></div>
                     <div class="field-group"><label class="field-label">Confirm MPIN</label><input type="password" id="int-mpin" class="field-input mono" maxlength="4" required></div>
-                    <button type="submit" id="int-submit-btn" class="modal-cta">Send Money</button>
+                    <label class="fav-checkbox-label"><input type="checkbox" id="int-save-fav"> Save receiver as Favorite</label>
+                    <button type="submit" id="int-submit-btn" class="modal-cta" style="margin-top:16px;">Send Money</button>
                 </form>
             </div>
-
             <div id="transfer-panel-external" class="transfer-panel">
                 <form id="external-transfer-form">
-                    <div class="field-group"><label class="field-label">UPI ID</label><input type="text" id="ext-upi" class="field-input" placeholder="name@bank" required></div>
-                    <div class="field-group"><label class="field-label">Amount (₹)</label><input type="number" id="ext-amount" class="field-input" step="0.01" required></div>
+                    <div class="field-group"><label class="field-label">UPI ID / Account</label><input type="text" id="ext-upi" class="field-input" placeholder="name@bank" required></div>
+                    <div class="field-group"><label class="field-label">Amount (₹)</label><input type="number" id="ext-amount" class="field-input" step="0.01" min="1" required></div>
                     <div class="field-group"><label class="field-label">Confirm MPIN</label><input type="password" id="ext-mpin" class="field-input mono" maxlength="4" required></div>
-                    <button type="submit" id="ext-submit-btn" class="modal-cta">Send via UPI</button>
+                    <button type="submit" id="ext-submit-btn" class="modal-cta" style="margin-top:16px;">Send via UPI</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <button id="ai-fab" class="ai-fab" style="display:none;"><span class="ai-fab-icon">✨</span></button>
+    <!-- ══════════ MODAL: Voice Pay ══════════ -->
+    <div id="voice-modal" class="modal-backdrop">
+        <div class="modal-card">
+            <button class="modal-close-btn" id="voice-close-btn">✕</button>
+            <div class="modal-glow"></div>
+            <span class="modal-seal">🎙️</span>
+            <h3 class="modal-title">Voice Pay</h3>
+            <p class="modal-subtitle">Boliye: "Send 500 to [UID]"</p>
+            <div class="mic-pulse-container" id="mic-container">
+                <div class="mic-pulse" id="mic-pulse" style="display:none;"></div>
+                <span class="mic-icon" id="mic-icon">🎤</span>
+            </div>
+            <p id="voice-transcript" class="voice-transcript">Tap the mic to start speaking...</p>
+            <p id="voice-parsed" class="voice-parsed"></p>
+            <button id="voice-start-btn" class="modal-cta">🎙️ Start Listening</button>
+        </div>
+    </div>
 
+    <!-- ══════════ MODAL: Favorites ══════════ -->
+    <div id="fav-modal" class="modal-backdrop">
+        <div class="modal-card modal-card--wide">
+            <button class="modal-close-btn" id="fav-close-btn">✕</button>
+            <div class="modal-glow"></div>
+            <span class="modal-seal">⭐</span>
+            <h3 class="modal-title">Favorites</h3>
+            <p class="modal-subtitle">Quick-send to your trusted contacts</p>
+            <div id="fav-list-container" class="fav-list-container"></div>
+            <div class="add-fav-form">
+                <p class="fav-form-title">+ Add New Favorite</p>
+                <div class="field-group" style="margin-bottom:12px;"><label class="field-label">Nickname</label><input type="text" id="fav-name" class="field-input" placeholder="e.g. Rahul Bhai"></div>
+                <div class="field-group" style="margin-bottom:16px;"><label class="field-label">Their UID</label><input type="text" id="fav-uid" class="field-input mono" placeholder="10-char UID"></div>
+                <button id="add-fav-btn" class="modal-cta">Save Favorite</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════ MODAL: Investments ══════════ -->
+    <div id="invest-modal" class="modal-backdrop">
+        <div class="modal-card modal-card--wide">
+            <button class="modal-close-btn" id="invest-close-btn">✕</button>
+            <div class="modal-glow"></div>
+            <span class="modal-seal">📈</span>
+            <h3 class="modal-title">VirtuInvest</h3>
+            <p class="modal-subtitle">Grow your wealth with smart instruments</p>
+            <div class="modal-tabs" id="invest-tabs">
+                <button class="modal-tab active" data-itab="sip">SIP</button>
+                <button class="modal-tab" data-itab="longterm">Long-Term</button>
+                <button class="modal-tab" data-itab="gold">Digital Gold</button>
+            </div>
+            <!-- SIP Panel -->
+            <div id="invest-panel-sip" class="transfer-panel active">
+                <div class="invest-info-card">
+                    <div class="invest-rate-badge">~12% p.a.</div>
+                    <p class="invest-desc">Systematic Investment Plan — invest a fixed amount every month. Best for disciplined wealth building over 1–30 years.</p>
+                </div>
+                <form id="sip-form">
+                    <div class="field-group"><label class="field-label">Monthly SIP Amount (₹)</label><input type="number" id="sip-amount" class="field-input" min="100" placeholder="Min ₹100" required></div>
+                    <div class="field-group"><label class="field-label">Duration (years)</label><input type="number" id="sip-years" class="field-input" min="1" max="30" placeholder="1–30 years" required></div>
+                    <div class="invest-calc-result" id="sip-result"></div>
+                    <button type="button" id="sip-calc-btn" class="submit-btn" style="margin-bottom:8px;background:rgba(58,107,191,.2);color:var(--navy-200);">Calculate Returns</button>
+                    <button type="submit" class="modal-cta">Start SIP</button>
+                </form>
+            </div>
+            <!-- Long-Term Panel -->
+            <div id="invest-panel-longterm" class="transfer-panel">
+                <div class="invest-info-card">
+                    <div class="invest-rate-badge">~9% p.a.</div>
+                    <p class="invest-desc">Lump-sum Fixed Deposit style investment. Lock your money for steady guaranteed returns over 1–10 years.</p>
+                </div>
+                <form id="lt-form">
+                    <div class="field-group"><label class="field-label">Investment Amount (₹)</label><input type="number" id="lt-amount" class="field-input" min="1000" placeholder="Min ₹1,000" required></div>
+                    <div class="field-group"><label class="field-label">Duration (years)</label><input type="number" id="lt-years" class="field-input" min="1" max="10" placeholder="1–10 years" required></div>
+                    <div class="invest-calc-result" id="lt-result"></div>
+                    <button type="button" id="lt-calc-btn" class="submit-btn" style="margin-bottom:8px;background:rgba(58,107,191,.2);color:var(--navy-200);">Calculate Returns</button>
+                    <button type="submit" class="modal-cta">Invest Now</button>
+                </form>
+            </div>
+            <!-- Digital Gold Panel -->
+            <div id="invest-panel-gold" class="transfer-panel">
+                <div class="invest-info-card" style="border-color:rgba(201,168,76,.3);">
+                    <div class="invest-rate-badge" style="background:rgba(201,168,76,.15);color:var(--gold-400);border-color:rgba(201,168,76,.3);">~8% p.a. (estimated)</div>
+                    <p class="invest-desc">Buy digital 24K gold in any denomination. Safe store of value. Sell anytime at live market rates.</p>
+                    <div class="gold-price-row"><span class="gold-price-label">Live Gold Price</span><span id="gold-live-price" class="gold-price-value">₹7,420 / gram</span></div>
+                </div>
+                <form id="gold-form">
+                    <div class="field-group"><label class="field-label">Amount to invest (₹)</label><input type="number" id="gold-amount" class="field-input" min="100" placeholder="Min ₹100" required></div>
+                    <div class="invest-calc-result" id="gold-result"></div>
+                    <button type="button" id="gold-calc-btn" class="submit-btn" style="margin-bottom:8px;background:rgba(201,168,76,.1);color:var(--gold-400);">See How Much Gold</button>
+                    <button type="submit" class="modal-cta" style="background:linear-gradient(135deg,var(--gold-500),var(--gold-300));color:var(--navy-950);">Buy Gold</button>
+                </form>
+            </div>
+            <!-- Portfolio -->
+            <div id="invest-portfolio" style="margin-top:20px;display:none;">
+                <div class="portfolio-header">Your Portfolio</div>
+                <div id="invest-portfolio-list" class="portfolio-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════ MODAL: VirtuGullak ══════════ -->
+    <div id="gullak-modal" class="modal-backdrop">
+        <div class="modal-card modal-card--wide">
+            <button class="modal-close-btn" id="gullak-close-btn">✕</button>
+            <div class="modal-glow" style="background:radial-gradient(circle, rgba(201,168,76,.2) 0%, transparent 70%);"></div>
+
+            <!-- No Gullak State -->
+            <div id="gullak-create-view">
+                <span class="modal-seal">🏺</span>
+                <h3 class="modal-title">VirtuGullak</h3>
+                <p class="modal-subtitle">Set a savings goal. Toot-ti nahi, sirf badhti hai.</p>
+                <div class="gullak-options-row">
+                    <button class="gullak-option-card" id="gullak-solo-btn">
+                        <div class="gullak-option-icon">🏺</div>
+                        <div class="gullak-option-title">Solo Gullak</div>
+                        <div class="gullak-option-desc">Save alone, at your own pace</div>
+                    </button>
+                    <button class="gullak-option-card" id="gullak-group-btn">
+                        <div class="gullak-option-icon">👥</div>
+                        <div class="gullak-option-title">Group Gullak</div>
+                        <div class="gullak-option-desc">Save together with favorites</div>
+                    </button>
+                </div>
+                <form id="gullak-setup-form" style="display:none; margin-top:20px; text-align:left;">
+                    <div id="gullak-type-badge" class="gullak-type-badge"></div>
+                    <div class="field-group"><label class="field-label">Gullak Name / Goal</label><input type="text" id="g-name" class="field-input" placeholder="e.g. New Bike, Trip to Goa" required></div>
+                    <div class="field-group"><label class="field-label">Target Amount (₹)</label><input type="number" id="g-target" class="field-input" min="100" placeholder="₹5,000" required></div>
+                    <div class="field-group"><label class="field-label">Saving Frequency</label>
+                        <select id="g-frequency" class="field-input">
+                            <option value="daily">Daily</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly" selected>Monthly</option>
+                        </select>
+                    </div>
+                    <div class="field-group"><label class="field-label" id="g-limit-label">Amount per interval (₹)</label><input type="number" id="g-limit" class="field-input" min="1" placeholder="₹500" required></div>
+                    <div id="gullak-group-section" style="display:none;">
+                        <div class="field-group"><label class="field-label">Add Favorite Members (UIDs)</label><div id="gullak-member-picker" class="member-picker"></div></div>
+                    </div>
+                    <button type="submit" class="modal-cta" style="margin-top:16px;">🏺 Create Gullak</button>
+                </form>
+            </div>
+
+            <!-- Active Gullak State -->
+            <div id="gullak-active-view" style="display:none;">
+                <div class="gullak-header-row">
+                    <div>
+                        <div class="gullak-name-display" id="g-display-name">My Gullak</div>
+                        <div class="gullak-interest-badge" id="g-interest-badge">+6.5% p.a. interest</div>
+                    </div>
+                    <div class="gullak-balance-big">₹<span id="g-current-bal">0</span></div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="gullak-progress-wrap">
+                    <div class="gullak-progress-bar"><div class="gullak-progress-fill" id="g-progress-fill"></div></div>
+                    <div class="gullak-progress-labels">
+                        <span id="g-progress-pct">0%</span>
+                        <span>Goal: ₹<span id="g-target-display">0</span></span>
+                    </div>
+                </div>
+
+                <!-- Forecast Chart -->
+                <canvas id="gullak-chart" class="gullak-chart"></canvas>
+                <div class="gullak-forecast-row">
+                    <div class="gullak-forecast-item"><span class="gf-label">Days Remaining</span><span class="gf-val" id="g-days-left">—</span></div>
+                    <div class="gullak-forecast-item"><span class="gf-label">Estimated Completion</span><span class="gf-val" id="g-eta">—</span></div>
+                    <div class="gullak-forecast-item"><span class="gf-label">Interest Earned</span><span class="gf-val success-text" id="g-interest-earned">₹0</span></div>
+                </div>
+
+                <!-- Members -->
+                <div id="g-members-row" class="g-members-row" style="display:none;"></div>
+
+                <!-- Actions -->
+                <div class="gullak-actions">
+                    <button id="g-add-money-btn" class="action-btn action-btn--gold" style="flex:1;">➕ Add Money</button>
+                    <button id="g-withdraw-btn" class="action-btn action-btn--secondary" style="flex:1;">💰 Withdraw</button>
+                    <button id="g-auto-toggle-btn" class="action-btn action-btn--primary" style="flex:1;" title="Toggle auto-save on transactions">⚙️ Auto-Save: <span id="g-auto-status">ON</span></button>
+                </div>
+                <div id="g-pause-section" style="text-align:center;margin-top:12px;">
+                    <button id="g-pause-btn" class="text-danger-link">⏸ Pause / Delete Gullak</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════ MODAL: Gullak Add Money ══════════ -->
+    <div id="gullak-add-modal" class="modal-backdrop">
+        <div class="modal-card">
+            <button class="modal-close-btn" id="gullak-add-close">✕</button>
+            <span class="modal-seal">💰</span>
+            <h3 class="modal-title">Add to Gullak</h3>
+            <p class="modal-subtitle">Directly deposit any amount into your Gullak</p>
+            <div class="field-group" style="margin-bottom:16px;text-align:left;">
+                <label class="field-label">Amount (₹)</label>
+                <input type="number" id="g-manual-amount" class="field-input" min="1" placeholder="₹0">
+            </div>
+            <div class="field-group" style="margin-bottom:20px;text-align:left;">
+                <label class="field-label">MPIN</label>
+                <input type="password" id="g-manual-mpin" class="field-input mono" maxlength="4">
+            </div>
+            <button id="g-manual-confirm-btn" class="modal-cta">Deposit to Gullak</button>
+        </div>
+    </div>
+
+    <!-- ══════════ MODAL: Gullak Withdraw (Captcha) ══════════ -->
+    <div id="gullak-withdraw-modal" class="modal-backdrop">
+        <div class="modal-card">
+            <button class="modal-close-btn" id="gullak-withdraw-close">✕</button>
+            <span class="modal-seal modal-seal--red">⚠️</span>
+            <h3 class="modal-title">Withdraw from Gullak</h3>
+            <p class="modal-subtitle" id="gullak-withdraw-subtitle">Solve the captcha to confirm withdrawal</p>
+            <div class="captcha-block">
+                <span class="captcha-label">Security Check</span>
+                <div class="captcha-question" id="gullak-captcha-q">—</div>
+            </div>
+            <div class="field-group" style="margin-bottom:12px;text-align:left;">
+                <label class="field-label">Your Answer</label>
+                <input type="number" id="gullak-captcha-ans" class="field-input" placeholder="Enter answer">
+            </div>
+            <div class="field-group" style="margin-bottom:12px;text-align:left;">
+                <label class="field-label">Withdraw Amount (₹)</label>
+                <input type="number" id="gullak-withdraw-amount" class="field-input" min="1" placeholder="₹0">
+            </div>
+            <div class="field-group" style="margin-bottom:20px;text-align:left;">
+                <label class="field-label">MPIN</label>
+                <input type="password" id="gullak-withdraw-mpin" class="field-input mono" maxlength="4">
+            </div>
+            <button id="gullak-withdraw-confirm-btn" class="modal-cta danger-btn">Confirm Withdrawal</button>
+        </div>
+    </div>
+
+    <!-- ══════════ MODAL: Gullak Pause (Captcha) ══════════ -->
+    <div id="gullak-pause-modal" class="modal-backdrop">
+        <div class="modal-card">
+            <button class="modal-close-btn" id="gullak-pause-close">✕</button>
+            <span class="modal-seal modal-seal--red">🔒</span>
+            <h3 class="modal-title">Pause / Delete Gullak</h3>
+            <p class="modal-subtitle">This will stop contributions. Solve to confirm.</p>
+            <div class="captcha-block">
+                <span class="captcha-label">Security Check</span>
+                <div class="captcha-question" id="gullak-pause-captcha-q">—</div>
+            </div>
+            <div class="field-group" style="margin-bottom:20px;text-align:left;">
+                <label class="field-label">Your Answer</label>
+                <input type="number" id="gullak-pause-ans" class="field-input" placeholder="Enter answer">
+            </div>
+            <button id="gullak-pause-confirm-btn" class="modal-cta danger-btn">Confirm Pause</button>
+        </div>
+    </div>
+
+    <!-- ══════════ AI FAB + CHAT ══════════ -->
+    <button id="ai-fab" class="ai-fab" style="display:none;"><span class="ai-fab-icon">✨</span></button>
     <div id="ai-chat-window" class="ai-chat-window">
         <div class="ai-chat-header">
             <div class="ai-header-info"><span class="ai-icon">🤖</span><div><h4 class="ai-title">Virtu-Mitra</h4><span class="ai-subtitle">AI Financial Advisor</span></div></div>
