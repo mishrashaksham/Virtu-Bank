@@ -20,6 +20,7 @@ void generateUID(char uid[])
     uid[10] = '\0';
 }
 
+
 struct accounts *root = NULL;
 
 void createAccount(char name[], int age, char gender[], char maritalStatus[], char pan[], char aadhar[], char email[], char mobile[], char address[], double balance, int pin, char password[])
