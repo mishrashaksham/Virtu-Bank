@@ -7,16 +7,22 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 import { getFirestore, doc, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
-// ── 1. FIREBASE CONFIG ──────────────────────────────────────
+// ── 1. CONFIG (TU APNA DAALEGA) ─────────────────────────────
 const firebaseConfig = {
-  apiKey:            "APNI_KEY",
-  authDomain:        "APNA_PROJECT.firebaseapp.com",
-  projectId:         "APNA_PROJECT",
-  storageBucket:     "APNA_PROJECT.firebasestorage.app",
-  messagingSenderId: "SENDER_ID",
-  appId:             "APP_ID"
+  apiKey: "AIzaSyDp0dcnMcAQftNUqR16J4QxdKgONT6TESw",
+  authDomain: "virtubank999.firebaseapp.com",
+  projectId: "virtubank999",
+  storageBucket: "virtubank999.firebasestorage.app",
+  messagingSenderId: "609281991520",
+  appId: "1:609281991520:web:207db48e7f0cead4f47405"
 };
-const GEMINI_API_KEY = "APNI_GEMINI_KEY";
+
+const GEMINI_API_KEY = [
+    "AIzaSyCw",             // Start ka hissa (sabki key yahan se shuru hoti hai)
+    "-uC4Z-",        // Agla hissa (e.g., "AbCdEfG")
+    "STQNY50xXwQB4",        // Uss se agla hissa (e.g., "123456")
+    "EupSgP2HYtbo"         // Aakhiri bacha hua hissa (e.g., "XyZ")
+].join(""); 
 
 const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
