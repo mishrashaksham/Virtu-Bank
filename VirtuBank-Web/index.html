@@ -1,698 +1,665 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VirtuBank | Bharat 2.0</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VirtuBank | Bharat 2.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div id="toast" class="toast"><span class="toast-icon">✦</span><span id="toast-message"></span></div>
+    <div id="toast" class="toast"><span class="toast-icon">✦</span><span id="toast-message"></span></div>
 
-    <!-- ══════════ HEADER ══════════ -->
-    <header id="site-header" class="site-header">
-        <div class="header-inner">
-            <div class="logo">
-                <span class="logo-mark">🏛️</span>
-                <span class="logo-text">VirtuBank</span>
-                <span class="logo-sub-tag">Bharat 2.0</span>
-            </div>
-            <nav class="header-nav">
-                <button id="nav-login-btn" class="nav-btn active" data-i18n="nav_login">Login</button>
-                <button id="nav-signup-btn" class="nav-btn" data-i18n="nav_join">Join Us</button>
-                <!-- Language Dropdown -->
-                <div class="lang-dropdown-wrap">
-                    <button class="lang-dropdown-btn" id="lang-btn">
-                        <span id="lang-flag">🇬🇧</span>
-                        <span id="lang-label">English</span>
-                        <span class="lang-chevron">▾</span>
-                    </button>
-                    <div class="lang-dropdown-menu" id="lang-menu">
-                        <div class="lang-group-label">🇮🇳 Indian Languages</div>
-                        <button class="lang-option active" data-lang="en" data-code="en-IN" data-flag="🇬🇧">English</button>
-                        <button class="lang-option" data-lang="hi" data-code="hi-IN" data-flag="🇮🇳">हिन्दी (Hindi)</button>
-                        <button class="lang-option" data-lang="te" data-code="te-IN" data-flag="🏳️">తెలుగు (Telugu)</button>
-                        <button class="lang-option" data-lang="ta" data-code="ta-IN" data-flag="🏳️">தமிழ் (Tamil)</button>
-                        <button class="lang-option" data-lang="ml" data-code="ml-IN" data-flag="🏳️">മലയാളം (Malayalam)</button>
-                        <button class="lang-option" data-lang="kn" data-code="kn-IN" data-flag="🏳️">ಕನ್ನಡ (Kannada)</button>
-                        <button class="lang-option" data-lang="mr" data-code="mr-IN" data-flag="🏳️">मराठी (Marathi)</button>
-                        <button class="lang-option" data-lang="gu" data-code="gu-IN" data-flag="🏳️">ગુજરાતી (Gujarati)</button>
-                        <button class="lang-option" data-lang="bn" data-code="bn-IN" data-flag="🏳️">বাংলা (Bengali)</button>
-                        <button class="lang-option" data-lang="pa" data-code="pa-IN" data-flag="🏳️">ਪੰਜਾਬੀ (Punjabi)</button>
-                        <button class="lang-option" data-lang="as" data-code="as-IN" data-flag="🏳️">অসমীয়া (Assamese)</button>
-                        <div class="lang-group-label">🌍 Foreign Languages</div>
-                        <button class="lang-option" data-lang="fr" data-code="fr-FR" data-flag="🇫🇷">Français (French)</button>
-                        <button class="lang-option" data-lang="de" data-code="de-DE" data-flag="🇩🇪">Deutsch (German)</button>
-                        <button class="lang-option" data-lang="ru" data-code="ru-RU" data-flag="🇷🇺">Русский (Russian)</button>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </header>
+    <header id="site-header" class="site-header">
+        <div class="header-inner">
+            <div class="logo">
+                <span class="logo-mark">🏛️</span>
+                <span class="logo-text">VirtuBank</span>
+                <span class="logo-sub-tag">Bharat 2.0</span>
+            </div>
+            <nav class="header-nav">
+                <button id="nav-login-btn" class="nav-btn active" data-i18n="nav_login">Login</button>
+                <button id="nav-signup-btn" class="nav-btn" data-i18n="nav_join">Join Us</button>
+                <div class="lang-dropdown-wrap">
+                    <button class="lang-dropdown-btn" id="lang-btn">
+                        <span id="lang-flag">🇬🇧</span>
+                        <span id="lang-label">English</span>
+                        <span class="lang-chevron">▾</span>
+                    </button>
+                    <div class="lang-dropdown-menu" id="lang-menu">
+                        <div class="lang-group-label">🇮🇳 Indian Languages</div>
+                        <button class="lang-option active" data-lang="en" data-code="en-IN" data-flag="🇬🇧">English</button>
+                        <button class="lang-option" data-lang="hi" data-code="hi-IN" data-flag="🇮🇳">हिन्दी (Hindi)</button>
+                        <button class="lang-option" data-lang="te" data-code="te-IN" data-flag="🏳️">తెలుగు (Telugu)</button>
+                        <button class="lang-option" data-lang="ta" data-code="ta-IN" data-flag="🏳️">தமிழ் (Tamil)</button>
+                        <button class="lang-option" data-lang="ml" data-code="ml-IN" data-flag="🏳️">മലയാളം (Malayalam)</button>
+                        <button class="lang-option" data-lang="kn" data-code="kn-IN" data-flag="🏳️">ಕನ್ನಡ (Kannada)</button>
+                        <button class="lang-option" data-lang="mr" data-code="mr-IN" data-flag="🏳️">मराठी (Marathi)</button>
+                        <button class="lang-option" data-lang="gu" data-code="gu-IN" data-flag="🏳️">ગુજરાતી (Gujarati)</button>
+                        <button class="lang-option" data-lang="bn" data-code="bn-IN" data-flag="🏳️">বাংলা (Bengali)</button>
+                        <button class="lang-option" data-lang="pa" data-code="pa-IN" data-flag="🏳️">ਪੰਜਾਬੀ (Punjabi)</button>
+                        <button class="lang-option" data-lang="as" data-code="as-IN" data-flag="🏳️">অসমীয়া (Assamese)</button>
+                        <div class="lang-group-label">🌍 Foreign Languages</div>
+                        <button class="lang-option" data-lang="fr" data-code="fr-FR" data-flag="🇫🇷">Français (French)</button>
+                        <button class="lang-option" data-lang="de" data-code="de-DE" data-flag="🇩🇪">Deutsch (German)</button>
+                        <button class="lang-option" data-lang="ru" data-code="ru-RU" data-flag="🇷🇺">Русский (Russian)</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
 
-    <main class="main-wrapper">
+    <main class="main-wrapper">
 
-        <!-- ══════════ LOGIN ══════════ -->
-        <section id="section-login" class="section active">
-            <div class="split-layout">
-                <div class="split-brand">
-                    <div class="brand-content">
-                        <span class="brand-badge" data-i18n="brand_badge">VIT-AP Innovation</span>
-                        <h1 class="brand-headline" data-i18n="brand_headline">Banking for the <em>Next Billion.</em></h1>
-                        <p class="brand-tagline" data-i18n="brand_tagline">Secure, AI-powered banking designed for everyone from Amaravati to the world.</p>
-                        <div class="brand-stats">
-                            <div class="stat"><span class="stat-num">0%</span><span class="stat-label" data-i18n="stat_fees">Fees</span></div>
-                            <div class="stat-divider"></div>
-                            <div class="stat"><span class="stat-num">24/7</span><span class="stat-label" data-i18n="stat_support">AI Support</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="split-form">
-                    <div class="form-card">
-                        <div class="form-card-header">
-                            <h2 class="form-title" data-i18n="login_title">Welcome Back</h2>
-                            <p class="form-subtitle" data-i18n="login_sub">Enter your unique UID to access your vault.</p>
-                        </div>
-                        <form id="login-form">
-                            <div class="field-group">
-                                <label class="field-label" data-i18n="uid_label">Account UID</label>
-                                <div class="field-wrap">
-                                    <span class="field-icon">👤</span>
-                                    <input type="text" id="login-uid" class="field-input mono" placeholder="XXXXXXXXXX" required>
-                                </div>
-                            </div>
-                            <div class="field-group">
-                                <label class="field-label" data-i18n="pass_label">Secret Password</label>
-                                <div class="field-wrap">
-                                    <span class="field-icon">🔒</span>
-                                    <input type="password" id="login-password" class="field-input" placeholder="••••••••" required>
-                                </div>
-                            </div>
-                            <button type="submit" id="login-submit-btn" class="submit-btn">
-                                <span class="btn-text" data-i18n="sign_in">Sign In</span><span class="btn-arrow">→</span>
-                            </button>
-                        </form>
-                        <p class="form-footer-text"><span data-i18n="no_account">New to VirtuBank?</span> <button type="button" id="goto-signup-link" class="text-link" data-i18n="create_acc">Create an account</button></p>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <section id="section-login" class="section active">
+            <div class="split-layout">
+                <div class="split-brand">
+                    <div class="brand-content">
+                        <span class="brand-badge" data-i18n="brand_badge">VIT-AP Innovation</span>
+                        <h1 class="brand-headline" data-i18n="brand_headline">Banking for the <em>Next Billion.</em></h1>
+                        <p class="brand-tagline" data-i18n="brand_tagline">Secure, AI-powered banking designed for everyone from Amaravati to the world.</p>
+                        <div class="brand-stats">
+                            <div class="stat"><span class="stat-num">0%</span><span class="stat-label" data-i18n="stat_fees">Fees</span></div>
+                            <div class="stat-divider"></div>
+                            <div class="stat"><span class="stat-num">24/7</span><span class="stat-label" data-i18n="stat_support">AI Support</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="split-form">
+                    <div class="form-card">
+                        <div class="form-card-header">
+                            <h2 class="form-title" data-i18n="login_title">Welcome Back</h2>
+                            <p class="form-subtitle" data-i18n="login_sub">Enter your unique UID to access your vault.</p>
+                        </div>
+                        <form id="login-form">
+                            <div class="field-group">
+                                <label class="field-label" data-i18n="uid_label">Account UID</label>
+                                <div class="field-wrap">
+                                    <span class="field-icon">👤</span>
+                                    <input type="text" id="login-uid" class="field-input mono" placeholder="XXXXXXXXXX" required>
+                                </div>
+                            </div>
+                            <div class="field-group">
+                                <label class="field-label" data-i18n="pass_label">Secret Password</label>
+                                <div class="field-wrap">
+                                    <span class="field-icon">🔒</span>
+                                    <input type="password" id="login-password" class="field-input" placeholder="••••••••" required>
+                                </div>
+                            </div>
+                            <button type="submit" id="login-submit-btn" class="submit-btn">
+                                <span class="btn-text" data-i18n="sign_in">Sign In</span><span class="btn-arrow">→</span>
+                            </button>
+                        </form>
+                        <p class="form-footer-text"><span data-i18n="no_account">New to VirtuBank?</span> <button type="button" id="goto-signup-link" class="text-link" data-i18n="create_acc">Create an account</button></p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <!-- ══════════ SIGNUP ══════════ -->
-        <section id="section-signup" class="section">
-            <div class="signup-wrapper">
-                <div class="signup-card">
-                    <div class="signup-header">
-                        <h2 class="form-title large" data-i18n="join_title">Join VirtuBank</h2>
-                        <p class="form-subtitle" data-i18n="join_sub">Create a secure digital identity in seconds.</p>
-                    </div>
-                    <form id="signup-form">
-                        <div class="form-section">
-                            <div class="section-legend"><span class="legend-num">01</span> <span data-i18n="sec_personal">Personal Details</span></div>
-                            <div class="form-grid">
-                                <div class="field-group"><label class="field-label" data-i18n="lbl_name">Full Name</label><input type="text" id="s-name" class="field-input" required></div>
-                                <div class="field-group"><label class="field-label" data-i18n="lbl_age">Age</label><input type="number" id="s-age" class="field-input" required></div>
-                                <div class="field-group"><label class="field-label" data-i18n="lbl_gender">Gender</label><select id="s-gender" class="field-input"><option>Male</option><option>Female</option><option>Other</option></select></div>
-                                <div class="field-group"><label class="field-label" data-i18n="lbl_status">Status</label><select id="s-marital" class="field-input"><option>Single</option><option>Married</option></select></div>
-                            </div>
-                        </div>
-                        <div class="form-section">
-                            <div class="section-legend"><span class="legend-num">02</span> <span data-i18n="sec_identity">Identity &amp; Contact</span></div>
-                            <div class="form-grid">
-                                <div class="field-group"><label class="field-label" data-i18n="lbl_pan">PAN Card</label><input type="text" id="s-pan" class="field-input mono" maxlength="10" required></div>
-                                <div class="field-group"><label class="field-label" data-i18n="lbl_aadhar">Aadhar Number</label><input type="text" id="s-aadhar" class="field-input mono" maxlength="12" required></div>
-                                <div class="field-group"><label class="field-label" data-i18n="lbl_email">Email Address</label><input type="email" id="s-email" class="field-input" required></div>
-                                <div class="field-group"><label class="field-label" data-i18n="lbl_mobile">Mobile Number</label><input type="tel" id="s-mobile" class="field-input" maxlength="10" required></div>
-                                <div class="field-group col-2"><label class="field-label" data-i18n="lbl_address">Full Address</label><textarea id="s-address" class="field-input field-textarea" required></textarea></div>
-                            </div>
-                        </div>
-                        <div class="form-section">
-                            <div class="section-legend"><span class="legend-num">03</span> <span data-i18n="sec_security">Security</span></div>
-                            <div class="form-grid">
-                                <div class="field-group"><label class="field-label" data-i18n="lbl_password">Login Password</label><input type="password" id="s-password" class="field-input" required></div>
-                                <div class="field-group"><label class="field-label" data-i18n="lbl_mpin">4-Digit MPIN</label><input type="password" id="s-mpin" class="field-input mono" maxlength="4" required></div>
-                            </div>
-                        </div>
-                        <button type="submit" id="signup-submit-btn" class="submit-btn"><span class="btn-text" data-i18n="create_account">Create My Account</span><span class="btn-arrow">→</span></button>
-                        <p class="form-footer-text"><span data-i18n="have_uid">Already have a UID?</span> <button type="button" id="goto-login-link" class="text-link" data-i18n="sign_in_here">Sign in here</button></p>
-                    </form>
-                </div>
-            </div>
-        </section>
+        <section id="section-signup" class="section">
+            <div class="signup-wrapper">
+                <div class="signup-card">
+                    <div class="signup-header">
+                        <h2 class="form-title large" data-i18n="join_title">Join VirtuBank</h2>
+                        <p class="form-subtitle" data-i18n="join_sub">Create a secure digital identity in seconds.</p>
+                    </div>
+                    <form id="signup-form">
+                        <div class="form-section">
+                            <div class="section-legend"><span class="legend-num">01</span> <span data-i18n="sec_personal">Personal Details</span></div>
+                            <div class="form-grid">
+                                <div class="field-group"><label class="field-label" data-i18n="lbl_name">Full Name</label><input type="text" id="s-name" class="field-input" required></div>
+                                <div class="field-group"><label class="field-label" data-i18n="lbl_age">Age</label><input type="number" id="s-age" class="field-input" required></div>
+                                <div class="field-group"><label class="field-label" data-i18n="lbl_gender">Gender</label><select id="s-gender" class="field-input"><option>Male</option><option>Female</option><option>Other</option></select></div>
+                                <div class="field-group"><label class="field-label" data-i18n="lbl_status">Status</label><select id="s-marital" class="field-input"><option>Single</option><option>Married</option></select></div>
+                            </div>
+                        </div>
+                        <div class="form-section">
+                            <div class="section-legend"><span class="legend-num">02</span> <span data-i18n="sec_identity">Identity &amp; Contact</span></div>
+                            <div class="form-grid">
+                                <div class="field-group"><label class="field-label" data-i18n="lbl_pan">PAN Card</label><input type="text" id="s-pan" class="field-input mono" maxlength="10" required></div>
+                                <div class="field-group"><label class="field-label" data-i18n="lbl_aadhar">Aadhar Number</label><input type="text" id="s-aadhar" class="field-input mono" maxlength="12" required></div>
+                                <div class="field-group"><label class="field-label" data-i18n="lbl_email">Email Address</label><input type="email" id="s-email" class="field-input" required></div>
+                                <div class="field-group"><label class="field-label" data-i18n="lbl_mobile">Mobile Number</label><input type="tel" id="s-mobile" class="field-input" maxlength="10" required></div>
+                                <div class="field-group col-2"><label class="field-label" data-i18n="lbl_address">Full Address</label><textarea id="s-address" class="field-input field-textarea" required></textarea></div>
+                            </div>
+                        </div>
+                        <div class="form-section">
+                            <div class="section-legend"><span class="legend-num">03</span> <span data-i18n="sec_security">Security</span></div>
+                            <div class="form-grid">
+                                <div class="field-group"><label class="field-label" data-i18n="lbl_password">Login Password</label><input type="password" id="s-password" class="field-input" required></div>
+                                <div class="field-group"><label class="field-label" data-i18n="lbl_mpin">4-Digit MPIN</label><input type="password" id="s-mpin" class="field-input mono" maxlength="4" required></div>
+                            </div>
+                        </div>
+                        <button type="submit" id="signup-submit-btn" class="submit-btn"><span class="btn-text" data-i18n="create_account">Create My Account</span><span class="btn-arrow">→</span></button>
+                        <p class="form-footer-text"><span data-i18n="have_uid">Already have a UID?</span> <button type="button" id="goto-login-link" class="text-link" data-i18n="sign_in_here">Sign in here</button></p>
+                    </form>
+                </div>
+            </div>
+        </section>
 
-        <!-- ══════════ DASHBOARD ══════════ -->
-        <section id="section-dashboard" class="section">
-            <div class="dashboard-layout">
+        <section id="section-dashboard" class="section">
+            <div class="dashboard-layout">
 
-                <!-- Topbar -->
-                <div class="dashboard-topbar">
-                    <div class="dashboard-brand"><span class="logo-mark">🏛️</span><h3 id="dash-greeting" class="logo-text">Namaste</h3></div>
-                    <div class="dashboard-actions">
-                        <button id="open-services-btn" class="services-hub-btn">⚡ <span data-i18n="services_hub">Services</span></button>
-                        <button id="open-gullak-invites-btn" class="invites-btn" style="display:none;">📬 <span id="invites-count-badge">0</span></button>
-                        <button id="logout-btn" class="logout-btn"><span data-i18n="logout">Logout</span></button>
-                    </div>
-                </div>
+                <div class="dashboard-topbar">
+                    <div class="dashboard-brand"><span class="logo-mark">🏛️</span><h3 id="dash-greeting" class="logo-text">Namaste</h3></div>
+                    <div class="dashboard-actions">
+                        <button id="open-services-btn" class="services-hub-btn">⚡ <span data-i18n="services_hub">Services</span></button>
+                        <button id="open-gullak-invites-btn" class="invites-btn" style="display:none;">📬 <span id="invites-count-badge">0</span></button>
+                        <button id="logout-btn" class="logout-btn"><span data-i18n="logout">Logout</span></button>
+                    </div>
+                </div>
 
-                <!-- Balance Card -->
-                <div class="balance-card">
-                    <div class="card-glow"></div>
-                    <div class="balance-card-inner">
-                        <div class="card-top"><span class="card-label" data-i18n="savings_acc">Digital Savings Account</span><span class="card-bank-name">VirtuBank</span></div>
-                        <div class="card-balance"><span class="currency-symbol">₹</span><span id="dash-balance" class="balance-amount">0.00</span></div>
-                        <div class="card-bottom">
-                            <div><span class="card-meta-label" data-i18n="acc_holder">Account Holder</span><span id="dash-name" class="card-holder-name">Loading...</span></div>
-                            <div><span class="card-meta-label" data-i18n="uid_num">UID Number</span><span id="dash-uid" class="card-uid-value">XXXXX</span></div>
-                        </div>
-                    </div>
-                </div>
+                <div class="balance-card">
+                    <div class="card-glow"></div>
+                    <div class="balance-card-inner">
+                        <div class="card-top"><span class="card-label" data-i18n="savings_acc">Digital Savings Account</span><span class="card-bank-name">VirtuBank</span></div>
+                        <div class="card-balance"><span class="currency-symbol">₹</span><span id="dash-balance" class="balance-amount">0.00</span></div>
+                        <div class="card-bottom">
+                            <div><span class="card-meta-label" data-i18n="acc_holder">Account Holder</span><span id="dash-name" class="card-holder-name">Loading...</span></div>
+                            <div><span class="card-meta-label" data-i18n="uid_num">UID Number</span><span id="dash-uid" class="card-uid-value">XXXXX</span></div>
+                        </div>
+                    </div>
+                </div>
 
-                <!-- Virtu-Trust Score -->
-                <div class="trust-score-panel">
-                    <div class="trust-header">
-                        <span class="trust-label">🛡️ <span data-i18n="trust_score">Virtu-Trust Score</span></span>
-                        <span class="trust-value"><span id="trust-score-num">400</span> / 1000</span>
-                    </div>
-                    <div class="trust-track">
-                        <div class="trust-fill" id="trust-fill" style="width:40%"></div>
-                        <div class="trust-milestone" style="left:45%" title="Emergency Fund @ 450">🔒</div>
-                        <div class="trust-milestone" style="left:60%" title="Laghu Vyapaar @ 600">🔒</div>
-                        <div class="trust-milestone" style="left:75%" title="Kisan Sahayata @ 750">🔒</div>
-                        <div class="trust-milestone" style="left:85%" title="Credit Card @ 850">💳</div>
-                    </div>
-                    <div class="trust-tier-labels">
-                        <span>450→Emergency</span><span>600→Vyapaar</span><span>750→Kisan</span><span>850→Credit</span>
-                    </div>
-                </div>
+                <div class="trust-score-panel">
+                    <div class="trust-header">
+                        <span class="trust-label">🛡️ <span data-i18n="trust_score">Virtu-Trust Score</span></span>
+                        <span class="trust-value"><span id="trust-score-num">400</span> / 1000</span>
+                    </div>
+                    <div class="trust-track">
+                        <div class="trust-fill" id="trust-fill" style="width:40%"></div>
+                        <div class="trust-milestone" style="left:45%" title="Emergency Fund @ 450">🔒</div>
+                        <div class="trust-milestone" style="left:60%" title="Laghu Vyapaar @ 600">🔒</div>
+                        <div class="trust-milestone" style="left:75%" title="Kisan Sahayata @ 750">🔒</div>
+                        <div class="trust-milestone" style="left:85%" title="Credit Card @ 850">💳</div>
+                    </div>
+                    <div class="trust-tier-labels">
+                        <span>450→Emergency</span><span>600→Vyapaar</span><span>750→Kisan</span><span>850→Credit</span>
+                    </div>
+                </div>
 
-                <!-- Action Buttons -->
-                <div class="action-row">
-                    <button id="open-transfer-btn" class="action-btn action-btn--primary">
-                        💸 <span data-i18n="send_money">Send Money</span>
-                        <span class="gyani-icon" data-feature="send_money" title="Gyani Help">?</span>
-                    </button>
-                    <button id="open-voice-btn" class="action-btn action-btn--secondary">
-                        🎙️ <span data-i18n="voice_pay">Voice Pay</span>
-                    </button>
-                    <button id="open-fav-btn" class="action-btn action-btn--secondary">
-                        ⭐ <span data-i18n="favorites">Favorites</span>
-                    </button>
-                    <button id="open-invest-btn" class="action-btn action-btn--invest">
-                        📈 <span data-i18n="virtu_invests">Virtu-Invests</span>
-                    </button>
-                    <button id="open-gullak-btn" class="action-btn action-btn--gullak">
-                        🏺 VirtuGullak
-                        <span class="gyani-icon" data-feature="virtugullak" title="Gyani Help">?</span>
-                    </button>
-                </div>
+                <div class="action-row">
+                    <button id="open-transfer-btn" class="action-btn action-btn--primary">
+                        💸 <span data-i18n="send_money">Send Money</span>
+                        <span class="gyani-icon" data-feature="send_money" title="Gyani Help">?</span>
+                    </button>
+                    <button id="open-voice-btn" class="action-btn action-btn--secondary">
+                        🎙️ <span data-i18n="voice_pay">Voice Pay</span>
+                    </button>
+                    <button id="open-fav-btn" class="action-btn action-btn--secondary">
+                        ⭐ <span data-i18n="favorites">Favorites</span>
+                    </button>
+                    <button id="open-invest-btn" class="action-btn action-btn--invest">
+                        📈 <span data-i18n="virtu_invests">Virtu-Invests</span>
+                    </button>
+                    <button id="open-gullak-btn" class="action-btn action-btn--gullak">
+                        🏺 VirtuGullak
+                        <span class="gyani-icon" data-feature="virtugullak" title="Gyani Help">?</span>
+                    </button>
+                </div>
 
-                <!-- Info Grid -->
-                <div class="info-grid">
-                    <div class="info-tile">
-                        <div class="info-tile-icon">🏺</div>
-                        <div class="info-tile-label">VIRTUGULLAK</div>
-                        <div class="info-tile-value accent">₹<span id="dash-gullak-balance">0.00</span></div>
-                    </div>
-                    <div class="info-tile">
-                        <div class="info-tile-icon">📈</div>
-                        <div class="info-tile-label" data-i18n="invested_label">INVESTED</div>
-                        <div class="info-tile-value success-text">₹<span id="dash-invest-balance">0.00</span></div>
-                    </div>
-                    <div class="info-tile">
-                        <div class="info-tile-icon">🛡️</div>
-                        <div class="info-tile-label" data-i18n="status_label">STATUS</div>
-                        <div class="info-tile-value status-active" data-i18n="secure">Secure</div>
-                    </div>
-                    <div class="info-tile">
-                        <div class="info-tile-icon">📊</div>
-                        <div class="info-tile-label">VIRTUTRANSACTIONS</div>
-                        <div id="dash-txn-count" class="info-tile-value">0</div>
-                    </div>
-                </div>
+                <div class="info-grid">
+                    <div class="info-tile">
+                        <div class="info-tile-icon">🏺</div>
+                        <div class="info-tile-label">VIRTUGULLAK</div>
+                        <div class="info-tile-value accent">₹<span id="dash-gullak-balance">0.00</span></div>
+                    </div>
+                    <div class="info-tile">
+                        <div class="info-tile-icon">📈</div>
+                        <div class="info-tile-label" data-i18n="invested_label">INVESTED</div>
+                        <div class="info-tile-value success-text">₹<span id="dash-invest-balance">0.00</span></div>
+                    </div>
+                    <div class="info-tile">
+                        <div class="info-tile-icon">🛡️</div>
+                        <div class="info-tile-label" data-i18n="status_label">STATUS</div>
+                        <div class="info-tile-value status-active" data-i18n="secure">Secure</div>
+                    </div>
+                    <div class="info-tile">
+                        <div class="info-tile-icon">📊</div>
+                        <div class="info-tile-label">VIRTUTRANSACTIONS</div>
+                        <div id="dash-txn-count" class="info-tile-value">0</div>
+                    </div>
+                </div>
 
-                <!-- History -->
-                <button id="toggle-history-btn" class="action-btn action-btn--secondary" style="width:100%;margin-bottom:20px;">
-                    📜 <span data-i18n="view_history">View VirtuTransactions</span>
-                </button>
-                <div id="history-panel" class="history-panel">
-                    <div class="history-header">
-                        <h4 class="history-title" data-i18n="txn_log">VirtuTransactions Log</h4>
-                        <span id="hist-badge" class="history-badge">0/5</span>
-                    </div>
-                    <div id="history-list" class="history-list"></div>
-                </div>
+                <button id="toggle-history-btn" class="action-btn action-btn--secondary" style="width:100%;margin-bottom:20px;">
+                    📜 <span data-i18n="view_history">View VirtuTransactions</span>
+                </button>
+                <div id="history-panel" class="history-panel">
+                    <div class="history-header">
+                        <h4 class="history-title" data-i18n="txn_log">VirtuTransactions Log</h4>
+                        <span id="hist-badge" class="history-badge">0/5</span>
+                    </div>
+                    <div id="history-list" class="history-list"></div>
+                </div>
 
-                <!-- Virtu-Loans Panel -->
-                <div class="loans-panel">
-                    <div class="loans-panel-header">
-                        <h4 class="loans-panel-title">
-                            🏦 <span data-i18n="virtu_loans">Virtu-Loans</span>
-                            <span class="gyani-icon" data-feature="virtu_loans" title="Gyani Help">?</span>
-                        </h4>
-                        <span class="loans-sub" data-i18n="loans_sub">MSME &amp; Kisan Credit</span>
-                    </div>
-                    <div class="loans-grid">
-                        <div class="loan-card" id="loan-emergency">
-                            <div class="loan-lock-overlay" id="lock-emergency"><span class="lock-icon">🔒</span><span data-i18n="need_450">Need Score 450+</span></div>
-                            <div class="loan-icon">🚨</div>
-                            <div class="loan-name" data-i18n="emergency_fund">Emergency Fund</div>
-                            <div class="loan-detail">Up to ₹10,000 · 0% · 30 days</div>
-                            <button class="loan-apply-btn" data-loan="emergency" data-min="450" data-i18n="apply_now">Apply Now</button>
-                        </div>
-                        <div class="loan-card" id="loan-vyapaar">
-                            <div class="loan-lock-overlay" id="lock-vyapaar"><span class="lock-icon">🔒</span><span data-i18n="need_600">Need Score 600+</span></div>
-                            <div class="loan-icon">🏪</div>
-                            <div class="loan-name" data-i18n="laghu_vyapaar">Laghu Vyapaar</div>
-                            <div class="loan-detail">Up to ₹1,00,000 · 8% p.a.</div>
-                            <button class="loan-apply-btn" data-loan="vyapaar" data-min="600" data-i18n="apply_now">Apply Now</button>
-                        </div>
-                        <div class="loan-card" id="loan-kisan">
-                            <div class="loan-lock-overlay" id="lock-kisan"><span class="lock-icon">🔒</span><span data-i18n="need_750">Need Score 750+</span></div>
-                            <div class="loan-icon">🌾</div>
-                            <div class="loan-name" data-i18n="kisan_sahayata">Kisan Sahayata</div>
-                            <div class="loan-detail">Up to ₹5,00,000 · 4% p.a.</div>
-                            <button class="loan-apply-btn" data-loan="kisan" data-min="750" data-i18n="apply_now">Apply Now</button>
-                        </div>
-                    </div>
-                </div>
+                <div class="loans-panel">
+                    <div class="loans-panel-header">
+                        <h4 class="loans-panel-title">
+                            🏦 <span data-i18n="virtu_loans">Virtu-Loans</span>
+                            <span class="gyani-icon" data-feature="virtu_loans" title="Gyani Help">?</span>
+                        </h4>
+                        <span class="loans-sub" data-i18n="loans_sub">MSME &amp; Kisan Credit</span>
+                    </div>
+                    <div class="loans-grid">
+                        <div class="loan-card" id="loan-emergency">
+                            <div class="loan-lock-overlay" id="lock-emergency"><span class="lock-icon">🔒</span><span data-i18n="need_450">Need Score 450+</span></div>
+                            <div class="loan-icon">🚨</div>
+                            <div class="loan-name" data-i18n="emergency_fund">Emergency Fund</div>
+                            <div class="loan-detail">Up to ₹10,000 · 0% · 30 days</div>
+                            <button class="loan-apply-btn" data-loan="emergency" data-min="450" data-i18n="apply_now">Apply Now</button>
+                        </div>
+                        <div class="loan-card" id="loan-vyapaar">
+                            <div class="loan-lock-overlay" id="lock-vyapaar"><span class="lock-icon">🔒</span><span data-i18n="need_600">Need Score 600+</span></div>
+                            <div class="loan-icon">🏪</div>
+                            <div class="loan-name" data-i18n="laghu_vyapaar">Laghu Vyapaar</div>
+                            <div class="loan-detail">Up to ₹1,00,000 · 8% p.a.</div>
+                            <button class="loan-apply-btn" data-loan="vyapaar" data-min="600" data-i18n="apply_now">Apply Now</button>
+                        </div>
+                        <div class="loan-card" id="loan-kisan">
+                            <div class="loan-lock-overlay" id="lock-kisan"><span class="lock-icon">🔒</span><span data-i18n="need_750">Need Score 750+</span></div>
+                            <div class="loan-icon">🌾</div>
+                            <div class="loan-name" data-i18n="kisan_sahayata">Kisan Sahayata</div>
+                            <div class="loan-detail">Up to ₹5,00,000 · 4% p.a.</div>
+                            <button class="loan-apply-btn" data-loan="kisan" data-min="750" data-i18n="apply_now">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
 
-            </div>
-        </section>
-    </main>
+            </div>
+        </section>
+    </main>
 
-    <!-- ══════════ MODAL: UID Reveal ══════════ -->
-    <div id="uid-modal" class="modal-backdrop">
-        <div class="modal-card">
-            <div class="modal-glow"></div>
-            <span class="modal-seal">✨</span>
-            <h3 class="modal-title" data-i18n="welcome_aboard">Welcome Aboard!</h3>
-            <p class="modal-subtitle" data-i18n="uid_created">Your unique digital identity has been created.</p>
-            <div class="modal-uid-block">
-                <span class="modal-uid-label" data-i18n="your_uid">Your Private UID</span>
-                <span id="modal-uid-value" class="modal-uid-value">XXXXX</span>
-            </div>
-            <p class="modal-note" data-i18n="save_uid_note">Please <strong>save this UID</strong>. You will need it every time you log in to your vault.</p>
-            <button id="modal-proceed-btn" class="modal-cta" data-i18n="go_to_login">Go to Login</button>
-        </div>
-    </div>
+    <div id="uid-modal" class="modal-backdrop">
+        <div class="modal-card">
+            <div class="modal-glow"></div>
+            <span class="modal-seal">✨</span>
+            <h3 class="modal-title" data-i18n="welcome_aboard">Welcome Aboard!</h3>
+            <p class="modal-subtitle" data-i18n="uid_created">Your unique digital identity has been created.</p>
+            <div class="modal-uid-block">
+                <span class="modal-uid-label" data-i18n="your_uid">Your Private UID</span>
+                <span id="modal-uid-value" class="modal-uid-value">XXXXX</span>
+            </div>
+            <p class="modal-note" data-i18n="save_uid_note">Please <strong>save this UID</strong>. You will need it every time you log in to your vault.</p>
+            <button id="modal-proceed-btn" class="modal-cta" data-i18n="go_to_login">Go to Login</button>
+        </div>
+    </div>
 
-    <!-- ══════════ MODAL: Transfer ══════════ -->
-    <div id="transfer-modal" class="modal-backdrop">
-        <div class="modal-card modal-card--wide">
-            <button id="transfer-close-btn" class="modal-close-btn">✕</button>
-            <h3 class="modal-title" data-i18n="send_money">Send Money</h3>
-            <div class="modal-tabs">
-                <button class="modal-tab active" data-tab="internal" data-i18n="virtu_uid_tab">VirtuBank UID</button>
-                <button class="modal-tab" data-tab="external" data-i18n="ext_upi_tab">External / UPI</button>
-            </div>
-            <div id="transfer-panel-internal" class="transfer-panel active">
-                <form id="internal-transfer-form">
-                    <div class="field-group"><label class="field-label" data-i18n="receiver_uid">Receiver UID</label><input type="text" id="int-receiver-uid" class="field-input mono" placeholder="Enter UID" required></div>
-                    <div class="field-group"><label class="field-label" data-i18n="amount_lbl">Amount (₹)</label><input type="number" id="int-amount" class="field-input" step="0.01" min="1" required></div>
-                    <div class="field-group"><label class="field-label" data-i18n="confirm_mpin">Confirm MPIN</label><input type="password" id="int-mpin" class="field-input mono" maxlength="4" required></div>
-                    <label class="fav-checkbox-label"><input type="checkbox" id="int-save-fav"> <span data-i18n="save_as_fav">Save receiver as Favorite</span></label>
-                    <button type="submit" id="int-submit-btn" class="modal-cta" style="margin-top:16px;" data-i18n="send_money">Send Money</button>
-                </form>
-            </div>
-            <div id="transfer-panel-external" class="transfer-panel">
-                <form id="external-transfer-form">
-                    <div class="field-group"><label class="field-label" data-i18n="upi_id_lbl">UPI ID / Account</label><input type="text" id="ext-upi" class="field-input" placeholder="name@bank" required></div>
-                    <div class="field-group"><label class="field-label" data-i18n="amount_lbl">Amount (₹)</label><input type="number" id="ext-amount" class="field-input" step="0.01" min="1" required></div>
-                    <div class="field-group"><label class="field-label" data-i18n="confirm_mpin">Confirm MPIN</label><input type="password" id="ext-mpin" class="field-input mono" maxlength="4" required></div>
-                    <button type="submit" id="ext-submit-btn" class="modal-cta" style="margin-top:16px;" data-i18n="send_via_upi">Send via UPI</button>
-                </form>
-            </div>
-        </div>
-    </div>
+    <div id="transfer-modal" class="modal-backdrop">
+        <div class="modal-card modal-card--wide">
+            <button id="transfer-close-btn" class="modal-close-btn">✕</button>
+            <h3 class="modal-title" data-i18n="send_money">Send Money</h3>
+            <div class="modal-tabs">
+                <button class="modal-tab active" data-tab="internal" data-i18n="virtu_uid_tab">VirtuBank UID</button>
+                <button class="modal-tab" data-tab="external" data-i18n="ext_upi_tab">External / UPI</button>
+            </div>
+            <div id="transfer-panel-internal" class="transfer-panel active">
+                <form id="internal-transfer-form">
+                    <div class="field-group"><label class="field-label" data-i18n="receiver_uid">Receiver UID</label><input type="text" id="int-receiver-uid" class="field-input mono" placeholder="Enter UID" required></div>
+                    <div class="field-group"><label class="field-label" data-i18n="amount_lbl">Amount (₹)</label><input type="number" id="int-amount" class="field-input" step="0.01" min="1" required></div>
+                    <div class="field-group"><label class="field-label" data-i18n="confirm_mpin">Confirm MPIN</label><input type="password" id="int-mpin" class="field-input mono" maxlength="4" required></div>
+                    <label class="fav-checkbox-label"><input type="checkbox" id="int-save-fav"> <span data-i18n="save_as_fav">Save receiver as Favorite</span></label>
+                    <button type="submit" id="int-submit-btn" class="modal-cta" style="margin-top:16px;" data-i18n="send_money">Send Money</button>
+                </form>
+            </div>
+            <div id="transfer-panel-external" class="transfer-panel">
+                <form id="external-transfer-form">
+                    <div class="field-group"><label class="field-label" data-i18n="upi_id_lbl">UPI ID / Account</label><input type="text" id="ext-upi" class="field-input" placeholder="name@bank" required></div>
+                    <div class="field-group"><label class="field-label" data-i18n="amount_lbl">Amount (₹)</label><input type="number" id="ext-amount" class="field-input" step="0.01" min="1" required></div>
+                    <div class="field-group"><label class="field-label" data-i18n="confirm_mpin">Confirm MPIN</label><input type="password" id="ext-mpin" class="field-input mono" maxlength="4" required></div>
+                    <button type="submit" id="ext-submit-btn" class="modal-cta" style="margin-top:16px;" data-i18n="send_via_upi">Send via UPI</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
-    <!-- ══════════ MODAL: Voice Pay ══════════ -->
-    <div id="voice-modal" class="modal-backdrop">
-        <div class="modal-card">
-            <button class="modal-close-btn" id="voice-close-btn">✕</button>
-            <div class="modal-glow"></div>
-            <span class="modal-seal">🎙️</span>
-            <h3 class="modal-title" data-i18n="voice_pay">Voice Pay</h3>
-            <p class="modal-subtitle" id="voice-instruction" data-i18n="voice_instruction">Say: "Send 500 to [Name in Favorites]"</p>
-            <div class="mic-pulse-container">
-                <div class="mic-pulse" id="mic-pulse" style="display:none;"></div>
-                <span class="mic-icon">🎤</span>
-            </div>
-            <p id="voice-transcript" class="voice-transcript" data-i18n="tap_mic">Tap the mic to start speaking...</p>
-            <p id="voice-parsed" class="voice-parsed"></p>
-            <button id="voice-start-btn" class="modal-cta">🎙️ <span data-i18n="start_listening">Start Listening</span></button>
-        </div>
-    </div>
+    <div id="voice-modal" class="modal-backdrop">
+        <div class="modal-card">
+            <button class="modal-close-btn" id="voice-close-btn">✕</button>
+            <div class="modal-glow"></div>
+            <span class="modal-seal">🎙️</span>
+            <h3 class="modal-title" data-i18n="voice_pay">Voice Pay</h3>
+            <p class="modal-subtitle" id="voice-instruction" data-i18n="voice_instruction">Say: "Send 500 to [Name in Favorites]"</p>
+            <div class="mic-pulse-container">
+                <div class="mic-pulse" id="mic-pulse" style="display:none;"></div>
+                <span class="mic-icon">🎤</span>
+            </div>
+            <p id="voice-transcript" class="voice-transcript" data-i18n="tap_mic">Tap the mic to start speaking...</p>
+            <p id="voice-parsed" class="voice-parsed"></p>
+            <button id="voice-start-btn" class="modal-cta">🎙️ <span data-i18n="start_listening">Start Listening</span></button>
+        </div>
+    </div>
 
-    <!-- ══════════ MODAL: Favorites ══════════ -->
-    <div id="fav-modal" class="modal-backdrop">
-        <div class="modal-card modal-card--wide">
-            <button class="modal-close-btn" id="fav-close-btn">✕</button>
-            <div class="modal-glow"></div>
-            <span class="modal-seal">⭐</span>
-            <h3 class="modal-title" data-i18n="favorites">Favorites</h3>
-            <p class="modal-subtitle" data-i18n="fav_sub">Quick-send to your trusted contacts</p>
-            <div id="fav-list-container" class="fav-list-container"></div>
-            <div class="add-fav-form">
-                <p class="fav-form-title" data-i18n="add_new_fav">+ Add New Favorite</p>
-                <div class="field-group" style="margin-bottom:12px;"><label class="field-label" data-i18n="nickname">Nickname</label><input type="text" id="fav-name" class="field-input" placeholder="e.g. Rahul Bhai"></div>
-                <div class="field-group" style="margin-bottom:16px;"><label class="field-label" data-i18n="their_uid">Their UID</label><input type="text" id="fav-uid" class="field-input mono" placeholder="10-char UID"></div>
-                <button id="add-fav-btn" class="modal-cta" data-i18n="save_favorite">Save Favorite</button>
-            </div>
-        </div>
-    </div>
+    <div id="fav-modal" class="modal-backdrop">
+        <div class="modal-card modal-card--wide">
+            <button class="modal-close-btn" id="fav-close-btn">✕</button>
+            <div class="modal-glow"></div>
+            <span class="modal-seal">⭐</span>
+            <h3 class="modal-title" data-i18n="favorites">Favorites</h3>
+            <p class="modal-subtitle" data-i18n="fav_sub">Quick-send to your trusted contacts</p>
+            <div id="fav-list-container" class="fav-list-container"></div>
+            <div class="add-fav-form">
+                <p class="fav-form-title" data-i18n="add_new_fav">+ Add New Favorite</p>
+                <div class="field-group" style="margin-bottom:12px;"><label class="field-label" data-i18n="nickname">Nickname</label><input type="text" id="fav-name" class="field-input" placeholder="e.g. Rahul Bhai"></div>
+                <div class="field-group" style="margin-bottom:16px;"><label class="field-label" data-i18n="their_uid">Their UID</label><input type="text" id="fav-uid" class="field-input mono" placeholder="10-char UID"></div>
+                <button id="add-fav-btn" class="modal-cta" data-i18n="save_favorite">Save Favorite</button>
+            </div>
+        </div>
+    </div>
 
-    <!-- ══════════ MODAL: Virtu-Invests ══════════ -->
-    <div id="invest-modal" class="modal-backdrop">
-        <div class="modal-card modal-card--wide">
-            <button class="modal-close-btn" id="invest-close-btn">✕</button>
-            <div class="modal-glow"></div>
-            <span class="modal-seal">📈</span>
-            <h3 class="modal-title">Virtu-Invests</h3>
-            <p class="modal-subtitle" data-i18n="invest_sub">Grow your wealth with smart instruments</p>
-            <div class="modal-tabs" id="invest-tabs">
-                <button class="modal-tab active" data-itab="sip">SIP</button>
-                <button class="modal-tab" data-itab="longterm" data-i18n="long_term">Long-Term</button>
-                <button class="modal-tab" data-itab="gold" data-i18n="digital_gold">Digital Gold</button>
-            </div>
-            <div id="invest-panel-sip" class="transfer-panel active">
-                <div class="invest-info-card">
-                    <div class="invest-rate-badge">~12% p.a.</div>
-                    <p class="invest-desc" data-i18n="sip_desc">Systematic Investment Plan — invest a fixed amount every month. Best for disciplined wealth building over 1–30 years.</p>
-                </div>
-                <form id="sip-form">
-                    <div class="field-group"><label class="field-label" data-i18n="sip_amount">Monthly SIP Amount (₹)</label><input type="number" id="sip-amount" class="field-input" min="100" placeholder="Min ₹100" required></div>
-                    <div class="field-group"><label class="field-label" data-i18n="duration_yr">Duration (years)</label><input type="number" id="sip-years" class="field-input" min="1" max="30" placeholder="1–30 years" required></div>
-                    <div class="invest-calc-result" id="sip-result"></div>
-                    <button type="button" id="sip-calc-btn" class="calc-secondary-btn" data-i18n="calc_returns">Calculate Returns</button>
-                    <button type="submit" class="modal-cta" data-i18n="start_sip">Start SIP</button>
-                </form>
-            </div>
-            <div id="invest-panel-longterm" class="transfer-panel">
-                <div class="invest-info-card">
-                    <div class="invest-rate-badge">~9% p.a.</div>
-                    <p class="invest-desc" data-i18n="lt_desc">Lump-sum Fixed Deposit style investment. Lock your money for steady guaranteed returns over 1–10 years.</p>
-                </div>
-                <form id="lt-form">
-                    <div class="field-group"><label class="field-label" data-i18n="invest_amount">Investment Amount (₹)</label><input type="number" id="lt-amount" class="field-input" min="1000" placeholder="Min ₹1,000" required></div>
-                    <div class="field-group"><label class="field-label" data-i18n="duration_yr">Duration (years)</label><input type="number" id="lt-years" class="field-input" min="1" max="10" placeholder="1–10 years" required></div>
-                    <div class="invest-calc-result" id="lt-result"></div>
-                    <button type="button" id="lt-calc-btn" class="calc-secondary-btn" data-i18n="calc_returns">Calculate Returns</button>
-                    <button type="submit" class="modal-cta" data-i18n="invest_now">Invest Now</button>
-                </form>
-            </div>
-            <div id="invest-panel-gold" class="transfer-panel">
-                <div class="invest-info-card">
-                    <div class="invest-rate-badge invest-rate-gold">~8% p.a. (estimated)</div>
-                    <p class="invest-desc" data-i18n="gold_desc">Buy digital 24K gold in any denomination. Safe store of value. Sell anytime at live market rates.</p>
-                    <div class="gold-price-row"><span class="gold-price-label" data-i18n="live_gold_price">Live Gold Price</span><span id="gold-live-price" class="gold-price-value">₹7,420 / gram</span></div>
-                </div>
-                <form id="gold-form">
-                    <div class="field-group"><label class="field-label" data-i18n="gold_invest_amt">Amount to invest (₹)</label><input type="number" id="gold-amount" class="field-input" min="100" placeholder="Min ₹100" required></div>
-                    <div class="invest-calc-result" id="gold-result"></div>
-                    <button type="button" id="gold-calc-btn" class="calc-secondary-btn gold-calc" data-i18n="see_how_much_gold">See How Much Gold</button>
-                    <button type="submit" class="modal-cta gold-cta" data-i18n="buy_gold">Buy Gold</button>
-                </form>
-            </div>
-            <div id="invest-portfolio" style="margin-top:20px;display:none;">
-                <div class="portfolio-header" data-i18n="your_portfolio">Your Portfolio</div>
-                <div id="invest-portfolio-list" class="portfolio-list"></div>
-            </div>
-        </div>
-    </div>
+    <div id="invest-modal" class="modal-backdrop">
+        <div class="modal-card modal-card--wide">
+            <button class="modal-close-btn" id="invest-close-btn">✕</button>
+            <div class="modal-glow"></div>
+            <span class="modal-seal">📈</span>
+            <h3 class="modal-title">Virtu-Invests</h3>
+            <p class="modal-subtitle" data-i18n="invest_sub">Grow your wealth with smart instruments</p>
+            <div class="modal-tabs" id="invest-tabs">
+                <button class="modal-tab active" data-itab="sip">SIP</button>
+                <button class="modal-tab" data-itab="longterm" data-i18n="long_term">Long-Term</button>
+                <button class="modal-tab" data-itab="gold" data-i18n="digital_gold">Digital Gold</button>
+            </div>
+            <div id="invest-panel-sip" class="transfer-panel active">
+                <div class="invest-info-card">
+                    <div class="invest-rate-badge">~12% p.a.</div>
+                    <p class="invest-desc" data-i18n="sip_desc">Systematic Investment Plan — invest a fixed amount every month. Best for disciplined wealth building over 1–30 years.</p>
+                </div>
+                <form id="sip-form">
+                    <div class="field-group"><label class="field-label" data-i18n="sip_amount">Monthly SIP Amount (₹)</label><input type="number" id="sip-amount" class="field-input" min="100" placeholder="Min ₹100" required></div>
+                    <div class="field-group"><label class="field-label" data-i18n="duration_yr">Duration (years)</label><input type="number" id="sip-years" class="field-input" min="1" max="30" placeholder="1–30 years" required></div>
+                    <div class="invest-calc-result" id="sip-result"></div>
+                    <button type="button" id="sip-calc-btn" class="calc-secondary-btn" data-i18n="calc_returns">Calculate Returns</button>
+                    <button type="submit" class="modal-cta" data-i18n="start_sip">Start SIP</button>
+                </form>
+            </div>
+            <div id="invest-panel-longterm" class="transfer-panel">
+                <div class="invest-info-card">
+                    <div class="invest-rate-badge">~9% p.a.</div>
+                    <p class="invest-desc" data-i18n="lt_desc">Lump-sum Fixed Deposit style investment. Lock your money for steady guaranteed returns over 1–10 years.</p>
+                </div>
+                <form id="lt-form">
+                    <div class="field-group"><label class="field-label" data-i18n="invest_amount">Investment Amount (₹)</label><input type="number" id="lt-amount" class="field-input" min="1000" placeholder="Min ₹1,000" required></div>
+                    <div class="field-group"><label class="field-label" data-i18n="duration_yr">Duration (years)</label><input type="number" id="lt-years" class="field-input" min="1" max="10" placeholder="1–10 years" required></div>
+                    <div class="invest-calc-result" id="lt-result"></div>
+                    <button type="button" id="lt-calc-btn" class="calc-secondary-btn" data-i18n="calc_returns">Calculate Returns</button>
+                    <button type="submit" class="modal-cta" data-i18n="invest_now">Invest Now</button>
+                </form>
+            </div>
+            <div id="invest-panel-gold" class="transfer-panel">
+                <div class="invest-info-card">
+                    <div class="invest-rate-badge invest-rate-gold">~8% p.a. (estimated)</div>
+                    <p class="invest-desc" data-i18n="gold_desc">Buy digital 24K gold in any denomination. Safe store of value. Sell anytime at live market rates.</p>
+                    <div class="gold-price-row"><span class="gold-price-label" data-i18n="live_gold_price">Live Gold Price</span><span id="gold-live-price" class="gold-price-value">₹7,420 / gram</span></div>
+                </div>
+                <form id="gold-form">
+                    <div class="field-group"><label class="field-label" data-i18n="gold_invest_amt">Amount to invest (₹)</label><input type="number" id="gold-amount" class="field-input" min="100" placeholder="Min ₹100" required></div>
+                    <div class="invest-calc-result" id="gold-result"></div>
+                    <button type="button" id="gold-calc-btn" class="calc-secondary-btn gold-calc" data-i18n="see_how_much_gold">See How Much Gold</button>
+                    <button type="submit" class="modal-cta gold-cta" data-i18n="buy_gold">Buy Gold</button>
+                </form>
+            </div>
+            <div id="invest-portfolio" style="margin-top:20px;display:none;">
+                <div class="portfolio-header" data-i18n="your_portfolio">Your Portfolio</div>
+                <div id="invest-portfolio-list" class="portfolio-list"></div>
+            </div>
+        </div>
+    </div>
 
-    <!-- ══════════ MODAL: Services Hub ══════════ -->
-    <div id="services-modal" class="modal-backdrop">
-        <div class="modal-card modal-card--wide">
-            <button class="modal-close-btn" id="services-close-btn">✕</button>
-            <div class="modal-glow"></div>
-            <span class="modal-seal">⚡</span>
-            <h3 class="modal-title" data-i18n="services_hub">Services Hub</h3>
-            <p class="modal-subtitle" data-i18n="services_sub">All your financial tools in one place</p>
-            <div class="services-grid">
-                <button class="service-card" id="svc-gullak">
-                    <div class="svc-icon">🏺</div>
-                    <div class="svc-name">VirtuGullak</div>
-                    <div class="svc-desc" data-i18n="svc_gullak_desc">Smart Savings Goal</div>
-                </button>
-                <button class="service-card" id="svc-invest">
-                    <div class="svc-icon">📈</div>
-                    <div class="svc-name">Virtu-Invests</div>
-                    <div class="svc-desc" data-i18n="svc_invest_desc">SIP, FD &amp; Digital Gold</div>
-                </button>
-                <button class="service-card" id="svc-loans">
-                    <div class="svc-icon">🏦</div>
-                    <div class="svc-name">Virtu-Loans</div>
-                    <div class="svc-desc" data-i18n="svc_loans_desc">MSME &amp; Kisan Credit</div>
-                </button>
-                <button class="service-card" id="svc-cards">
-                    <div class="svc-icon">💳</div>
-                    <div class="svc-name">Virtu-Cards</div>
-                    <div class="svc-desc" data-i18n="svc_cards_desc">Debit &amp; Credit Cards</div>
-                </button>
-            </div>
-        </div>
-    </div>
+    <div id="services-modal" class="modal-backdrop">
+        <div class="modal-card modal-card--wide">
+            <button class="modal-close-btn" id="services-close-btn">✕</button>
+            <div class="modal-glow"></div>
+            <span class="modal-seal">⚡</span>
+            <h3 class="modal-title" data-i18n="services_hub">Services Hub</h3>
+            <p class="modal-subtitle" data-i18n="services_sub">All your financial tools in one place</p>
+            <div class="services-grid">
+                <button class="service-card" id="svc-gullak">
+                    <div class="svc-icon">🏺</div>
+                    <div class="svc-name">VirtuGullak</div>
+                    <div class="svc-desc" data-i18n="svc_gullak_desc">Smart Savings Goal</div>
+                </button>
+                <button class="service-card" id="svc-invest">
+                    <div class="svc-icon">📈</div>
+                    <div class="svc-name">Virtu-Invests</div>
+                    <div class="svc-desc" data-i18n="svc_invest_desc">SIP, FD &amp; Digital Gold</div>
+                </button>
+                <button class="service-card" id="svc-loans">
+                    <div class="svc-icon">🏦</div>
+                    <div class="svc-name">Virtu-Loans</div>
+                    <div class="svc-desc" data-i18n="svc_loans_desc">MSME &amp; Kisan Credit</div>
+                </button>
+                <button class="service-card" id="svc-cards">
+                    <div class="svc-icon">💳</div>
+                    <div class="svc-name">Virtu-Cards</div>
+                    <div class="svc-desc" data-i18n="svc_cards_desc">Debit &amp; Credit Cards</div>
+                </button>
+            </div>
+        </div>
+    </div>
 
-    <!-- ══════════ MODAL: Virtu-Cards ══════════ -->
-    <div id="cards-modal" class="modal-backdrop">
-        <div class="modal-card modal-card--wide">
-            <button class="modal-close-btn" id="cards-close-btn">✕</button>
-            <div class="modal-glow"></div>
-            <span class="modal-seal">💳</span>
-            <h3 class="modal-title">Virtu-Cards
-                <span class="gyani-icon" data-feature="virtu_cards" title="Gyani Help">?</span>
-            </h3>
-            <p class="modal-subtitle" data-i18n="cards_sub">Click a card to flip and view secure details</p>
-            <div class="cards-3d-container">
-                <!-- Debit Card -->
-                <div class="card-3d-scene" id="debit-card-scene">
-                    <div class="card-3d-flip" id="debit-card-flip">
-                        <div class="card-3d-front debit-front">
-                            <div class="card-chip-row">
-                                <div class="chip"><div class="chip-line"></div><div class="chip-line"></div><div class="chip-line"></div></div>
-                                <div class="card-type-badge">DEBIT</div>
-                            </div>
-                            <div class="card-number" id="debit-card-num">•••• •••• •••• ••••</div>
-                            <div class="card-bottom-row">
-                                <div><div class="card-meta-lbl">Card Holder</div><div class="card-holder-val" id="debit-card-name">—</div></div>
-                                <div style="text-align:right"><div class="card-meta-lbl">Expires</div><div class="card-holder-val" id="debit-card-exp">MM/YY</div></div>
-                            </div>
-                            <div class="card-brand">VISA</div>
-                        </div>
-                        <div class="card-3d-back debit-back">
-                            <div class="card-stripe"></div>
-                            <div class="card-cvv-block">
-                                <div class="card-cvv-label">CVV</div>
-                                <div class="card-cvv-val" id="debit-card-cvv">•••</div>
-                            </div>
-                            <div class="card-back-note">Valid for all VirtuBank merchants worldwide</div>
-                        </div>
-                    </div>
-                    <p class="card-flip-hint">🔄 Click to flip</p>
-                </div>
+    <div id="cards-modal" class="modal-backdrop">
+        <div class="modal-card modal-card--wide">
+            <button class="modal-close-btn" id="cards-close-btn">✕</button>
+            <div class="modal-glow"></div>
+            <span class="modal-seal">💳</span>
+            <h3 class="modal-title">Virtu-Cards
+                <span class="gyani-icon" data-feature="virtu_cards" title="Gyani Help">?</span>
+            </h3>
+            <p class="modal-subtitle" data-i18n="cards_sub">Click a card to flip and view secure details</p>
+            <div class="cards-3d-container">
+                <div class="card-3d-scene" id="debit-card-scene">
+                    <div class="card-3d-flip" id="debit-card-flip">
+                        <div class="card-3d-front debit-front">
+                            <div class="card-chip-row">
+                                <div class="chip"><div class="chip-line"></div><div class="chip-line"></div><div class="chip-line"></div></div>
+                                <div class="card-type-badge">DEBIT</div>
+                            </div>
+                            <div class="card-number" id="debit-card-num">•••• •••• •••• ••••</div>
+                            <div class="card-bottom-row">
+                                <div><div class="card-meta-lbl">Card Holder</div><div class="card-holder-val" id="debit-card-name">—</div></div>
+                                <div style="text-align:right"><div class="card-meta-lbl">Expires</div><div class="card-holder-val" id="debit-card-exp">MM/YY</div></div>
+                            </div>
+                            <div class="card-brand">VISA</div>
+                        </div>
+                        <div class="card-3d-back debit-back">
+                            <div class="card-stripe"></div>
+                            <div class="card-cvv-block">
+                                <div class="card-cvv-label">CVV</div>
+                                <div class="card-cvv-val" id="debit-card-cvv">•••</div>
+                            </div>
+                            <div class="card-back-note">Valid for all VirtuBank merchants worldwide</div>
+                        </div>
+                    </div>
+                    <p class="card-flip-hint">🔄 Click to flip</p>
+                </div>
 
-                <!-- Credit Card -->
-                <div class="card-3d-scene" id="credit-card-scene">
-                    <div class="card-3d-flip" id="credit-card-flip">
-                        <div class="card-3d-front credit-front">
-                            <!-- Lock overlay when trust score < 850 -->
-                            <div class="credit-locked-overlay" id="credit-locked-overlay">
-                                <span class="credit-lock-icon">🔒</span>
-                                <span data-i18n="credit_locked">Virtu-Trust Score 850+ needed</span>
-                                <div class="credit-progress-wrap">
-                                    <div class="credit-progress-fill" id="credit-progress-fill"></div>
-                                </div>
-                                <small data-i18n="build_trust">Keep saving &amp; transacting!</small>
-                            </div>
-                            <div class="card-chip-row">
-                                <div class="chip"><div class="chip-line"></div><div class="chip-line"></div><div class="chip-line"></div></div>
-                                <div class="card-type-badge credit-badge">CREDIT</div>
-                            </div>
-                            <div class="card-number">•••• •••• •••• ••••</div>
-                            <div class="card-bottom-row">
-                                <div><div class="card-meta-lbl">Card Holder</div><div class="card-holder-val" id="credit-card-name">—</div></div>
-                                <div style="text-align:right"><div class="card-meta-lbl">Credit Limit</div><div class="card-holder-val">₹50,000</div></div>
-                            </div>
-                            <div class="card-brand mc-brand">MC</div>
-                        </div>
-                        <div class="card-3d-back credit-back">
-                            <div class="card-stripe"></div>
-                            <div class="card-cvv-block">
-                                <div class="card-cvv-label">CVV</div>
-                                <div class="card-cvv-val" id="credit-card-cvv">•••</div>
-                            </div>
-                            <div class="card-back-note">₹50,000 limit · 45-day interest-free period</div>
-                        </div>
-                    </div>
-                    <p class="card-flip-hint">🔄 Click to flip</p>
-                </div>
-            </div>
-        </div>
-    </div>
+                <div class="card-3d-scene" id="credit-card-scene">
+                    <div class="card-3d-flip" id="credit-card-flip">
+                        <div class="card-3d-front credit-front">
+                            <div class="credit-locked-overlay" id="credit-locked-overlay">
+                                <span class="credit-lock-icon">🔒</span>
+                                <span data-i18n="credit_locked">Virtu-Trust Score 850+ needed</span>
+                                <div class="credit-progress-wrap">
+                                    <div class="credit-progress-fill" id="credit-progress-fill"></div>
+                                </div>
+                                <small data-i18n="build_trust">Keep saving &amp; transacting!</small>
+                            </div>
+                            <div class="card-chip-row">
+                                <div class="chip"><div class="chip-line"></div><div class="chip-line"></div><div class="chip-line"></div></div>
+                                <div class="card-type-badge credit-badge">CREDIT</div>
+                            </div>
+                            <div class="card-number">•••• •••• •••• ••••</div>
+                            <div class="card-bottom-row">
+                                <div><div class="card-meta-lbl">Card Holder</div><div class="card-holder-val" id="credit-card-name">—</div></div>
+                                <div style="text-align:right"><div class="card-meta-lbl">Credit Limit</div><div class="card-holder-val">₹50,000</div></div>
+                            </div>
+                            <div class="card-brand mc-brand">MC</div>
+                        </div>
+                        <div class="card-3d-back credit-back">
+                            <div class="card-stripe"></div>
+                            <div class="card-cvv-block">
+                                <div class="card-cvv-label">CVV</div>
+                                <div class="card-cvv-val" id="credit-card-cvv">•••</div>
+                            </div>
+                            <div class="card-back-note">₹50,000 limit · 45-day interest-free period</div>
+                        </div>
+                    </div>
+                    <p class="card-flip-hint">🔄 Click to flip</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- ══════════ MODAL: VirtuGullak ══════════ -->
-    <div id="gullak-modal" class="modal-backdrop">
-        <div class="modal-card modal-card--wide">
-            <button class="modal-close-btn" id="gullak-close-btn">✕</button>
-            <div class="modal-glow gullak-glow"></div>
+    <div id="gullak-modal" class="modal-backdrop">
+        <div class="modal-card modal-card--wide">
+            <button class="modal-close-btn" id="gullak-close-btn">✕</button>
+            <div class="modal-glow gullak-glow"></div>
 
-            <!-- Create View -->
-            <div id="gullak-create-view">
-                <span class="modal-seal">🏺</span>
-                <h3 class="modal-title">VirtuGullak</h3>
-                <p class="modal-subtitle" data-i18n="gullak_tagline">Set a savings goal. Toot-ti nahi, sirf badhti hai.</p>
-                <div class="gullak-options-row">
-                    <button class="gullak-option-card" id="gullak-solo-btn">
-                        <div class="gullak-option-icon">🏺</div>
-                        <div class="gullak-option-title" data-i18n="solo_gullak">Solo Gullak</div>
-                        <div class="gullak-option-desc" data-i18n="solo_desc">Save alone, at your own pace</div>
-                    </button>
-                    <button class="gullak-option-card" id="gullak-group-btn">
-                        <div class="gullak-option-icon">👥</div>
-                        <div class="gullak-option-title" data-i18n="group_gullak">Group Gullak</div>
-                        <div class="gullak-option-desc" data-i18n="group_desc">Save together with favorites</div>
-                    </button>
-                </div>
-                <form id="gullak-setup-form" style="display:none;margin-top:20px;text-align:left;">
-                    <div id="gullak-type-badge" class="gullak-type-badge"></div>
-                    <div class="field-group"><label class="field-label" data-i18n="gullak_name">Gullak Name / Goal</label><input type="text" id="g-name" class="field-input" placeholder="e.g. New Bike, Trip to Goa" required></div>
-                    <div class="field-group"><label class="field-label" data-i18n="target_amt">Target Amount (₹)</label><input type="number" id="g-target" class="field-input" min="100" placeholder="₹5,000" required></div>
-                    <div class="field-group"><label class="field-label" data-i18n="save_freq">Saving Frequency</label>
-                        <select id="g-frequency" class="field-input">
-                            <option value="daily" data-i18n="daily">Daily</option>
-                            <option value="weekly" data-i18n="weekly">Weekly</option>
-                            <option value="monthly" selected data-i18n="monthly">Monthly</option>
-                        </select>
-                    </div>
-                    <div class="field-group"><label class="field-label" id="g-limit-label" data-i18n="amt_per_interval">Amount per interval (₹)</label><input type="number" id="g-limit" class="field-input" min="1" placeholder="₹500" required></div>
+            <div id="gullak-create-view">
+                <span class="modal-seal">🏺</span>
+                <h3 class="modal-title">VirtuGullak</h3>
+                <p class="modal-subtitle" data-i18n="gullak_tagline">Set a savings goal. Toot-ti nahi, sirf badhti hai.</p>
+                <div class="gullak-options-row">
+                    <button class="gullak-option-card" id="gullak-solo-btn">
+                        <div class="gullak-option-icon">🏺</div>
+                        <div class="gullak-option-title" data-i18n="solo_gullak">Solo Gullak</div>
+                        <div class="gullak-option-desc" data-i18n="solo_desc">Save alone, at your own pace</div>
+                    </button>
+                    <button class="gullak-option-card" id="gullak-group-btn">
+                        <div class="gullak-option-icon">👥</div>
+                        <div class="gullak-option-title" data-i18n="group_gullak">Group Gullak</div>
+                        <div class="gullak-option-desc" data-i18n="group_desc">Save together with favorites</div>
+                    </button>
+                </div>
+                <form id="gullak-setup-form" style="display:none;margin-top:20px;text-align:left;">
+                    <div id="gullak-type-badge" class="gullak-type-badge"></div>
+                    <div class="field-group"><label class="field-label" data-i18n="gullak_name">Gullak Name / Goal</label><input type="text" id="g-name" class="field-input" placeholder="e.g. New Bike, Trip to Goa" required></div>
+                    <div class="field-group"><label class="field-label" data-i18n="target_amt">Target Amount (₹)</label><input type="number" id="g-target" class="field-input" min="100" placeholder="₹5,000" required></div>
+                    <div class="field-group"><label class="field-label" data-i18n="save_freq">Saving Frequency</label>
+                        <select id="g-frequency" class="field-input">
+                            <option value="daily" data-i18n="daily">Daily</option>
+                            <option value="weekly" data-i18n="weekly">Weekly</option>
+                            <option value="monthly" selected data-i18n="monthly">Monthly</option>
+                        </select>
+                    </div>
+                    <div class="field-group"><label class="field-label" id="g-limit-label" data-i18n="amt_per_interval">Amount per interval (₹)</label><input type="number" id="g-limit" class="field-input" min="1" placeholder="₹500" required></div>
 
-                    <!-- Group Gullak Section with Invite System -->
-                    <div id="gullak-group-section" style="display:none;">
-                        <div class="field-group">
-                            <label class="field-label" data-i18n="invite_members">Invite Favorite Members</label>
-                            <p class="invite-info-note">📬 Selected members will receive an invite. They must accept to join.</p>
-                            <div id="gullak-member-picker" class="member-picker"></div>
-                        </div>
-                    </div>
-                    <button type="submit" class="modal-cta" style="margin-top:16px;" data-i18n="create_gullak">🏺 Create Gullak</button>
-                </form>
-            </div>
+                    <div id="gullak-group-section" style="display:none;">
+                        <div class="field-group">
+                            <label class="field-label" data-i18n="invite_members">Invite Favorite Members</label>
+                            <p class="invite-info-note">📬 Selected members will receive an invite. They must accept to join.</p>
+                            <div id="gullak-member-picker" class="member-picker"></div>
+                        </div>
+                    </div>
+                    <button type="submit" class="modal-cta" style="margin-top:16px;" data-i18n="create_gullak">🏺 Create Gullak</button>
+                </form>
+            </div>
 
-            <!-- Active Gullak View -->
-            <div id="gullak-active-view" style="display:none;">
-                <div class="gullak-header-row">
-                    <div>
-                        <div class="gullak-name-display" id="g-display-name">My Gullak</div>
-                        <div class="gullak-interest-badge" id="g-interest-badge">+6.5% p.a. interest</div>
-                    </div>
-                    <div class="gullak-balance-big">₹<span id="g-current-bal">0</span></div>
-                </div>
+            <div id="gullak-active-view" style="display:none;">
+                <div class="gullak-header-row">
+                    <div>
+                        <div class="gullak-name-display" id="g-display-name">My Gullak</div>
+                        <div class="gullak-interest-badge" id="g-interest-badge">+6.5% p.a. interest</div>
+                    </div>
+                    <div class="gullak-balance-big">₹<span id="g-current-bal">0</span></div>
+                </div>
 
-                <div class="gullak-progress-wrap">
-                    <div class="gullak-progress-bar"><div class="gullak-progress-fill" id="g-progress-fill"></div></div>
-                    <div class="gullak-progress-labels"><span id="g-progress-pct">0%</span><span>Goal: ₹<span id="g-target-display">0</span></span></div>
-                </div>
+                <div class="gullak-progress-wrap">
+                    <div class="gullak-progress-bar"><div class="gullak-progress-fill" id="g-progress-fill"></div></div>
+                    <div class="gullak-progress-labels"><span id="g-progress-pct">0%</span><span>Goal: ₹<span id="g-target-display">0</span></span></div>
+                </div>
 
-                <canvas id="gullak-chart" class="gullak-chart"></canvas>
-                <div class="gullak-forecast-row">
-                    <div class="gullak-forecast-item"><span class="gf-label" data-i18n="days_remaining">Days Remaining</span><span class="gf-val" id="g-days-left">—</span></div>
-                    <div class="gullak-forecast-item"><span class="gf-label" data-i18n="est_completion">Estimated Completion</span><span class="gf-val" id="g-eta">—</span></div>
-                    <div class="gullak-forecast-item"><span class="gf-label" data-i18n="interest_earned">Interest Earned</span><span class="gf-val success-text" id="g-interest-earned">₹0</span></div>
-                </div>
+                <canvas id="gullak-chart" class="gullak-chart"></canvas>
+                <div class="gullak-forecast-row">
+                    <div class="gullak-forecast-item"><span class="gf-label" data-i18n="days_remaining">Days Remaining</span><span class="gf-val" id="g-days-left">—</span></div>
+                    <div class="gullak-forecast-item"><span class="gf-label" data-i18n="est_completion">Estimated Completion</span><span class="gf-val" id="g-eta">—</span></div>
+                    <div class="gullak-forecast-item"><span class="gf-label" data-i18n="interest_earned">Interest Earned</span><span class="gf-val success-text" id="g-interest-earned">₹0</span></div>
+                </div>
 
-                <!-- Group Contribution Tracker -->
-                <div id="g-contribution-tracker" class="g-contribution-tracker" style="display:none;">
-                    <div class="g-tracker-header">👥 <span data-i18n="member_contributions">Member Contributions</span></div>
-                    <div id="g-contributions-list" class="g-contributions-list"></div>
-                    <!-- Pending Invites -->
-                    <div id="g-pending-invites-wrap" style="display:none;">
-                        <div class="g-tracker-header pending-header">📬 <span data-i18n="pending_invites">Pending Invites</span></div>
-                        <div id="g-pending-invites-list" class="g-pending-list"></div>
-                    </div>
-                </div>
+                <div id="g-contribution-tracker" class="g-contribution-tracker" style="display:none;">
+                    <div class="g-tracker-header">👥 <span data-i18n="member_contributions">Member Contributions</span></div>
+                    <div id="g-contributions-list" class="g-contributions-list"></div>
+                    <div id="g-pending-invites-wrap" style="display:none;">
+                        <div class="g-tracker-header pending-header">📬 <span data-i18n="pending_invites">Pending Invites</span></div>
+                        <div id="g-pending-invites-list" class="g-pending-list"></div>
+                    </div>
+                </div>
 
-                <div class="gullak-actions">
-                    <button id="g-add-money-btn" class="action-btn action-btn--saffron" style="flex:1;">➕ <span data-i18n="add_money">Add Money</span></button>
-                    <button id="g-withdraw-btn" class="action-btn action-btn--secondary" style="flex:1;">💰 <span data-i18n="withdraw">Withdraw</span></button>
-                    <button id="g-auto-toggle-btn" class="action-btn action-btn--primary" style="flex:1;">⚙️ Auto-Save: <span id="g-auto-status">ON</span></button>
-                </div>
-                <div style="text-align:center;margin-top:12px;">
-                    <button id="g-pause-btn" class="text-danger-link">⏸ <span data-i18n="pause_delete">Pause / Delete Gullak</span></button>
-                </div>
-            </div>
-        </div>
-    </div>
+                <div class="gullak-actions">
+                    <button id="g-add-money-btn" class="action-btn action-btn--saffron" style="flex:1;">➕ <span data-i18n="add_money">Add Money</span></button>
+                    <button id="g-withdraw-btn" class="action-btn action-btn--secondary" style="flex:1;">💰 <span data-i18n="withdraw">Withdraw</span></button>
+                    <button id="g-auto-toggle-btn" class="action-btn action-btn--primary" style="flex:1;">⚙️ Auto-Save: <span id="g-auto-status">ON</span></button>
+                </div>
+                <div style="text-align:center;margin-top:12px;">
+                    <button id="g-pause-btn" class="text-danger-link">⏸ <span data-i18n="pause_delete">Pause / Delete Gullak</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- ══════════ MODAL: Gullak Invites (Inbox) ══════════ -->
-    <div id="gullak-invite-inbox-modal" class="modal-backdrop">
-        <div class="modal-card modal-card--wide">
-            <button class="modal-close-btn" id="invite-inbox-close">✕</button>
-            <span class="modal-seal">📬</span>
-            <h3 class="modal-title" data-i18n="gullak_invites">VirtuGullak Invites</h3>
-            <p class="modal-subtitle" data-i18n="invites_sub">Accept to join a Group Gullak</p>
-            <div id="invite-inbox-list"></div>
-        </div>
-    </div>
+    <div id="gullak-invite-inbox-modal" class="modal-backdrop">
+        <div class="modal-card modal-card--wide">
+            <button class="modal-close-btn" id="invite-inbox-close">✕</button>
+            <span class="modal-seal">📬</span>
+            <h3 class="modal-title" data-i18n="gullak_invites">VirtuGullak Invites</h3>
+            <p class="modal-subtitle" data-i18n="invites_sub">Accept to join a Group Gullak</p>
+            <div id="invite-inbox-list"></div>
+        </div>
+    </div>
 
-    <!-- ══════════ MODAL: Gullak Add Money ══════════ -->
-    <div id="gullak-add-modal" class="modal-backdrop">
-        <div class="modal-card">
-            <button class="modal-close-btn" id="gullak-add-close">✕</button>
-            <span class="modal-seal">💰</span>
-            <h3 class="modal-title" data-i18n="add_to_gullak">Add to Gullak</h3>
-            <p class="modal-subtitle" data-i18n="add_gullak_sub">Directly deposit any amount into your Gullak</p>
-            <div class="field-group" style="margin-bottom:16px;text-align:left;"><label class="field-label" data-i18n="amount_lbl">Amount (₹)</label><input type="number" id="g-manual-amount" class="field-input" min="1" placeholder="₹0"></div>
-            <div class="field-group" style="margin-bottom:20px;text-align:left;"><label class="field-label" data-i18n="lbl_mpin">MPIN</label><input type="password" id="g-manual-mpin" class="field-input mono" maxlength="4"></div>
-            <button id="g-manual-confirm-btn" class="modal-cta" data-i18n="deposit_gullak">Deposit to Gullak</button>
-        </div>
-    </div>
+    <div id="gullak-add-modal" class="modal-backdrop">
+        <div class="modal-card">
+            <button class="modal-close-btn" id="gullak-add-close">✕</button>
+            <span class="modal-seal">💰</span>
+            <h3 class="modal-title" data-i18n="add_to_gullak">Add to Gullak</h3>
+            <p class="modal-subtitle" data-i18n="add_gullak_sub">Directly deposit any amount into your Gullak</p>
+            <div class="field-group" style="margin-bottom:16px;text-align:left;"><label class="field-label" data-i18n="amount_lbl">Amount (₹)</label><input type="number" id="g-manual-amount" class="field-input" min="1" placeholder="₹0"></div>
+            <div class="field-group" style="margin-bottom:20px;text-align:left;"><label class="field-label" data-i18n="lbl_mpin">MPIN</label><input type="password" id="g-manual-mpin" class="field-input mono" maxlength="4"></div>
+            <button id="g-manual-confirm-btn" class="modal-cta" data-i18n="deposit_gullak">Deposit to Gullak</button>
+        </div>
+    </div>
 
-    <!-- ══════════ MODAL: Gullak Withdraw ══════════ -->
-    <div id="gullak-withdraw-modal" class="modal-backdrop">
-        <div class="modal-card">
-            <button class="modal-close-btn" id="gullak-withdraw-close">✕</button>
-            <span class="modal-seal modal-seal--saffron">⚠️</span>
-            <h3 class="modal-title" data-i18n="withdraw_gullak">Withdraw from Gullak</h3>
-            <p class="modal-subtitle" id="gullak-withdraw-subtitle" data-i18n="withdraw_captcha">Solve the captcha to confirm withdrawal</p>
-            <div class="captcha-block"><span class="captcha-label" data-i18n="security_check">Security Check</span><div class="captcha-question" id="gullak-captcha-q">—</div></div>
-            <div class="field-group" style="margin-bottom:12px;text-align:left;"><label class="field-label" data-i18n="your_answer">Your Answer</label><input type="number" id="gullak-captcha-ans" class="field-input" placeholder="Enter answer"></div>
-            <div class="field-group" style="margin-bottom:12px;text-align:left;"><label class="field-label" data-i18n="withdraw_amt">Withdraw Amount (₹)</label><input type="number" id="gullak-withdraw-amount" class="field-input" min="1" placeholder="₹0"></div>
-            <div class="field-group" style="margin-bottom:20px;text-align:left;"><label class="field-label" data-i18n="lbl_mpin">MPIN</label><input type="password" id="gullak-withdraw-mpin" class="field-input mono" maxlength="4"></div>
-            <button id="gullak-withdraw-confirm-btn" class="modal-cta danger-btn" data-i18n="confirm_withdrawal">Confirm Withdrawal</button>
-        </div>
-    </div>
+    <div id="gullak-withdraw-modal" class="modal-backdrop">
+        <div class="modal-card">
+            <button class="modal-close-btn" id="gullak-withdraw-close">✕</button>
+            <span class="modal-seal modal-seal--saffron">⚠️</span>
+            <h3 class="modal-title" data-i18n="withdraw_gullak">Withdraw from Gullak</h3>
+            <p class="modal-subtitle" id="gullak-withdraw-subtitle" data-i18n="withdraw_captcha">Solve the captcha to confirm withdrawal</p>
+            <div class="captcha-block"><span class="captcha-label" data-i18n="security_check">Security Check</span><div class="captcha-question" id="gullak-captcha-q">—</div></div>
+            <div class="field-group" style="margin-bottom:12px;text-align:left;"><label class="field-label" data-i18n="your_answer">Your Answer</label><input type="number" id="gullak-captcha-ans" class="field-input" placeholder="Enter answer"></div>
+            <div class="field-group" style="margin-bottom:12px;text-align:left;"><label class="field-label" data-i18n="withdraw_amt">Withdraw Amount (₹)</label><input type="number" id="gullak-withdraw-amount" class="field-input" min="1" placeholder="₹0"></div>
+            <div class="field-group" style="margin-bottom:20px;text-align:left;"><label class="field-label" data-i18n="lbl_mpin">MPIN</label><input type="password" id="gullak-withdraw-mpin" class="field-input mono" maxlength="4"></div>
+            <button id="gullak-withdraw-confirm-btn" class="modal-cta danger-btn" data-i18n="confirm_withdrawal">Confirm Withdrawal</button>
+        </div>
+    </div>
 
-    <!-- ══════════ MODAL: Gullak Pause ══════════ -->
-    <div id="gullak-pause-modal" class="modal-backdrop">
-        <div class="modal-card">
-            <button class="modal-close-btn" id="gullak-pause-close">✕</button>
-            <span class="modal-seal modal-seal--saffron">🔒</span>
-            <h3 class="modal-title" data-i18n="pause_delete">Pause / Delete Gullak</h3>
-            <p class="modal-subtitle" data-i18n="pause_sub">This will stop contributions. Solve to confirm.</p>
-            <div class="captcha-block"><span class="captcha-label" data-i18n="security_check">Security Check</span><div class="captcha-question" id="gullak-pause-captcha-q">—</div></div>
-            <div class="field-group" style="margin-bottom:20px;text-align:left;"><label class="field-label" data-i18n="your_answer">Your Answer</label><input type="number" id="gullak-pause-ans" class="field-input" placeholder="Enter answer"></div>
-            <button id="gullak-pause-confirm-btn" class="modal-cta danger-btn" data-i18n="confirm_pause">Confirm Pause</button>
-        </div>
-    </div>
+    <div id="gullak-pause-modal" class="modal-backdrop">
+        <div class="modal-card">
+            <button class="modal-close-btn" id="gullak-pause-close">✕</button>
+            <span class="modal-seal modal-seal--saffron">🔒</span>
+            <h3 class="modal-title" data-i18n="pause_delete">Pause / Delete Gullak</h3>
+            <p class="modal-subtitle" data-i18n="pause_sub">This will stop contributions. Solve to confirm.</p>
+            <div class="captcha-block"><span class="captcha-label" data-i18n="security_check">Security Check</span><div class="captcha-question" id="gullak-pause-captcha-q">—</div></div>
+            <div class="field-group" style="margin-bottom:20px;text-align:left;"><label class="field-label" data-i18n="your_answer">Your Answer</label><input type="number" id="gullak-pause-ans" class="field-input" placeholder="Enter answer"></div>
+            <button id="gullak-pause-confirm-btn" class="modal-cta danger-btn" data-i18n="confirm_pause">Confirm Pause</button>
+        </div>
+    </div>
 
-    <!-- ══════════ AI FAB + CHAT ══════════ -->
-    <button id="ai-fab" class="ai-fab" style="display:none;"><span class="ai-fab-icon">✨</span></button>
-    <div id="ai-chat-window" class="ai-chat-window">
-        <div class="ai-chat-header">
-            <div class="ai-header-info"><span class="ai-icon">🤖</span><div><h4 class="ai-title">Virtu-Mitra</h4><span class="ai-subtitle" data-i18n="ai_subtitle">AI Financial Advisor</span></div></div>
-            <button id="ai-close-btn" class="modal-close-btn" style="position:static;">✕</button>
-        </div>
-        <div id="ai-chat-body" class="ai-chat-body">
-            <div class="chat-msg bot-msg" data-i18n="ai_greeting">Namaste! Main aapka Virtu-Mitra hoon. Saving ya banking ke baare mein kuch poochna hai?</div>
-        </div>
-        <div class="ai-chat-footer">
-            <input type="text" id="ai-chat-input" data-i18n-placeholder="ask_anything" placeholder="Ask anything...">
-            <button id="ai-chat-send">📤</button>
-        </div>
-    </div>
+    <button id="ai-fab" class="ai-fab" style="display:none;"><span class="ai-fab-icon">✨</span></button>
+    <div id="ai-chat-window" class="ai-chat-window">
+        <div class="ai-chat-header">
+            <div class="ai-header-info"><span class="ai-icon">🤖</span><div><h4 class="ai-title">Virtu-Mitra</h4><span class="ai-subtitle" data-i18n="ai_subtitle">AI Financial Advisor</span></div></div>
+            <button id="ai-close-btn" class="modal-close-btn" style="position:static;">✕</button>
+        </div>
+        <div id="ai-chat-body" class="ai-chat-body">
+            <div class="chat-msg bot-msg" data-i18n="ai_greeting">Namaste! Main aapka Virtu-Mitra hoon. Saving ya banking ke baare mein kuch poochna hai?</div>
+        </div>
+        <div class="ai-chat-footer">
+            <input type="text" id="ai-chat-input" data-i18n-placeholder="ask_anything" placeholder="Ask anything...">
+            <button id="ai-chat-send">📤</button>
+        </div>
+    </div>
 
-    <script type="module" src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
