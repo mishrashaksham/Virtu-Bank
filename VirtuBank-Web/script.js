@@ -10,7 +10,7 @@ console.warn("🚀 VIRTUBANK SCRIPT IS ALIVE! Agar yeh dikh raha hai toh file lo
 
 // ── 1. CONFIG (TU APNA DAALEGA) ─────────────────────────────
 const firebaseConfig = {
-  apiKey: "",
+  apiKey: "AIzaSyDp0dcnMcAQftNUqR16J4QxdKgONT6TESw",
   authDomain: "virtubank999.firebaseapp.com",
   projectId: "virtubank999",
   storageBucket: "virtubank999.firebasestorage.app",
@@ -18,12 +18,13 @@ const firebaseConfig = {
   appId: "1:609281991520:web:207db48e7f0cead4f47405"
 };
 
+
 const GEMINI_API_KEY = [
-    "",             // Start ka hissa (sabki key yahan se shuru hoti hai)
-    "--",           // Agla hissa (e.g., "AbCdEfG")
-    "",             // Uss se agla hissa (e.g., "123456")
-    ""              // Aakhiri bacha hua hissa (e.g., "XyZ")
-].join("");
+    "AIzaSyCw",             // Start ka hissa (sabki key yahan se shuru hoti hai)
+    "-uC4Z-",        // Agla hissa (e.g., "AbCdEfG")
+    "STQNY50xXwQB4",        // Uss se agla hissa (e.g., "123456")
+    "EupSgP2HYtbo"         // Aakhiri bacha hua hissa (e.g., "XyZ")
+].join(""); 
 
 const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
