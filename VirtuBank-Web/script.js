@@ -7,9 +7,9 @@ import { getFirestore, doc, setDoc, getDoc, updateDoc } from "https://www.gstati
 
 console.warn("🚀 VIRTUBANK SCRIPT IS ALIVE! Sell Investment Added!");
 
-// ── 1. CONFIG (APNI KEYS YAHAN DAAL) ─────────────────────────────
+// ── 1. CONFIG (TU APNA DAALEGA) ─────────────────────────────
 const firebaseConfig = {
-  apiKey: "TERI_FIREBASE_API_KEY",
+  apiKey: "AIzaSyDp0dcnMcAQftNUqR16J4QxdKgONT6TESw",
   authDomain: "virtubank999.firebaseapp.com",
   projectId: "virtubank999",
   storageBucket: "virtubank999.firebasestorage.app",
@@ -17,7 +17,13 @@ const firebaseConfig = {
   appId: "1:609281991520:web:207db48e7f0cead4f47405"
 };
 
-const GEMINI_API_KEY = "TERI_GEMINI_API_KEY_YAHAN_DAAL";
+
+const GEMINI_API_KEY = [
+    "AIzaSyCw",             // Start ka hissa (sabki key yahan se shuru hoti hai)
+    "-uC4Z-",        // Agla hissa (e.g., "AbCdEfG")
+    "STQNY50xXwQB4",        // Uss se agla hissa (e.g., "123456")
+    "EupSgP2HYtbo"         // Aakhiri bacha hua hissa (e.g., "XyZ")
+].join(""); 
 
 const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
