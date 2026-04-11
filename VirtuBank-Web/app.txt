@@ -15,3 +15,45 @@ const GEMINI_API_KEY = [
     "STQNY50xXwQB4",        // Uss se agla hissa (e.g., "123456")
     "EupSgP2HYtbo"         // Aakhiri bacha hua hissa (e.g., "XyZ")
 ].join(""); 
+
+
+Act as an Expert Senior JavaScript Developer. I am providing my current script.js file for my "VirtuBank" project. I need you to fix 4 specific bugs in this file.
+
+CRITICAL RULES: 1. Return the FULL, updated script.js file in a single code block.
+2. Do NOT use line numbers or partial snippets.
+3. Do NOT rewrite the whole application from scratch. Keep the exact same class names, variable names, and logic structure.
+4. DO NOT touch my Firebase configuration or API keys. Leave them exactly as they are in the provided file.
+
+Here are the 4 bugs you need to fix:
+
+BUG 1: Group Gullak Shared View is Broken for Members
+
+Issue: When a member clicks "VirtuGullak", the code fails to fetch the owner's Gullak data because it tries to read .currentAmount directly from the member's reference object.
+
+Fix: In openGullakModal(), if acc.gullak.isShared is true, perform a searchAccount(acc.gullak.ownerUID). Fetch the owner's full Gullak object and pass that to renderGullakActiveView(ownerGullak, uid, true).
+
+UI restriction: Inside renderGullakActiveView, if the user is a member (isMember === true), explicitly hide the "Withdraw", "Pause / Delete", and "Auto-Save" buttons. Members should only be able to add money.
+
+BUG 2: Gyani (Help) Modal Close Button Doesn't Stop Audio
+
+Issue: The Gyani modal has a close button (#gyani-close-btn), but clicking it doesn't stop the text-to-speech audio if it's already playing.
+
+Fix: Add an event listener to #gyani-close-btn that not only closes the modal (closeModal("gyani-modal")) but also strictly calls window.speechSynthesis.cancel() so the audio stops immediately.
+
+BUG 3: "Virtu-Invests" Button is Dead for New Users
+
+Issue: The button open-invest-btn fails silently if the user has a new account because res.account.investments is undefined, causing renderInvestPortfolio() to throw an error.
+
+Fix: Add proper optional chaining or fallback arrays (e.g., res.account.investments || []) before calling renderInvestPortfolio() in the event listener.
+
+BUG 4: "Virtu-Mitra" AI Chat is Fake/Hardcoded
+
+Issue: The chatbot uses a hardcoded setTimeout response.
+
+Fix: Replace the dummy logic inside the aiSend?.addEventListener with an actual fetch() call to the Gemini REST API (https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key= + GEMINI_API_KEY).
+
+Pass the user's input to the API. Give the model a system instruction: "Act as Virtu-Mitra, an AI financial advisor for VirtuBank. Help users with savings and loans. Keep answers short, helpful, and in Hinglish (Hindi + English)."
+
+Display the API's text response in the chat body. Handle any API errors with a graceful catch block (e.g., "Network error, try again.").
+
+Please analyze my code, apply these 4 exact fixes cleanly, and output the entire new script.js file.
