@@ -487,6 +487,74 @@ function calcLT(principal, years, rate = 0.09) {
   return { invested: principal, returns: fv - principal, total: fv };
 }
 
+// NAYA FUNCTION: Investment bechne ke liye
+window.sellInvestment = async function(idx, currentValue) {
+  const uid = sessionStorage.getItem("virtuBankSession");
+  const res = await searchAccount(uid);
+  if (!res.success) return;
+  const acc = res.account;
+
+  const inv = acc.investments[idx];
+  if (!inv) return;
+
+  // 1. User ke account mein current value add karo
+  acc.balance += currentValue;
+
+  // 2. VirtuTransactions log mein entry daalo
+  addTxn(acc, { 
+    type: "credit", 
+    category: "invest", 
+    description: `Sold ${inv.type.toUpperCase()}`, 
+    amount: currentValue 
+  });
+
+  // 3. Portfolio se investment hata do
+  acc.investments.splice(idx, 1);
+
+  // 4. Firebase Database update karo
+  await saveAccount(uid, { 
+    balance: acc.balance, 
+    investments: acc.investments, 
+    transactions: acc.transactions 
+  });
+
+  showToast(`₹${fmt(currentValue)} credited to account! 💰`);
+  
+  // 5. Dashboard refresh karo
+  const fresh = await searchAccount(uid);
+  if (fresh.success) {
+    populateDashboard(fresh.account);
+    renderInvestPortfolio(fresh.account.investments || []);
+  }
+};
+
+function renderInvestPortfolio(investments) {
+  const wrap = document.getElementById("invest-portfolio");
+  const list = document.getElementById("invest-portfolio-list");
+  const safeInvestments = investments || [];          
+  if (!safeInvestments.length) { wrap.style.display = "none"; return; }
+  wrap.style.display = "block";
+  
+  list.innerHTML = safeInvestments.map((inv, idx) => {
+    let proj = 0;
+    if (inv.type === "sip")      proj = calcSIP(inv.monthly || 0, inv.years || 1).total;
+    if (inv.type === "longterm") proj = calcLT(inv.amount  || 0, inv.years || 1).total;
+    if (inv.type === "gold")     proj = (inv.amount || 0) * 1.08; // 8% expected growth
+    
+    // Naya UI layout jisme Sell button hai
+    return `<div class="portfolio-item" style="display:flex; justify-content:space-between; align-items:center; border-bottom: 1px solid var(--cream-200); padding-bottom: 10px; margin-bottom: 10px;">
+      <div>
+        <div class="portfolio-item-label">${inv.label}</div>
+        <div style="font-size:11px;color:var(--text-muted);">Invested: ₹${fmt(inv.amount)}</div>
+        <div class="portfolio-item-val" style="font-size:13px; color:var(--green-500);">Value: ≈ ₹${fmt(proj)}</div>
+      </div>
+      <button onclick="window.sellInvestment(${idx}, ${proj})" style="background:var(--saffron-500); color:var(--white); border:none; padding:6px 12px; border-radius:6px; font-family:'Poppins'; font-size:12px; font-weight:500; cursor:pointer;">
+        Sell
+      </button>
+    </div>`;
+  }).join("");
+}
+
 // BUG 3 FIX (also in function body): guard against undefined with || []
 function renderInvestPortfolio(investments) {
   const wrap = document.getElementById("invest-portfolio");
