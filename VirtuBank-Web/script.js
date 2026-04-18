@@ -244,8 +244,8 @@ Rules: Return ONLY valid JSON (no markdown, no backticks). Keep keys identical. 
 Input JSON:
 ${JSON.stringify(batchObj, null, 1)}`;
 
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash:generateContent?key=${GEMINI_API_KEY}`, {
-      method: "POST",
+  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+        method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
@@ -1554,9 +1554,7 @@ async function initVirtuBankApp() {
       : `Respond in ${langName} using its native script. You may keep banking terms like UPI, SIP, MPIN in English.`;
 
     try {
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash:generateContent?key=${GEMINI_API_KEY}`,
-        {
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
           method:  "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
