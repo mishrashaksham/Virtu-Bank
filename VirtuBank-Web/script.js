@@ -1580,7 +1580,7 @@ async function initVirtuBankApp() {
           "api-subscription-key": SARVAM_API_KEY
         },
         body: JSON.stringify({
-          model: "ssarvam-m",
+          model: "sarvam-m",
           messages: [
             { role: "system", content: systemPrompt },
             { role: "user",   content: text }
