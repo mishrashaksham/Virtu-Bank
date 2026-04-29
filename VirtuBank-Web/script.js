@@ -1597,10 +1597,13 @@ async function initVirtuBankApp() {
         throw new Error(errData?.error?.message || `Sarvam API error ${response.status}`);
       }
 
-      const data  = await response.json();
-      const reply = data?.choices?.[0]?.message?.content;
-      addChatMsg(reply ? reply.trim() : t("ai_greeting"), false);
+      const data = await response.json();
+let reply = data?.choices?.[0]?.message?.content || "";
 
+// <think> tags aur uske andar ka kachra udane ke liye
+reply = reply.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
+
+addChatMsg(reply ? reply : t("ai_greeting"), false);
     } catch (err) {
       typingDiv.remove();
       console.error("Virtu-Mitra (Sarvam) error:", err);
