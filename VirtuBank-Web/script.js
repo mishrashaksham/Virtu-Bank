@@ -1585,7 +1585,7 @@ async function initVirtuBankApp() {
             { role: "system", content: systemPrompt },
             { role: "user",   content: text }
           ],
-          max_tokens: 250,
+          max_tokens: 1000, // <--- Isko 250 se 1000 kar de
           temperature: 0.75
         })
       });
@@ -1600,9 +1600,8 @@ async function initVirtuBankApp() {
       const data = await response.json();
 let reply = data?.choices?.[0]?.message?.content || "";
 
-// <think> tags aur uske andar ka kachra udane ke liye
-reply = reply.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
-
+// <think> tags aur uske andar ka kachra udane ke liye (even if truncated)
+reply = reply.replace(/<think>[\s\S]*?(<\/think>|$)/gi, '').trim();
 addChatMsg(reply ? reply : t("ai_greeting"), false);
     } catch (err) {
       typingDiv.remove();
