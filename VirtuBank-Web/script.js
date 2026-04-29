@@ -1545,7 +1545,7 @@ async function initVirtuBankApp() {
     aiBody.scrollTop = aiBody.scrollHeight;
   };
 
-  // SARVAM AI — Virtu-Mitra chatbot (sarvam-1 model)
+  // SARVAM AI — Virtu-Mitra chatbot (sarvam-m model)
   const SARVAM_API_KEY = "sk_881g7l36_q6QitVM8C2LJi1F5hcdmqvfe"; // Replace with your Sarvam AI API key
 
   aiSend?.addEventListener("click", async () => {
@@ -1580,7 +1580,7 @@ async function initVirtuBankApp() {
           "api-subscription-key": SARVAM_API_KEY
         },
         body: JSON.stringify({
-          model: "sarvam-1",
+          model: "ssarvam-m",
           messages: [
             { role: "system", content: systemPrompt },
             { role: "user",   content: text }
